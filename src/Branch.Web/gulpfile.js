@@ -1,8 +1,10 @@
-﻿/// <binding Clean='clean' />
+﻿/// <binding Clean='clean' ProjectOpened='watch' />
 
 var gulp = require("gulp"),
-    rimraf = require("rimraf"),
-    fs = require("fs");
+	sass = require("gulp-sass"),
+	watch = require("gulp-watch"),
+	rimraf = require("rimraf"),
+	fs = require("fs");
 
 eval("var project = " + fs.readFileSync("./project.json"));
 
@@ -15,14 +17,23 @@ gulp.task("clean", function (cb) {
 	rimraf(paths.lib, cb);
 });
 
+gulp.task('watch', function () {
+	gulp.watch('./Assets/scss/**/*.scss', ['sass']);
+});
+
+gulp.task('sass', function () {
+	gulp.src('./Assets/scss/*.scss')
+		.pipe(sass())
+		.pipe(gulp.dest(project.webroot + '/css'));
+});
+
 gulp.task("copy", ["clean"], function () {
 	var bower = {
 		"bootstrap": "bootstrap/dist/**/*.{js,map,css,ttf,svg,woff,eot}",
-		"bootstrap-touch-carousel": "bootstrap-touch-carousel/dist/**/*.{js,css}",
-		"hammer.js": "hammer.js/hammer*.{js,map}",
 		"jquery": "jquery/jquery*.{js,map}",
 		"jquery-validation": "jquery-validation/jquery.validate.js",
-		"jquery-validation-unobtrusive": "jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
+		"jquery-validation-unobtrusive": "jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+		"particles.js": "**/particles.js"
 	}
 
 	for (var destinationDir in bower) {

@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Branch.Web", "src\Branch.Web\Branch.Web.xproj", "{F814A739-1862-40F7-B4F6-1754D90F9950}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Branch.Game.Halo4", "src\Branch.Game.Halo4\Branch.Game.Halo4.xproj", "{C4CC6B25-E52E-4283-A7BC-BC6824CA6798}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Branch.Helpers", "src\Branch.Helpers\Branch.Helpers.xproj", "{EF37F737-5EB1-451D-B2D5-50753CF7BDA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,11 +26,21 @@ Global
 		{F814A739-1862-40F7-B4F6-1754D90F9950}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F814A739-1862-40F7-B4F6-1754D90F9950}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F814A739-1862-40F7-B4F6-1754D90F9950}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4CC6B25-E52E-4283-A7BC-BC6824CA6798}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4CC6B25-E52E-4283-A7BC-BC6824CA6798}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4CC6B25-E52E-4283-A7BC-BC6824CA6798}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4CC6B25-E52E-4283-A7BC-BC6824CA6798}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF37F737-5EB1-451D-B2D5-50753CF7BDA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF37F737-5EB1-451D-B2D5-50753CF7BDA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF37F737-5EB1-451D-B2D5-50753CF7BDA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF37F737-5EB1-451D-B2D5-50753CF7BDA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F814A739-1862-40F7-B4F6-1754D90F9950} = {7B2B1132-9E44-4737-88C3-0EDB586E0A79}
+		{C4CC6B25-E52E-4283-A7BC-BC6824CA6798} = {7B2B1132-9E44-4737-88C3-0EDB586E0A79}
+		{EF37F737-5EB1-451D-B2D5-50753CF7BDA0} = {7B2B1132-9E44-4737-88C3-0EDB586E0A79}
 	EndGlobalSection
 EndGlobal

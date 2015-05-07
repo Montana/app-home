@@ -1,5 +1,21 @@
 {
 	"AppSettings": {
-		"SiteTitle": "Branch.Web"
+		"SiteTitle": "Branch vNext"
+	},
+	"Halo4": {
+		"Authentication": {
+			"MicrosoftAccount": "[microsoft-account]",
+			"MicrosoftAccountPassword": "[microsoft-account-password]"
+		},
+		"EntityFramework": {
+			"Halo4Context": {
+				"ConnectionString": "[halo4-sql-connection-string]"
+			}
+		}
+	},
+	"EntityFramework": {
+		"BranchContext": {
+			"ConnectionString": "[halo4-sql-connection-string]"
+		}
 	}
 }

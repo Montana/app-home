@@ -1,12 +1,17 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿using System.Threading.Tasks;
+using Branch.Game.Halo4.Services;
+using Microsoft.AspNet.Mvc;
 
 namespace Branch.Web.Controllers
 {
 	public class HomeController : Controller
 	{
-		public IActionResult Index()
+		[FromServices]
+		public ProfileService ProfileService { get; set; }
+
+		public async Task<IActionResult> Index()
 		{
-			return View();
+			return View("Index", await ProfileService.GetTestAsync());
 		}
 		
 		public IActionResult Error()

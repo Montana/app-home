@@ -1,34 +1,87 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
+body {
+  background-color: #3d3d7c; }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
+main {
+  background-color: white;
+  overflow-x: hidden; }
 
-/* Set widths on the form inputs since otherwise they're 100% wide */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
+header {
+  background-color: #3d3d7c;
+  position: relative;
+  /*height:80%;*/
+  width: 100%; }
+  header .container {
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    padding-top: 300px;
+    padding-bottom: 200px;
+    text-align: center;
+    color: white;
+    pointer-events: none; }
+    header .container h1 {
+      pointer-events: all;
+      font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 75px;
+      line-height: 75px;
+      font-weight: 700; }
+    header .container h2 {
+      pointer-events: all;
+      font-family: 'Exo', "Helvetica Neue", Helvetica, Arial, sans-serif;
+      text-transform: lowercase;
+      font-size: 40px;
+      line-height: 40px; }
 
-/* Carousel */
-.carousel-caption {
-    z-index: 10 !important;
-}
-
-    .carousel-caption p {
-        font-size: 20px;
-        line-height: 1.4;
-    }
+.navbar-default {
+  background-color: #222;
+  border-color: transparent; }
+  .navbar-default .navbar-brand {
+    color: #fff; }
+    .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:active, .navbar-default .navbar-brand.active {
+      color: #e6e6e6; }
+  .navbar-default .navbar-collapse {
+    border-color: fade(white, 2%); }
+  .navbar-default .navbar-toggle {
+    background-color: #fff;
+    border-color: #fff; }
+    .navbar-default .navbar-toggle .icon-bar {
+      background-color: white; }
+    .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+      background-color: #fff; }
+  .navbar-default .nav li a {
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: white; }
+    .navbar-default .nav li a:hover, .navbar-default .nav li a:focus {
+      color: #fff;
+      outline: none; }
+  .navbar-default .navbar-nav > .active > a {
+    border-radius: 0;
+    color: white;
+    background-color: #fff; }
+  .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    color: white;
+    background-color: #e6e6e6; }
 
 @media (min-width: 768px) {
-    .carousel-caption {
-        z-index: 10 !important;
-    }
-}
+  .navbar-default {
+    background-color: transparent;
+    padding: 25px 0;
+    -webkit-transition: padding 0.3s;
+    -moz-transition: padding 0.3s;
+    transition: padding 0.3s;
+    border: none; }
+    .navbar-default .navbar-brand {
+      font-size: 2em;
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      transition: all 0.3s; }
+    .navbar-default .navbar-nav > .active > a {
+      border-radius: 3px; }
+  .navbar-default.navbar-shrink {
+    background-color: #222;
+    padding: 10px 0; }
+    .navbar-default.navbar-shrink .navbar-brand {
+      font-size: 1.5em; } }
