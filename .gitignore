@@ -189,3 +189,5 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 /src/Branch.Web/wwwroot/lib
+.vs/
+*.lock.json
