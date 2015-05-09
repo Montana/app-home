@@ -41,10 +41,7 @@ namespace Branch.Web
 			services.AddMvc();
 
 			// Add EntityFramework services to the services container.
-			services.AddHalo4(options =>
-			{
-				options.UseSqlServer(Configuration.Get("EntityFramework:Halo4Context:ConnectionString"));
-			});
+			services.AddHalo4();
 		}
 
 		// Configure is called after ConfigureServices is called.
@@ -66,7 +63,7 @@ namespace Branch.Web
 				app.UseErrorHandler("/Home/Error");
 			}
 
-			app.UseHalo4(loggerfactory, Configuration.GetSubKey("Halo4"));
+			app.UseHalo4();
 
 			// Add static files to the request pipeline.
 			app.UseStaticFiles();
@@ -74,6 +71,10 @@ namespace Branch.Web
 			// Add MVC to the request pipeline.
 			app.UseMvc(routes =>
 			{
+				routes.MapRoute(
+					name: "areaRoute",
+					template: "Xbox/{gamertag}/{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
 				routes.MapRoute(
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");

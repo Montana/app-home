@@ -1,32 +1,44 @@
-﻿$brand-primary: #fff;
-$brand: #3d3d7c;
+﻿$brand-primary: #3d3d7c;
+$brand-secondary: #343477;
+$brand-tertiary: #5252FF;
 $gray-darkest: #222;
 $gray: #777;
 $gray-lighter: #f7f7f7;
 $placeholder-text: #bbbbbb;
 
-body {
-	background-color: $brand;
+h1, h2, h3, h4, h5, h6, h7, h8, a, span, div {
+	font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+body {
+	background-color: $brand-primary;
+}
+
 main {
 	background-color: white;
 	overflow-x: hidden;
 }
 
-@import "branch/_home.scss";
-
 .navbar-default {
 	background-color: $gray-darkest;
 	border-color: transparent;
+	font-family: 'Open Sans';
+
+	.nav-logo {
+		float: left;
+		margin-top: 10px;
+		margin-left: 20px;
+		opacity: 0.0;
+	}
 
 	.navbar-brand {
-		color: $brand-primary;
+		color: #fff;
 
 		&:hover,
 		&:focus,
 		&:active,
 		&.active {
-			color: darken($brand-primary, 10%);
+			color: darken(#fff, 10%);
 		}
 	}
 
@@ -35,8 +47,8 @@ main {
 	}
 
 	.navbar-toggle {
-		background-color: $brand-primary;
-		border-color: $brand-primary;
+		background-color: #fff;
+		border-color: #fff;
 
 		.icon-bar {
 			background-color: white;
@@ -44,7 +56,7 @@ main {
 
 		&:hover,
 		&:focus {
-			background-color: $brand-primary;
+			background-color: #fff;
 		}
 	}
 
@@ -57,53 +69,147 @@ main {
 
 				&:hover,
 				&:focus {
-					color: $brand-primary;
+					color: #fff;
 					outline: none;
 				}
 			}
 		}
 	}
 
-	.navbar-nav > .active > a {
-		border-radius: 0;
-		color: white;
-		background-color: $brand-primary;
-	}
-
 	.navbar-nav > .active > a:hover,
 	.navbar-nav > .active > a:focus {
 		color: white;
-		background-color: darken($brand-primary, 10%);
+		background-color: darken(#fff, 10%);
 	}
+}
+
+.progress {
+	border-radius: 0;
+}
+
+.seperator {
+	margin: 10px 0px 10px 20px;
 }
 
 @media(min-width:768px) {
 	.navbar-default {
 		background-color: transparent;
-		padding: 25px 0;
-		-webkit-transition: padding 0.3s;
-		-moz-transition: padding 0.3s;
-		transition: padding 0.3s;
+		padding: 25px 160px;
+		-webkit-transition: all ease-in-out 0.3s;
+		-moz-transition: all ease-in-out 0.3s;
+		transition: all ease-in-out 0.3s;
 		border: none;
 
 		.navbar-brand {
 			font-size: 2em;
-			-webkit-transition: all 0.3s;
-			-moz-transition: all 0.3s;
-			transition: all 0.3s;
 		}
 
 		.navbar-nav > .active > a {
 			border-radius: 3px;
 		}
+
+		.dropdown {
+			> a {
+				background-color: transparent !important;
+				color: #fff !important;
+
+				> .caret {
+					border-top-color: #fff !important;
+					border-bottom-color: #fff !important;
+				}
+			}
+
+			> .dropdown-menu {
+				border: 0px;
+				background: $brand-primary;
+
+				box-shadow: 6px 10px 17px rgba(0, 0, 0, 0.2);
+
+				a:hover {
+					background: $brand-secondary !important;
+				}
+			}
+
+			&.open{
+				font-weight: 600;
+
+				> a {
+					background-color: transparent !important;
+					color: #e0e0e0 !important;
+					
+					> .caret {
+						border-top-color: #e0e0e0 !important;
+						border-bottom-color: #e0e0e0 !important;
+					}
+				}
+			}
+		}
 	}
 
-	.navbar-default.navbar-shrink {
-		background-color: $gray-darkest;
-		padding: 10px 0;
+	.navbar-lowered {
+		padding: 0;
+		padding-right: 20px;
+		background: #fff;
+		border-bottom: 2px solid $brand-primary;
+		transition: all ease-in-out 0.3s;
+
+		.nav-logo {
+			margin-top: 15px;
+			opacity: 1.0;
+		}
 
 		.navbar-brand {
-			font-size: 1.5em;
+			line-height: 30px;
+			color: $brand-primary;
+			font-size: 19px;
+		}
+
+		.navbar-nav {
+			> li {
+				a {
+					line-height: 30px;
+					color: $brand-primary !important;
+				}
+			}
+		}
+		
+		.dropdown {
+			> a {
+				> .caret {
+					border-top-color: $brand-primary !important;
+					border-bottom-color: $brand-primary !important;
+				}
+			}
+
+			> .dropdown-menu {
+				border-bottom: 1px solid #eee;
+				border-left: 1px solid #eee;
+				border-right: 1px solid #eee;
+				background: #fff;
+
+				box-shadow: 6px 10px 17px rgba(0, 0, 0, 0.2);
+
+				a:hover {
+					background: #f4f4f4 !important;
+				}
+			}
+
+			&.open{
+				font-weight: 600;
+
+				> a {
+					background-color: #ededed !important;
+					color: $brand-secondary !important;
+					
+					> .caret {
+						border-top-color: $brand-tertiary !important;
+						border-bottom-color: $brand-tertiary !important;
+					}
+				}
+			}
 		}
 	}
 }
+
+@import "branch/_home.scss";
+@import "halo4/_home.scss";

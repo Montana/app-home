@@ -1,11 +1,11 @@
-﻿@inject IOptions<AppSettings> AppSettings
-@model string
+﻿@using Branch.Game.Halo4.Database.Models
+@inject IOptions<AppSettings> AppSettings
 @{
 	ViewBag.Title = "Home Page";
 }
 
-<header>
-	<div id="particles-js"></div>
+<header class="home-index">
+	@*<div id="particles-js"></div>*@
 	<div class="container">
 		<h1>
 			Welcome to @AppSettings.Options.SiteTitle
@@ -13,7 +13,6 @@
 		<h2>
 			Stats built with the community in mind
 		</h2>
-		<h3>@Model</h3>
 	</div>
 </header>
 
@@ -165,25 +164,25 @@
 				});
 			}
 
-			if (window.innerWidth > 1100) {
-				pJS_desktop();
-			} else {
-				pJS_mobile();
-			}
+			//if (window.innerWidth > 1100) {
+			//	pJS_desktop();
+			//} else {
+			//	pJS_mobile();
+			//}
 			
-			var doit;
-			window.onresize = function () {
-				clearTimeout(doit);
-				doit = setTimeout(function () {
-					if (window.innerWidth > 1100) {
-						pJS.fn.vendors.destroy();
-						pJS_desktop();
-					} else {
-						pJS.fn.vendors.destroy();
-						pJS_mobile();
-					}
-				}, 150);
-			};
+			//var doit;
+			//window.onresize = function () {
+			//	clearTimeout(doit);
+			//	doit = setTimeout(function () {
+			//		if (window.innerWidth > 1100) {
+			//			pJS.fn.vendors.destroy();
+			//			pJS_desktop();
+			//		} else {
+			//			pJS.fn.vendors.destroy();
+			//			pJS_mobile();
+			//		}
+			//	}, 150);
+			//};
 		};
 	</script>
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using Branch.Helpers.Database;
 
-namespace Branch.Service.Halo4.Database.Models
+namespace Branch.Game.Halo4.Database.Models
 {
 	public class Authentication :
 		Audit

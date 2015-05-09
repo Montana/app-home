@@ -1,0 +1,71 @@
+﻿@using Branch.Web.Areas.Halo4.ViewModels
+@model ServiceRecordViewModel
+@{
+	ViewBag.Title = "PhoenixBanTrain's Service Record";
+}
+
+<header class="halo4-service-record" style="background-image: url(/images/areas/halo4/maps/ragnarok.jpg)">
+	<div class="mask">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9">
+					<div class="row name-flairs">
+						<div class="col-md-10">
+							<h1>
+								@Model.ServiceRecord.Gamertag
+							</h1>
+							<h2>@Model.ServiceRecord.ServiceTag</h2>
+						</div>
+					</div>
+
+					<div class="row spartan-csr">
+						<a href="/360/PhoenixBanTrain/Halo4/Csr/128/rumble-pit">
+							<img width="57" height="72" src="https://assets.halowaypoint.com/games/h4/csr/v1/large/40.png">
+						</a>
+					</div>
+
+					<div class="row rank-flairs">
+						<div class="col-md-10">
+							<img class="hidden-xs" width="75" height="20" alt="" src="https://assets.halowaypoint.com/games/h4/ranks/v1/large/sr-130.png">
+
+							<div class="progress">
+								<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+									<span class="progress-bar-indicator">100% Complete</span>
+									<span class="sr-only">100% Complete</span>
+								</div>
+							</div>
+							<div class="XP">
+								<div class="left lower-bound">338,400 Xp</div>
+								<div class="right upper-bound"></div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row recent-match">
+						Recent Matches:
+						<br />
+						<span id="recent-match-details" class="details">
+							<strong class="victory">Victory</strong> on <strong>Ragnarok</strong> playing <strong>Team Slayer</strong>,<br />
+							with a score of <strong>69</strong> kills.
+						</span>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="spartan-insignia hidden-sm hidden-xs" style="background-image: url(https://emblems.svc.halowaypoint.com/h4/emblems/white_cobalt_grid-on-silver_4diamonds?size=100);"></div>
+					<div class="spartan-image hidden-sm hidden-xs" style="background-image: url('https://spartans.svc.halowaypoint.com/players/PhoenixBanTrain/h4/spartans/fullbody?target=large');"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<div class="swag"></div>
+<div class="swag"></div>
+<div class="swag"></div>
+<div class="swag"></div>
+<div class="swag"></div>
+<div class="swag"></div>
+<div class="swag"></div>
+<div class="swag"></div>
+<div class="swag"></div>

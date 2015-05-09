@@ -7,7 +7,7 @@ using Branch.Game.Halo4.Database;
 
 namespace Branch.Game.Halo4.Migrations
 {
-    [ContextType(typeof(Halo4Context))]
+    [ContextType(typeof(Halo4DbContext))]
     partial class Halo4ContextModelSnapshot : ModelSnapshot
     {
         public override IModel Model
@@ -17,7 +17,7 @@ namespace Branch.Game.Halo4.Migrations
                 var builder = new BasicModelBuilder()
                     .Annotation("SqlServer:ValueGeneration", "Sequence");
                 
-                builder.Entity("Branch.Service.Halo4.Database.Models.Authentication", b =>
+                builder.Entity("Branch.Game.Halo4.Database.Models.Authentication", b =>
                     {
                         b.Property<string>("AnalyticsToken")
                             .Annotation("OriginalValueIndex", 0);

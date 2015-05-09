@@ -15,16 +15,8 @@ namespace Microsoft.AspNet.Builder
 		/// Adds Branch.Game.Halo4 to the <see cref="IApplicationBuilder"/> request execution pipeline.
 		/// </summary>
 		public static IApplicationBuilder UseHalo4(
-			this IApplicationBuilder app, ILoggerFactory loggerFactory, IConfiguration configuration)
+			this IApplicationBuilder app)
 		{
-			app.GetService<AuthenticationService>().RegisterService<AuthenticationService>(loggerFactory, new Halo4AuthenticationOptions
-			{
-				MicrosoftAccount = configuration.Get("Authentication:MicrosoftAccount"),
-				MicrosoftAccountPassword = configuration.Get("Authentication:MicrosoftAccountPassword"),
-				ApiEndpoint = configuration.Get("Authentication:ApiEndpoint")
-			});
-			app.GetService<ProfileService>().RegisterService<ProfileService>(loggerFactory);
-
 			return app;
 		}
 	}

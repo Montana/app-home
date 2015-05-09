@@ -1,4 +1,4 @@
-﻿namespace Branch.Service.Halo4.Models.Auth
+﻿namespace Branch.Game.Halo4.Models.Auth
 {
 	public class Request
 	{

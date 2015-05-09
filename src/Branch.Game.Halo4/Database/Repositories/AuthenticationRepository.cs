@@ -4,20 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Branch.Game.Halo4.Database;
 using Branch.Helpers.Database.Repository;
-using Branch.Service.Halo4.Database.Models;
+using Branch.Game.Halo4.Database.Models;
 using Microsoft.AspNet.Mvc;
 
-namespace Branch.Service.Halo4.Database.Repositories
+namespace Branch.Game.Halo4.Database.Repositories
 {
 	public class AuthenticationRepository
 		: IRepository<Authentication>
 	{
-		public AuthenticationRepository(Halo4Context halo4Context)
+		public AuthenticationRepository(Halo4DbContext halo4Context)
 		{
 			_halo4Context = halo4Context;
 		}
 		
-		private Halo4Context _halo4Context { get; set; }
+		private Halo4DbContext _halo4Context { get; set; }
 
 		public async Task<IEnumerable<Authentication>> GetAllAsync(int startAt = 0, int count = int.MaxValue)
 		{

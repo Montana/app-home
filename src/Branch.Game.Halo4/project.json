@@ -5,7 +5,6 @@
 	"tags": [ "" ],
 	"projectUrl": "",
 	"licenseUrl": "",
-
 	"userSecretsId": "aspnet5-Branch.vNext-20150505034655",
 
 	"dependencies": {
@@ -17,7 +16,8 @@
 		"Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta4",
 		"Microsoft.Framework.ConfigurationModel.UserSecrets": "1.0.0-beta4",
 		"Microsoft.Framework.Logging": "1.0.0-beta4",
-		"Microsoft.Framework.Logging.Console": "1.0.0-beta4"
+		"Microsoft.Framework.Logging.Console": "1.0.0-beta4",
+		"Microsoft.Halo.Core": "1.0.0-*"
 	},
 
 	"commands": {

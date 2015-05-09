@@ -7,11 +7,11 @@ namespace Branch.Web.Controllers
 	public class HomeController : Controller
 	{
 		[FromServices]
-		public ProfileService ProfileService { get; set; }
+		public ServiceRecordService ProfileService { get; set; }
 
 		public async Task<IActionResult> Index()
 		{
-			return View("Index", await ProfileService.GetTestAsync());
+			return View("Index"/*, await ProfileService.GetServiceRecord("PhoenixBanTrain")*/);
 		}
 		
 		public IActionResult Error()
