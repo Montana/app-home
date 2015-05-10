@@ -1,7 +1,6 @@
 ﻿using Branch.Helpers.Database;
 using Branch.Game.Halo4.Database.Models;
 using Microsoft.Data.Entity;
-using Microsoft.Framework.ConfigurationModel;
 using Branch.Helpers.Configuration;
 
 namespace Branch.Game.Halo4.Database
@@ -15,5 +14,7 @@ namespace Branch.Game.Halo4.Database
 		}
 
 		public DbSet<Authentication> Authentications { get; set; }
+
+		public DbSet<ServiceRecord> ServiceRecords { get; set; }
 	}
 }

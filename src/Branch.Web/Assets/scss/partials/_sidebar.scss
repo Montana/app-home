@@ -1,0 +1,85 @@
+﻿.sidebar {
+	margin-top: 50px;
+	padding-left: 40px;
+
+	&.affix {
+		position: fixed;
+		top: 25px;
+
+		@media (max-width: 992px) {
+			position: static;
+		}
+	}
+
+	.sidenav {
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+
+	.nav {
+		> li {
+			> a {
+				display: block;
+				font-size: 15px;
+				font-weight: 500;
+				color: #999;
+				padding: 4px 20px;
+
+				&:hover,
+				&:focus {
+					padding-left: 19px;
+					color: #563d7c;
+					text-decoration: none;
+					background-color: transparent;
+					border-left: 1px solid #563d7c;
+				}
+			}
+		}
+
+		> .active > a,
+		> .active:hover > a,
+		> .active:focus > a {
+			padding-left: 18px;
+			font-weight: 700;
+			color: #563d7c;
+			background-color: transparent;
+			border-left: 1px solid #563d7c;
+		}
+
+		.nav {
+			padding-bottom: 10px;
+
+			> li > a {
+				padding-top: 1px;
+				padding-bottom: 1px;
+				padding-left: 40px;
+				font-size: 13px;
+				font-weight: 400;
+			}
+
+			.active > a,
+			.active:hover > a,
+			.active:focus > a {
+				font-weight: 500;
+				padding-left: 38px;
+			}
+
+			.nav {
+				> li > a {
+					padding-top: 1px;
+					padding-bottom: 1px;
+					padding-left: 60px;
+					font-size: 13px;
+					font-weight: 400;
+				}
+
+				.active > a,
+				.active:hover > a,
+				.active:focus > a {
+					font-weight: 500;
+					padding-left: 58px;
+				}
+			}
+		}
+	}
+}

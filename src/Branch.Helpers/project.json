@@ -10,7 +10,7 @@
 		"EntityFramework": "7.0.0-beta4",
 		"Microsoft.AspNet.Http.Core": "1.0.0-beta4",
 		"Microsoft.AspNet.Razor.Runtime": "4.0.0-beta4",
-		"Microsoft.Azure.DocumentDB": "1.1.0",
+		"Microsoft.Azure.Documents.Client": "0.9.3-preview",
 		"Microsoft.DataAnnotations": "1.0.0-beta1",
 		"Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta4",
 		"Microsoft.Framework.ConfigurationModel.UserSecrets": "1.0.0-beta4",

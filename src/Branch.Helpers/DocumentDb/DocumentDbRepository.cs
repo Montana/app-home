@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Branch.Helpers.Configuration;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
 using Microsoft.Framework.ConfigurationModel;
+using Newtonsoft.Json;
 
 namespace Branch.Helpers.DocumentDb
 {
@@ -34,7 +35,7 @@ namespace Branch.Helpers.DocumentDb
 			_database = GetOrCreateDatabase(databaseId);
 			_collection = GetOrCreateCollection(_database.SelfLink, collectionId);
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -91,7 +92,10 @@ namespace Branch.Helpers.DocumentDb
 			where T : Document
 		{
 			var doc = GetById<T>(id);
-			return (T)(dynamic)await _client.ReplaceDocumentAsync(doc.SelfLink, entity);
+			entity.Id = id;
+			
+			Document updatedDocumet = await _client.ReplaceDocumentAsync(doc.SelfLink, entity);
+			return (T)(dynamic)updatedDocumet;
 		}
 
 		public async Task DeleteAsync<T>(string id)
@@ -99,6 +103,36 @@ namespace Branch.Helpers.DocumentDb
 		{
 			var doc = GetById<T>(id);
 			await _client.DeleteDocumentAsync(doc.SelfLink);
+		}
+
+		private async Task<Stream> GetStreamFromObjectAsync<T>(T @object)
+		{
+			var str = SerializeObject(@object);
+			var stream = new MemoryStream();
+			var writer = new StreamWriter(stream);
+			await writer.WriteAsync(str);
+			await writer.FlushAsync();
+			stream.Position = 0;
+			return stream;
+		}
+
+		private async Task<T> GetObjectFromStreamAsync<T>(Stream stream)
+		{
+			using (var reader = new StreamReader(stream))
+			{
+				var str = await reader.ReadToEndAsync();
+				return DeserializeObject<T>(str);
+			}
+		}
+
+		private string SerializeObject<T>(T @object)
+		{
+			return JsonConvert.SerializeObject(@object, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+		}
+
+		private T DeserializeObject<T>(string str)
+		{
+			return JsonConvert.DeserializeObject<T>(str, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
 		}
 
 		private DocumentCollection GetOrCreateCollection(string databaseLink, string collectionId)
@@ -111,8 +145,7 @@ namespace Branch.Helpers.DocumentDb
 			if (col == null)
 			{
 				col = _client.CreateDocumentCollectionAsync(databaseLink,
-					new DocumentCollection { Id = collectionId },
-					new RequestOptions { OfferType = "S1" }).Result;
+					new DocumentCollection { Id = collectionId }).Result;
 			}
 
 			return col;

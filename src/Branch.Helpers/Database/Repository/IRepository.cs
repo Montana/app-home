@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Branch.Helpers.Database.Repository
@@ -13,6 +14,13 @@ namespace Branch.Helpers.Database.Repository
 		/// <param name="count">How many items to retieve from the repository.</param>
 		/// <returns>All the items within the specified <see cref="startAt"/> and <see cref="count"/>.</returns>
 		Task<IEnumerable<T>> GetAllAsync(int startAt = 0, int count = int.MaxValue);
+
+		/// <summary>
+		/// Returns all items that match the given predicate in the repository.
+		/// </summary>
+		/// <param name="predicate">The expression returned items must satisfy.</param>
+		/// <returns>All the items in the repository that satisfy the given expression.</returns>
+		Task<IEnumerable<T>> Where(Expression<Func<T, bool>> predicate);
 
 		/// <summary>
 		/// Gets an item of type <see cref="T"/> from the repository based on it's Id.

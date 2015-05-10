@@ -1,5 +1,6 @@
 ﻿using Branch.Helpers.Configuration;
 using Branch.Helpers.DocumentDb;
+using Newtonsoft.Json;
 
 namespace Branch.Game.Halo4.DocumentDb
 {
@@ -8,8 +9,6 @@ namespace Branch.Game.Halo4.DocumentDb
 	{
 		public Halo4DdbRepository()
 			: base(ConfigurationLoader.Retrieve().GetSubKey("Halo4"))
-		{
-
-		}
+		{ }
 	}
 }

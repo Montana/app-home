@@ -2,19 +2,19 @@
 using Branch.Game.Halo4.Database;
 using Microsoft.Framework.Logging;
 using Branch.Helpers.Services;
-using Branch.Game.Halo4.Database.Repositories;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
 using Branch.Game.Halo4.Models.Auth;
 using Branch.Game.Halo4.Database.Models;
 using Branch.Helpers.Configuration;
+using Branch.Game.Halo4.Database.Repositories.Interfaces;
 
 namespace Branch.Game.Halo4.Services
 {
 	public class AuthenticationService
 	{
-		public AuthenticationService(ILoggerFactory x, Halo4DbContext halo4DbContext, AuthenticationRepository authenticationRepository, HttpManagerService httpManagerService)
+		public AuthenticationService(ILoggerFactory x, Halo4DbContext halo4DbContext, IAuthenticationRepository authenticationRepository, HttpManagerService httpManagerService)
 		{
 			_serviceType = typeof(AuthenticationService);
 			_halo4DbContext = halo4DbContext;
@@ -36,7 +36,7 @@ namespace Branch.Game.Halo4.Services
 
 		private Halo4DbContext _halo4DbContext { get; set; }
 
-		private AuthenticationRepository _authenticationRepository { get; set; }
+		private IAuthenticationRepository _authenticationRepository { get; set; }
 
 		private HttpManagerService _httpManagerService { get; set; }
 

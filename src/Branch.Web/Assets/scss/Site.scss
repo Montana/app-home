@@ -211,5 +211,7 @@ main {
 	}
 }
 
+@import "partials/_sidebar.scss";
+@import "partials/_area-switcher.scss";
 @import "branch/_home.scss";
 @import "halo4/_home.scss";

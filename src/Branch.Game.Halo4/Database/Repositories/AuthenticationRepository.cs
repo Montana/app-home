@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Branch.Game.Halo4.Database;
-using Branch.Helpers.Database.Repository;
 using Branch.Game.Halo4.Database.Models;
-using Microsoft.AspNet.Mvc;
+using System.Linq.Expressions;
+using Branch.Game.Halo4.Database.Repositories.Interfaces;
 
 namespace Branch.Game.Halo4.Database.Repositories
 {
 	public class AuthenticationRepository
-		: IRepository<Authentication>
+		: IAuthenticationRepository
 	{
 		public AuthenticationRepository(Halo4DbContext halo4Context)
 		{
@@ -22,6 +21,11 @@ namespace Branch.Game.Halo4.Database.Repositories
 		public async Task<IEnumerable<Authentication>> GetAllAsync(int startAt = 0, int count = int.MaxValue)
 		{
 			return await _halo4Context.Authentications/*.Skip(startAt).Take(count).OrderBy(a => a.Id)*/.ToListAsync();
+		}
+
+		public async Task<IEnumerable<Authentication>> Where(Expression<Func<Authentication,bool>> predicate)
+		{
+			return await _halo4Context.Authentications.Where(predicate).ToListAsync();
 		}
 
 		public async Task<Authentication> GetByIdAsync(int id)

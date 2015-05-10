@@ -1,4 +1,4 @@
-﻿{
+{
 	"version": "1.0.0-*",
 	"description": "",
 	"authors": [ "" ],
@@ -7,11 +7,14 @@
 	"licenseUrl": "",
 
 	"dependencies": {
-		"Microsoft.Azure.DocumentDB": "1.1.0",
+		"Microsoft.Azure.Documents.Client": "0.9.3-preview"
 	},
 
 	"frameworks": {
-		"dnx451": { }
+		"dnx451": {
+			"frameworkAssemblies": {
+				"System.Runtime.Serialization": "4.0.0.0"
+			}
 		}
 	}
-}
+} }

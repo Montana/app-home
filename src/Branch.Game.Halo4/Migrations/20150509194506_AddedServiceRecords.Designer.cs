@@ -8,9 +8,19 @@ using Branch.Game.Halo4.Database;
 namespace Branch.Game.Halo4.Migrations
 {
     [ContextType(typeof(Halo4DbContext))]
-    partial class Halo4ContextModelSnapshot : ModelSnapshot
+    partial class AddedServiceRecords
     {
-        public override IModel Model
+        public override string Id
+        {
+            get { return "20150509194506_AddedServiceRecords"; }
+        }
+        
+        public override string ProductVersion
+        {
+            get { return "7.0.0-beta4-12943"; }
+        }
+        
+        public override IModel Target
         {
             get
             {

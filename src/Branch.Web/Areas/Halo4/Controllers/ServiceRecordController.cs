@@ -10,8 +10,8 @@ namespace Branch.Web.Areas.Halo4.Controllers
 	{
 		public async Task<IActionResult> Index(string gamertag)
 		{
-			var serviceRecord = await ServiceRecordService.GetServiceRecord(gamertag);
-			return View("Index", new ServiceRecordViewModel(serviceRecord));
+			//var serviceRecord = await ServiceRecordService.GetServiceRecord(gamertag);
+			return View("Index"/*, new ServiceRecordViewModel(serviceRecord)*/);
 		}
 	}
 }

@@ -6,6 +6,7 @@ using Microsoft.Framework.ConfigurationModel;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using Microsoft.Framework.Runtime;
+using Newtonsoft.Json;
 
 namespace Branch.Web
 {
