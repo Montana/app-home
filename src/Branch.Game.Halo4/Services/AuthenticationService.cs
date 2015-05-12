@@ -73,7 +73,9 @@ namespace Branch.Game.Halo4.Services
 					MicrosoftAccountPassword = _options.MicrosoftAccountPassword
 				});
 			
-			// TODO: handle failure, and alert owner
+			if (x == null)
+				return null;// TODO: handle failure, and alert owner
+
 
 			if (authentication == null)
 				authentication = new Authentication();

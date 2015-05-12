@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Branch.Web.Areas.Halo4.ViewModels;
 using Microsoft.AspNet.Mvc;
-using Microsoft.Halo.Core.DataContracts;
 
 namespace Branch.Web.Areas.Halo4.Controllers
 {
@@ -10,8 +9,8 @@ namespace Branch.Web.Areas.Halo4.Controllers
 	{
 		public async Task<IActionResult> Index(string gamertag)
 		{
-			//var serviceRecord = await ServiceRecordService.GetServiceRecord(gamertag);
-			return View("Index"/*, new ServiceRecordViewModel(serviceRecord)*/);
+			var serviceRecord = await ServiceRecordService.GetServiceRecord(gamertag);
+			return View("Index", new ServiceRecordViewModel(serviceRecord));
 		}
 	}
 }

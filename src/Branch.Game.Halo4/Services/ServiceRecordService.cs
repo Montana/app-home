@@ -8,6 +8,10 @@ using Microsoft.Halo.Core.DataContracts;
 using System.Collections.Generic;
 using Branch.Game.Halo4.Database.Repositories.Interfaces;
 using System.Linq;
+using Microsoft.Halo.Core.DataContracts.Abstracts;
+using Microsoft.Halo.Core.DataContracts.Enums;
+using Branch.Game.Halo4.Exceptions;
+using Branch.Helpers.Exceptions;
 
 namespace Branch.Game.Halo4.Services
 {
@@ -33,12 +37,6 @@ namespace Branch.Game.Halo4.Services
 
 		public async Task<ServiceRecord> GetServiceRecord(string gamertag, bool takeCached)
 		{
-			// Get Spartan Token Authentication
-			var spartanToken = await AuthenticationService.GetSpartanTokenAsync();
-
-			// Check if spartan token is valid
-			var validAuthentication = spartanToken != null;
-
 			// Populate template service record url
 			var getServiceRecordUri = new Uri(string.Format(GetServiceRecordUrl, gamertag));
 
@@ -60,19 +58,28 @@ namespace Branch.Game.Halo4.Services
 			}
 
 			// Get Service Record from 343's Halo Service
-			var serviceRecord = await HttpManagerService.ExecuteRequestAsync<ServiceRecord>(HttpMethod.GET, new Uri(string.Format(GetServiceRecordUrl, gamertag)), headers: new Dictionary<string, string>()
-			{
-				{ "X-343-Authorization-Spartan", spartanToken }
-			});
+			var serviceRecord = await HttpManagerService.ExecuteRequestAsync<ServiceRecord>(HttpMethod.GET, new Uri(string.Format(GetServiceRecordUrl, gamertag)));
 			
 			// Check if something went wrong with the request or parsing
 			if (serviceRecord == null)
-				return null;
-			
-			// If cached data exists, 
+				return null; // TODO: find a way to acess this data and throw the relevant exception
+
+			// Check response
+			var response = serviceRecord as Response;
+			switch (response.StatusCode)
+			{
+				case StatusCode.NoData:
+					throw new PlayerHasntPlayedHalo4Exception();
+
+				case StatusCode.PlayerDoesntExist:
+					throw new PlayerDoesntExistException();
+			}
+
+			// Update documentdb and return data if it exists in the DocumentDb
 			if (serviceRecordMetadata != null)
 				return await Halo4DdbRepository.UpdateAsync<ServiceRecord>(serviceRecordMetadata.DocumentId, serviceRecord);
 
+			// Create DocumentDb and Database entry
 			cachedServiceRecord = await Halo4DdbRepository.CreateAsync<ServiceRecord>(serviceRecord);
 			await _serviceRecordRepository.AddAsync(new Database.Models.ServiceRecord
 			{
@@ -81,6 +88,7 @@ namespace Branch.Game.Halo4.Services
 				ServiceTag = cachedServiceRecord.ServiceTag
 			});
 
+			// Return Service Record to user
 			return cachedServiceRecord;
 		}
 	}
