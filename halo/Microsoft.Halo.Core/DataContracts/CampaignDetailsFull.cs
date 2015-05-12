@@ -25,9 +25,9 @@ namespace Microsoft.Halo.Core.DataContracts
 		public ulong NarrativeFlags { get; set; }
 
 		[DataMember(Name = "SinglePlayerDifficulty")]
-		public Difficulty SinglePlayerDifficulty { get; set; }
+		public Difficulty? SinglePlayerDifficulty { get; set; }
 
 		[DataMember(Name = "CoopDifficulty")]
-		public Difficulty CoopDifficulty { get; set; }
+		public Difficulty? CoopDifficulty { get; set; }
 	}
 }
