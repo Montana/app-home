@@ -5,7 +5,7 @@
 }
 
 <header class="home-index">
-	@*<div id="particles-js"></div>*@
+	<div id="particles-js"></div>
 	<div class="container">
 		<h1>
 			Welcome to @AppSettings.Options.SiteTitle
@@ -164,11 +164,11 @@
 				});
 			}
 
-			//if (window.innerWidth > 1100) {
-			//	pJS_desktop();
-			//} else {
-			//	pJS_mobile();
-			//}
+			if (window.innerWidth > 1100) {
+				pJS_desktop();
+			} else {
+				pJS_mobile();
+			}
 			
 			//var doit;
 			//window.onresize = function () {

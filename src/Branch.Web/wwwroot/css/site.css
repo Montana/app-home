@@ -183,10 +183,7 @@ main {
       padding: 14px; }
       .area-switcher .selector-nav > .nav-of-bar > li {
         display: inline;
-        -moz-transition: 0.25s ease;
-        -o-transition: 0.25s ease;
-        -webkit-transition: 0.25s ease;
-        transition: 0.25s ease;
+        transition: opacity linear 0.2s;
         opacity: 0.55;
         cursor: pointer; }
         .area-switcher .selector-nav > .nav-of-bar > li > a {
@@ -209,14 +206,14 @@ main {
 header.home-index {
   background-color: #3d3d7c;
   position: relative;
-  /*height:80%;*/
+  height: 80%;
   width: 100%; }
   header.home-index .container {
     width: 100%;
-    /*top: 0;
-		left: 0;
-		right: 0;
-		position: absolute;*/
+    top: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
     padding-top: 300px;
     padding-bottom: 200px;
     text-align: center;
@@ -235,9 +232,7 @@ header.home-index {
       line-height: 40px; }
 
 header.halo4-service-record {
-  min-height: 670px;
-  max-height: 720px;
-  height: 90vh;
+  height: 640px;
   color: #fff;
   text-align: left;
   padding: 0;
@@ -273,7 +268,7 @@ header.halo4-service-record {
         opacity: 0.7;
         text-transform: uppercase; }
       header.halo4-service-record > .mask > .container .col-md-9 .rank-flairs {
-        margin-top: 80px; }
+        margin-top: 60px; }
         @media (max-width: 992px) {
           header.halo4-service-record > .mask > .container .col-md-9 .rank-flairs {
             margin-top: 50px; } }
@@ -289,7 +284,7 @@ header.halo4-service-record {
           font-size: 14px; }
       header.halo4-service-record > .mask > .container .col-md-9 .recent-match {
         transition: all ease-in-out 0.6s;
-        margin-top: 80px;
+        margin-top: 60px;
         padding-left: 14px;
         font-size: 35px;
         font-weight: 200; }
@@ -322,7 +317,7 @@ header.halo4-service-record {
         -ms-filter: "FlipH";
         filter: FlipH;
         position: absolute;
-        top: -80px;
+        top: -100px;
         right: -20px;
         margin-bottom: -40px; }
       header.halo4-service-record > .mask > .container .col-md-3 .spartan-insignia {
@@ -331,7 +326,7 @@ header.halo4-service-record {
         background-repeat: no-repeat;
         background-position: top left;
         position: absolute;
-        top: -20px;
+        top: -40px;
         right: 190px; }
 
 .swag {

@@ -21,7 +21,7 @@ namespace Branch.Game.Halo4.Services
 			_authenticationRepository = authenticationRepository;
 			_httpManagerService = httpManagerService;
 			_logger = x.CreateLogger<AuthenticationService>();
-			_logger.LogInformation($"[{_serviceType.FullName}] Service Registered");
+			_logger.LogInformation($"Service Registered");
 
 			var config = ConfigurationLoader.Retrieve();
 			_options = new Halo4AuthenticationOptions
@@ -46,22 +46,22 @@ namespace Branch.Game.Halo4.Services
 
 		public async Task<Authentication> GetAuthenticationAsync()
 		{
-			_logger.LogVerbose($"[{_serviceType.FullName}] Entered GetToken");
+			_logger.LogVerbose($"Entered GetToken");
 
 			var authentication = (await _authenticationRepository.GetAllAsync()).FirstOrDefault();
-			_logger.LogVerbose($"[{_serviceType.FullName}] Retrieved Authentication from Database");
+			_logger.LogVerbose($"Retrieved Authentication from Database");
 
 			if (authentication != null)
 			{
 				if (authentication.SpartanToken == null)
 				{
-					_logger.LogVerbose($"[{_serviceType.FullName}] No valid authentication exists");
+					_logger.LogVerbose($"No valid authentication exists");
 					return null;
 				}
 
 				if (authentication.ExpiresAt > DateTime.UtcNow)
 				{
-					_logger.LogVerbose($"[{_serviceType.FullName}] Using existing SpartanToken - ${authentication.SpartanToken}");
+					_logger.LogVerbose($"Using existing SpartanToken - ${authentication.SpartanToken}");
 					return authentication;
 				}
 			}

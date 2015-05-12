@@ -18,7 +18,7 @@ namespace Branch.Game.Halo4.Services
 			AuthenticationService = authenticationService;
 			ServiceType = typeof(T);
 			Logger = loggerFactory.CreateLogger<T>();
-			Logger.LogVerbose($"[{ServiceType.FullName}] Service Registered");
+			Logger.LogVerbose($"Service Registered");
 		}
 		
 		internal Type ServiceType { get; private set; }

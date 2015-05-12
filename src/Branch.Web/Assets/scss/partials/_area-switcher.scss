@@ -19,10 +19,7 @@
 
 			> li {
 				display: inline;
-				-moz-transition: 0.25s ease;
-				-o-transition: 0.25s ease;
-				-webkit-transition: 0.25s ease;
-				transition: 0.25s ease;
+				transition: opacity linear 0.2s;
 				opacity: 0.55;
 				cursor: pointer;
 
