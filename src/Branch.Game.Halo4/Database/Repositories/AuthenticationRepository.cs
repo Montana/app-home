@@ -23,9 +23,9 @@ namespace Branch.Game.Halo4.Database.Repositories
 			return await _halo4Context.Authentications/*.Skip(startAt).Take(count).OrderBy(a => a.Id)*/.ToListAsync();
 		}
 
-		public async Task<IEnumerable<Authentication>> Where(Expression<Func<Authentication,bool>> predicate)
+		public IEnumerable<Authentication> Where(Expression<Func<Authentication,bool>> predicate)
 		{
-			return await _halo4Context.Authentications.Where(predicate).ToListAsync();
+			return _halo4Context.Authentications.Where(predicate).AsEnumerable();
 		}
 
 		public async Task<Authentication> GetByIdAsync(int id)

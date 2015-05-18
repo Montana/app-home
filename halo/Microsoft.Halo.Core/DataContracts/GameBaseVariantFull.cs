@@ -1,9 +1,7 @@
-﻿using System.Runtime.Serialization;
-using Microsoft.Halo.Core.DataContracts.Abstracts;
+﻿using Microsoft.Halo.Core.DataContracts.Abstracts;
 
 namespace Microsoft.Halo.Core.DataContracts
-{
-	[DataContract]
-	public class GameBaseVariantFull
+{
+	public class GameBaseVariantDetailsFull
 		: GameVariantFull { }
 }

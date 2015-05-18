@@ -1,31 +1,30 @@
-﻿using System.Runtime.Serialization;
-using Microsoft.Halo.Core.DataContracts.Abstracts;
+﻿using Microsoft.Halo.Core.DataContracts.Abstracts;
+using Newtonsoft.Json;
 
 namespace Microsoft.Halo.Core.DataContracts
-{
-	[DataContract]
+{
 	public class WarGamesDetailsFull
 		: GameModeDetailsFull
 	{
-		[DataMember(Name = "TotalGamesCompleted")]
+		[JsonProperty("TotalGamesCompleted")]
 		public uint TotalGamesCompleted { get; set; }
 
-		[DataMember(Name = "TotalGamesWon")]
+		[JsonProperty("TotalGamesWon")]
 		public uint TotalGamesWon { get; set; }
 
-		[DataMember(Name = "TotalMedals")]
+		[JsonProperty("TotalMedals")]
 		public uint TotalMedals { get; set; }
 
-		[DataMember(Name = "AveragePersonalScore")]
+		[JsonProperty("AveragePersonalScore")]
 		public uint AveragePersonalScore { get; set; }
 
-		[DataMember(Name = "KDRatio")]
+		[JsonProperty("KDRatio")]
 		public decimal KDRatio { get; set; }
 
-		[DataMember(Name = "TotalGameBaseVariantMedals")]
+		[JsonProperty("TotalGameBaseVariantMedals")]
 		public uint TotalGameBaseVariantMedals { get; set; }
 
-		[DataMember(Name = "FavouriteVariant")]
+		[JsonProperty("FavouriteVariant")]
 		public GameBaseVariantFull FavouriteVariant { get; set; }
 	}
 }

@@ -75,8 +75,7 @@ namespace Branch.Game.Halo4.Services
 			
 			if (x == null)
 				return null;// TODO: handle failure, and alert owner
-
-
+			
 			if (authentication == null)
 				authentication = new Authentication();
 			authentication.AnalyticsToken = x.Result.AnalyticsToken;

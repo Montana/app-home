@@ -8,10 +8,12 @@
 
 	"userSecretsId": "aspnet5-Branch.vNext-20150505034655",
 	"webroot": "wwwroot",
+	"resources": [ "**/*.cshtml" ],
 
 	"dependencies": {
 		"Branch.Game.Halo4": "",
 		"Microsoft.AspNet.Diagnostics": "1.0.0-beta4",
+		"Microsoft.AspNet.FileSystems": "1.0.0-beta1",
 		"Microsoft.AspNet.Mvc": "6.0.0-beta4",
 		"Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta4",
 		"Microsoft.AspNet.Server.IIS": "1.0.0-beta4",

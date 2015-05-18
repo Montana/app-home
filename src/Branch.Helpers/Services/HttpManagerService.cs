@@ -20,8 +20,27 @@ namespace Branch.Helpers.Services
 	public class HttpManagerService
 	{
 		public async Task<T> ExecuteRequestAsync<T>(HttpMethod httpMethod, Uri requestUri,
-			string userAgent = "Branch-vNext", string userAgentVersion = "1.0", string accept = "application/json", Dictionary<string, string> headers = null, object payload = null)
+			string userAgent = "Branch-vNext", string userAgentVersion = "1.0", string accept = "application/json", 
+			Dictionary<string, string> headers = null, object payload = null)
 			where T : class
+		{
+			try
+			{
+				var response = await ExecuteRequestAsync(httpMethod, requestUri, userAgent, userAgentVersion, accept, headers, payload);
+				var responseString = await response.Content.ReadAsStringAsync();
+				var parsedResponse = JsonConvert.DeserializeObject<T>(responseString, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+
+				return parsedResponse;
+			}
+			catch (JsonReaderException)
+			{
+				throw;
+			}
+		}
+
+		public async Task<HttpResponseMessage> ExecuteRequestAsync(HttpMethod httpMethod, Uri requestUri,
+			string userAgent = "Branch-vNext", string userAgentVersion = "1.0", string accept = "application/json", 
+			Dictionary<string, string> headers = null, object payload = null)
 		{
 			if (headers == null)
 				headers = new Dictionary<string, string>();
@@ -50,18 +69,11 @@ namespace Branch.Helpers.Services
 							break;
 					}
 
-					var responseString = await response.Content.ReadAsStringAsync();
-					var parsedResponse = JsonConvert.DeserializeObject<T>(responseString, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-
-					return parsedResponse;
+					return response;
 				}
-				catch (JsonReaderException)
+				catch (Exception ex)
 				{
 					throw;
-				}
-				catch
-				{
-					return null;
 				}
 			}
 		}

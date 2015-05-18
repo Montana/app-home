@@ -20,7 +20,7 @@ namespace Branch.Helpers.Database.Repository
 		/// </summary>
 		/// <param name="predicate">The expression returned items must satisfy.</param>
 		/// <returns>All the items in the repository that satisfy the given expression.</returns>
-		Task<IEnumerable<T>> Where(Expression<Func<T, bool>> predicate);
+		IEnumerable<T> Where(Expression<Func<T, bool>> predicate);
 
 		/// <summary>
 		/// Gets an item of type <see cref="T"/> from the repository based on it's Id.

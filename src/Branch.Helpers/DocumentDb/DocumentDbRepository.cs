@@ -71,6 +71,14 @@ namespace Branch.Helpers.DocumentDb
 						.FirstOrDefault();
 		}
 
+		public Document Exists(string id)
+		{
+			return _client.CreateDocumentQuery(_collection.SelfLink)
+				.Where(d => d.Id == id)
+				.AsEnumerable()
+				.FirstOrDefault();
+		}
+
 		public T GetById<T>(string id)
 			where T : Document
 		{
@@ -82,17 +90,17 @@ namespace Branch.Helpers.DocumentDb
 			if (doc == null)
 				return doc;
 			
-			return DeserializeObject<T>(doc.ToString());
+			var x = DeserializeObject<T>(doc.ToString());
+			return x;
 		}
 
 		public IEnumerable<T> Find<T>(Expression<Func<T, bool>> predicate)
 			where T : Document
 		{
-			var ret = _client.CreateDocumentQuery<T>(_collection.SelfLink)
+			return _client.CreateDocumentQuery<T>(_collection.SelfLink)
 				.Where(predicate)
-				.AsEnumerable();
-
-			return ret;
+				.AsEnumerable()
+				.Select(doc => DeserializeObject<T>(doc.ToString()));
 		}
 
 		public async Task<T> CreateAsync<T>(T entity)
@@ -108,13 +116,19 @@ namespace Branch.Helpers.DocumentDb
 		public async Task<T> UpdateAsync<T>(string id, T entity)
 			where T : Document
 		{
-			var doc = GetById<T>(id);
-			entity.Id = id;
-			
-			using (var stream = await GetStreamFromObjectAsync(entity))
+			var doc = Exists(id);
+			if (doc != null)
 			{
-				Document updatedDocumet = await _client.ReplaceDocumentAsync(doc.SelfLink, Document.LoadFrom<Document>(stream));
-				return (T)(dynamic)updatedDocumet;
+				entity.Id = id;
+				using (var stream = await GetStreamFromObjectAsync(entity))
+				{
+					Document updatedDocumet = await _client.ReplaceDocumentAsync(doc.SelfLink, JsonSerializable.LoadFrom<Document>(stream));
+					return (T)(dynamic)updatedDocumet;
+				}
+			}
+			else
+			{
+				return await CreateAsync<T>(entity);
 			}
 		}
 
@@ -152,7 +166,8 @@ namespace Branch.Helpers.DocumentDb
 
 		private T DeserializeObject<T>(string str)
 		{
-			return JsonConvert.DeserializeObject<T>(str, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+			var x = JsonConvert.DeserializeObject<T>(str, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+			return x;
 		}
 
 		private DocumentCollection GetOrCreateCollection(string databaseLink, string collectionId)

@@ -23,9 +23,9 @@ namespace Branch.Game.Halo4.Database.Repositories
 			return await _halo4Context.ServiceRecords/*.Skip(startAt).Take(count).OrderBy(a => a.Id)*/.ToListAsync();
 		}
 
-		public async Task<IEnumerable<ServiceRecord>> Where(Expression<Func<ServiceRecord,bool>> predicate)
+		public IEnumerable<ServiceRecord> Where(Expression<Func<ServiceRecord,bool>> predicate)
 		{
-			return await _halo4Context.ServiceRecords.Where(predicate).ToListAsync();
+			return _halo4Context.ServiceRecords.Where(predicate).AsEnumerable();
 		}
 
 		public async Task<ServiceRecord> GetByIdAsync(int id)

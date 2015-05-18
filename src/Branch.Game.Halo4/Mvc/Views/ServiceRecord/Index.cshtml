@@ -1,4 +1,4 @@
-﻿@using Branch.Web.Areas.Halo4.ViewModels
+﻿@using Branch.Game.Halo4.Mvc.ViewModels
 @model ServiceRecordViewModel
 @{
 	ViewBag.Title = "PhoenixBanTrain's Service Record";
@@ -11,20 +11,16 @@
 				<div class="col-md-9">
 					<div class="row name-flairs">
 						<div class="spartan-csr hidden-sm hidden-xs col-md-1">
-							<a href="#">
-								<img height="72" src="https://assets.halowaypoint.com/games/h4/csr/v1/large/40.png">
-							</a>
+							<csr-asset skill-rank="@Model.ServiceRecord.TopSkillRank" gamertag="@Model.ServiceRecord.Gamertag" height="72" />
 						</div>
 						<div class="col-md-10">
 							<h1>
 								@Model.ServiceRecord.Gamertag
 							</h1>
-							<h2>DOPE</h2>
+							<h2>@Model.ServiceRecord.ServiceTag</h2>
 						</div>
 						<div class="visible-sm visible-xs col-md-1">
-							<a href="#">
-								<img height="72" src="https://assets.halowaypoint.com/games/h4/csr/v1/large/40.png">
-							</a>
+							<csr-asset skill-rank="@Model.ServiceRecord.TopSkillRank" gamertag="@Model.ServiceRecord.Gamertag" height="72" />
 						</div>
 					</div>
 
@@ -142,6 +138,7 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="swag"></div>
 	<div class="swag"></div>
 	<div class="swag"></div>
@@ -225,7 +222,7 @@ with <strong>' + recentMatch.featured_stat + '</strong> ' + recentMatch.featured
 					recentMatchIndex++;
 			}
 		};
-		setInterval(cycleRecentMatch, 10000);
+		setInterval(cycleRecentMatch, 6000);
 
 		// Preload Images
 		function preloadImages() {

@@ -1,9 +1,11 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace Microsoft.Halo.Core.DataContracts.Abstracts
 {
 	public abstract class GameVariantFull
 	{
+		[JsonProperty("TotalDuration")]
 		public TimeSpan TotalDuration { get; set; }
 
 		public uint TotalGamesStarted { get; set; }

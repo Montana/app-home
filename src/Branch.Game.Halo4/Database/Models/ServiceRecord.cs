@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Branch.Helpers.Database;
 
 namespace Branch.Game.Halo4.Database.Models
@@ -11,5 +12,7 @@ namespace Branch.Game.Halo4.Database.Models
 		public string ServiceTag { get; set; }
 
 		public string DocumentId { get; set; }
+
+		public ICollection<GameHistory> GameHistories { get; set; }
 	}
 }

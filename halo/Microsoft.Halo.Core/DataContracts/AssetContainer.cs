@@ -1,14 +1,13 @@
-﻿using System.Runtime.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace Microsoft.Halo.Core.DataContracts
-{
-	[DataContract]
+{
 	public class AssetContainer
 	{
-		[DataMember(Name = "BaseUrl")]
+		[JsonProperty("BaseUrl")]
 		public string BaseUrl { get; set; }
 
-		[DataMember(Name = "AssetUrl")]
+		[JsonProperty("AssetUrl")]
 		public string AssetUrl { get; set; }
 	}
 }

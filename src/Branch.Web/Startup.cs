@@ -1,18 +1,17 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Diagnostics;
+using Microsoft.AspNet.FileProviders;
 using Microsoft.AspNet.Hosting;
-using Microsoft.Data.Entity;
 using Microsoft.Framework.ConfigurationModel;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using Microsoft.Framework.Runtime;
-using Newtonsoft.Json;
 
 namespace Branch.Web
 {
 	public class Startup
 	{
-		public Startup(IHostingEnvironment env, IApplicationEnvironment app)
+		public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
 		{
 			// Setup configuration sources.
 			var configuration = new Configuration()
@@ -26,10 +25,13 @@ namespace Branch.Web
 
 			configuration.AddEnvironmentVariables();
 			Configuration = configuration;
+			ApplicationEnviroment = appEnv;
 		}
 
 		public IConfiguration Configuration { get; set; }
-		
+
+		public IApplicationEnvironment ApplicationEnviroment { get; set; }
+
 		// This method gets called by the runtime.
 		public void ConfigureServices(IServiceCollection services)
 		{
@@ -39,7 +41,15 @@ namespace Branch.Web
 			services.AddEntityFramework().AddSqlServer();
 
 			// Add MVC services to the services container.
-			services.AddMvc();
+			services.AddMvc().ConfigureRazorViewEngine(options =>
+			{
+				var oldRoot = ApplicationEnviroment.ApplicationBasePath;
+				var trimmedRoot = oldRoot.Remove(oldRoot.LastIndexOf('\\'));
+
+				options.FileProvider = new PhysicalFileProvider(trimmedRoot);
+				//var expander = new Halo4ViewLocationExpander(swag => "swag");
+				//options.ViewLocationExpanders.Insert(0, expander);
+			});
 
 			// Add EntityFramework services to the services container.
 			services.AddHalo4();
@@ -64,6 +74,9 @@ namespace Branch.Web
 				app.UseErrorHandler("/Home/Error");
 			}
 
+			app.UseStatusCodePages();
+
+			// Lets get some Halo 4 goin here, ayyyy
 			app.UseHalo4();
 
 			// Add static files to the request pipeline.
@@ -73,7 +86,7 @@ namespace Branch.Web
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(
-					name: "areaRoute",
+					name: "GameRoute",
 					template: "Xbox/{gamertag}/{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 				routes.MapRoute(

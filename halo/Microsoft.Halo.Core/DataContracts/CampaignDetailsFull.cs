@@ -1,33 +1,32 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Microsoft.Halo.Core.DataContracts.Abstracts;
 using Microsoft.Halo.Core.DataContracts.Enums;
+using Newtonsoft.Json;
 
 namespace Microsoft.Halo.Core.DataContracts
-{
-	[DataContract]
+{
 	public class CampaignDetailsFull
 		: GameModeDetailsFull
 	{
-		[DataMember(Name = "DifficultyLevels")]
-		public IReadOnlyCollection<DifficultyLevel> DifficultyLevels { get; set; }
+		[JsonProperty("DifficultyLevels")]
+		public IReadOnlyCollection<DifficultyLevelDetailsFull> DifficultyLevels { get; set; }
 
-		[DataMember(Name = "SinglePlayerMissions")]
-		public IReadOnlyCollection<Mission> SinglePlayerMissions { get; set; }
+		[JsonProperty("SinglePlayerMissions")]
+		public IReadOnlyCollection<MissionDetailsFull> SinglePlayerMissions { get; set; }
 
-		[DataMember(Name = "CoopMissions")]
-		public IReadOnlyCollection<Mission> CoopMissions { get; set; }
+		[JsonProperty("CoopMissions")]
+		public IReadOnlyCollection<MissionDetailsFull> CoopMissions { get; set; }
 
-		[DataMember(Name = "TotalTerminalsVisited")]
+		[JsonProperty("TotalTerminalsVisited")]
 		public uint TotalTerminalsVisited { get; set; }
 
-		[DataMember(Name = "NarrativeFlags")]
+		[JsonProperty("NarrativeFlags")]
 		public ulong NarrativeFlags { get; set; }
 
-		[DataMember(Name = "SinglePlayerDifficulty")]
+		[JsonProperty("SinglePlayerDifficulty")]
 		public Difficulty? SinglePlayerDifficulty { get; set; }
 
-		[DataMember(Name = "CoopDifficulty")]
+		[JsonProperty("CoopDifficulty")]
 		public Difficulty? CoopDifficulty { get; set; }
 	}
 }

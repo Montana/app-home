@@ -4,6 +4,7 @@ using Microsoft.Data.Entity.Metadata;
 using Microsoft.Data.Entity.Metadata.Builders;
 using Microsoft.Data.Entity.Relational.Migrations.Infrastructure;
 using Branch.Game.Halo4.Database;
+using Microsoft.Halo.Core.DataContracts.Enums;
 
 namespace Branch.Game.Halo4.Migrations
 {
@@ -38,11 +39,34 @@ namespace Branch.Game.Halo4.Migrations
                         b.Key("Id");
                     });
                 
+                builder.Entity("Branch.Game.Halo4.Database.Models.GameHistory", b =>
+                    {
+                        b.Property<int>("Count")
+                            .Annotation("OriginalValueIndex", 0);
+                        b.Property<DateTime>("CreatedAt")
+                            .Annotation("OriginalValueIndex", 1);
+                        b.Property<string>("DocumentId")
+                            .Annotation("OriginalValueIndex", 2);
+                        b.Property<GameMode?>("GameMode")
+                            .Annotation("OriginalValueIndex", 3);
+                        b.Property<int>("Id")
+                            .GenerateValueOnAdd()
+                            .Annotation("OriginalValueIndex", 4)
+                            .Annotation("SqlServer:ValueGeneration", "Default");
+                        b.Property<int>("ServiceRecordId")
+                            .Annotation("OriginalValueIndex", 5);
+                        b.Property<int>("StartAt")
+                            .Annotation("OriginalValueIndex", 6);
+                        b.Property<DateTime>("UpdatedAt")
+                            .Annotation("OriginalValueIndex", 7);
+                        b.Key("Id");
+                    });
+                
                 builder.Entity("Branch.Game.Halo4.Database.Models.ServiceRecord", b =>
                     {
                         b.Property<DateTime>("CreatedAt")
                             .Annotation("OriginalValueIndex", 0);
-                        b.Property<Guid>("DocumentId")
+                        b.Property<string>("DocumentId")
                             .Annotation("OriginalValueIndex", 1);
                         b.Property<string>("Gamertag")
                             .Annotation("OriginalValueIndex", 2);
@@ -55,6 +79,11 @@ namespace Branch.Game.Halo4.Migrations
                         b.Property<DateTime>("UpdatedAt")
                             .Annotation("OriginalValueIndex", 5);
                         b.Key("Id");
+                    });
+                
+                builder.Entity("Branch.Game.Halo4.Database.Models.GameHistory", b =>
+                    {
+                        b.ForeignKey("Branch.Game.Halo4.Database.Models.ServiceRecord", "ServiceRecordId");
                     });
                 
                 return builder.Model;

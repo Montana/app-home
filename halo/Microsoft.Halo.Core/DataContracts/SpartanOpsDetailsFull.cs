@@ -1,26 +1,24 @@
-﻿using System;
-using System.Runtime.Serialization;
-using Microsoft.Halo.Core.DataContracts.Abstracts;
+﻿using Microsoft.Halo.Core.DataContracts.Abstracts;
+using Newtonsoft.Json;
 
 namespace Microsoft.Halo.Core.DataContracts
-{
-	[DataContract]
+{
 	public class SpartanOpsDetailsFull
 		: GameModeDetailsFull
 	{
-		[DataMember(Name = "TotalSinglePlayerMissionsCompleted")]
+		[JsonProperty("TotalSinglePlayerMissionsCompleted")]
 		public uint TotalSinglePlayerMissionsCompleted { get; set; }
 
-		[DataMember(Name = "TotalCoopMissionsCompleted")]
+		[JsonProperty("TotalCoopMissionsCompleted")]
 		public uint TotalCoopMissionsCompleted { get; set; }
 
-		[DataMember(Name = "TotalMissionsPossible")]
+		[JsonProperty("TotalMissionsPossible")]
 		public uint TotalMissionsPossible { get; set; }
 
-		[DataMember(Name = "TotalMedals")]
+		[JsonProperty("TotalMedals")]
 		public uint TotalMedals { get; set; }
 
-		[DataMember(Name = "TotalGamesWon")]
+		[JsonProperty("TotalGamesWon")]
 		public uint TotalGamesWon { get; set; }
 	}
 }

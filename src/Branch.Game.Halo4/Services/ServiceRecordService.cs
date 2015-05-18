@@ -30,26 +30,26 @@ namespace Branch.Game.Halo4.Services
 
 		private readonly TimeSpan CacheRefreshTime = new TimeSpan(0, 5, 0);
 
-		public async Task<ServiceRecord> GetServiceRecord(string gamertag)
+		public async Task<ServiceRecordDetailsFull> GetServiceRecord(string gamertag)
 		{
 			return await GetServiceRecord(gamertag, false);
 		}
 
-		public async Task<ServiceRecord> GetServiceRecord(string gamertag, bool takeCached)
+		public async Task<ServiceRecordDetailsFull> GetServiceRecord(string gamertag, bool takeCached)
 		{
 			// Populate template service record url
 			var getServiceRecordUri = new Uri(string.Format(GetServiceRecordUrl, gamertag));
 
 			// Get Service Record metadata from Database
-			var serviceRecordMetadata = (await _serviceRecordRepository.Where(sr => sr.Gamertag == gamertag)).FirstOrDefault();
-			ServiceRecord cachedServiceRecord = null;
+			var serviceRecordMetadata = _serviceRecordRepository.Where(sr => sr.Gamertag == gamertag).FirstOrDefault();
+			ServiceRecordDetailsFull cachedServiceRecord = null;
 			if (serviceRecordMetadata != null)
 			{
 				// Return data from DocumentDb if we're taking cached version, or it's expired
 				if (takeCached || serviceRecordMetadata.UpdatedAt + CacheRefreshTime > DateTime.UtcNow)
 				{
 					// Get Service Record from DocumentDb
-					cachedServiceRecord = Halo4DdbRepository.GetById<ServiceRecord>(serviceRecordMetadata.DocumentId);
+					cachedServiceRecord = Halo4DdbRepository.GetById<ServiceRecordDetailsFull>(serviceRecordMetadata.DocumentId);
 
 					// If the cached Service Record exist, return it
 					if (cachedServiceRecord != null)
@@ -58,15 +58,14 @@ namespace Branch.Game.Halo4.Services
 			}
 
 			// Get Service Record from 343's Halo Service
-			var serviceRecord = await HttpManagerService.ExecuteRequestAsync<ServiceRecord>(HttpMethod.GET, new Uri(string.Format(GetServiceRecordUrl, gamertag)));
-			
+			var serviceRecord = await HttpManagerService.ExecuteRequestAsync<ServiceRecordDetailsFull>(HttpMethod.GET, getServiceRecordUri);
+
 			// Check if something went wrong with the request or parsing
 			if (serviceRecord == null)
 				return null; // TODO: find a way to acess this data and throw the relevant exception
 
 			// Check response
-			var response = serviceRecord as Response;
-			switch (response.StatusCode)
+			switch (serviceRecord.StatusCode)
 			{
 				case StatusCode.NoData:
 					throw new PlayerHasntPlayedHalo4Exception();
@@ -77,10 +76,10 @@ namespace Branch.Game.Halo4.Services
 
 			// Update documentdb and return data if it exists in the DocumentDb
 			if (serviceRecordMetadata != null)
-				return await Halo4DdbRepository.UpdateAsync<ServiceRecord>(serviceRecordMetadata.DocumentId, serviceRecord);
+				return await Halo4DdbRepository.UpdateAsync<ServiceRecordDetailsFull>(serviceRecordMetadata.DocumentId, serviceRecord);
 
 			// Create DocumentDb and Database entry
-			cachedServiceRecord = await Halo4DdbRepository.CreateAsync<ServiceRecord>(serviceRecord);
+			cachedServiceRecord = await Halo4DdbRepository.CreateAsync<ServiceRecordDetailsFull>(serviceRecord);
 			await _serviceRecordRepository.AddAsync(new Database.Models.ServiceRecord
 			{
 				DocumentId = cachedServiceRecord.Id,
