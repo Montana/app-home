@@ -73,40 +73,46 @@ namespace Branch.Service.XboxLive.Services
 					MicrosoftAccountPassword = _options.MicrosoftAccountPassword
 				});
 
-			var xboxLiveAuthentication= await _httpManagerService.ExecuteRequestAsync<dynamic>(HttpMethod.POST,
-				new Uri("https://user.auth.xboxlive.com/user/authenticate"), payload: new
+			var xboxLiveAuthentication= await _httpManagerService.ExecuteRequestAsync<XboxLiveAuthenticateResponse>(HttpMethod.POST,
+				new Uri("https://user.auth.xboxlive.com/user/authenticate"), payload: new XboxLiveAuthenticateRequest
 				{
-					Properties = new {
+					Properties = new XboxLiveAuthenticateProperties
+					{
 						AuthMethod = "RPS",
 						RpsTicket = $"t={windowsLiveToken.Result.Token}",
 						SiteName = "user.auth.xboxlive.com"
 					},
-					RelayingParty = "http://auth.xboxlive.com",
+					RelyingParty = "http://auth.xboxlive.com",
 					TokenType = "JWT"
 				});
 
-			var xboxLiveAuthorization = await _httpManagerService.ExecuteRequestAsync<dynamic>(HttpMethod.POST,
-				new Uri("https://xsts.auth.xboxlive.com/xsts/authorize"), payload: new
+			var xboxLiveAuthorization = await _httpManagerService.ExecuteRequestAsync<XboxLiveAuthorizeResponse>(HttpMethod.POST,
+				new Uri("https://xsts.auth.xboxlive.com/xsts/authorize"), payload: new XboxLiveAuthorizeRequest
 				{
-					Properties = new
+					Properties = new XboxLiveAuthorizeProperties
 					{
 						SandboxId = "RETAIL",
 						UserTokens = new[] { xboxLiveAuthentication.Token }
 					},
-					RelayingParty = "http://xboxlive.com",
+					RelyingParty = "http://xboxlive.com",
 					TokenType = "JWT"
 				});
 			
 			if (authentication == null)
 				authentication = new Authentication();
 			authentication.ExpiresAt = DateTime.UtcNow.AddMinutes(55);
-			authentication.Gamertag = xboxLiveAuthentication.DisplayClaims.xui[0].gtg;
-			authentication.Token = xboxLiveAuthentication.Token;
-			authentication.UserHash = xboxLiveAuthentication.DisplayClaims.xui[0].uhs;
-			authentication.Xuid = xboxLiveAuthentication.DisplayClaims.xui[0].xid;
-			await _authenticationRepository.UpdateAsync(authentication);
+			authentication.Gamertag = xboxLiveAuthorization.DisplayClaims["xui"][0]["gtg"];
+			authentication.Token = xboxLiveAuthorization.Token;
+			authentication.UserHash = xboxLiveAuthentication.DisplayClaims["xui"][0]["uhs"];
+			authentication.Xuid = Int64.Parse(xboxLiveAuthorization.DisplayClaims["xui"][0]["xid"].ToString());
+			authentication = await _authenticationRepository.UpdateAsync(authentication);
 
 			return authentication;
+		}
+
+		public async Task<string> GetTokenAsync()
+		{
+			return (await GetAuthenticationAsync()).Token;
 		}
 	}
 }

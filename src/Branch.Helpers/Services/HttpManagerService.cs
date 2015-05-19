@@ -54,7 +54,7 @@ namespace Branch.Helpers.Services
 
 				foreach (var header in headers)
 					httpClient.DefaultRequestHeaders.TryAddWithoutValidation(header.Key, header.Value);
-
+					
 				try
 				{
 					HttpResponseMessage response = null;

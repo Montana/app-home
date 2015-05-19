@@ -1,0 +1,210 @@
+﻿@using Branch.Service.XboxLive.Mvc.ViewModels
+@model ProfileViewModel
+@{
+	ViewBag.Title = $"{Model.ProfileUser.Settings.First(s => s.Id == "Gamertag").Value}'s Xbox Profile";
+
+	var showTenure = Model.ProfileUser.Settings.First(s => s.Id == "TenureLevel").Value == "0" ? "collapsed" : "visible";
+}
+
+<header class="xboxlive-showcase" style="background-image: url('@Model.ProfileUser.Settings.First(s => s.Id == "GameDisplayPicRaw").Value')">
+	<div class="mask">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9">
+					<div class="row name-flairs">
+						<div class="tenure hidden-sm hidden-xs col-md-2" style="visibility: @showTenure;">
+							<span class="years">@Model.ProfileUser.Settings.First(s => s.Id == "TenureLevel").Value</span><br />
+							<span class="unit">YEARS</span>
+						</div>
+						<div class="col-md-10">
+							<h1>
+								@Model.ProfileUser.Settings.First(s => s.Id == "Gamertag").Value
+							</h1>
+							<h2>@Model.ProfileUser.Settings.First(s => s.Id == "Gamerscore").Value G</h2>
+						</div>
+						<div class="tenure visible-sm visible-xs col-md-2" style="visibility: @showTenure;">
+							<span class="years">@Model.ProfileUser.Settings.First(s => s.Id == "TenureLevel").Value</span><br />
+							<span class="unit">YEARS</span>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-md-3">
+				
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<article class="area-switcher">
+	<div class="container">
+		<div class="selector-nav">
+			<ul class="nav-of-bar">
+				<li class="active">
+					<a class="plain" href="#">Xbox</a>
+				</li>
+				<li class="">
+					<a class="plain" href="#">Halo: Reach</a>
+				</li>
+				<li class="">
+					<a class="plain" href="#">Halo 4</a>
+				</li>
+				<li>
+					<a class="plain" href="#">Halo 5: Guardian</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</article>
+
+<main>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+
+			</div>
+			<div class="col-md-3">
+				<div class="sidebar">
+					<ul class="nav sidenav">
+						<li class="active">
+							<a href="#">
+								<span class="glyphicon glyphicon-tree-deciduous"></span> Branch
+							</a>
+
+							<ul class="nav">
+								<li class="active">
+									<a href="#">Service Record</a>
+								</li>
+
+								<li class="">
+									<a href="#">Game History</a>
+									<ul class="nav">
+										<li><a href="#">Matchmaking</a></li>
+										<li><a href="#">Custom Games</a></li>
+										<li><a href="#">Campaign</a></li>
+										<li><a href="#">Spartan Ops</a></li>
+									</ul>
+								</li>
+
+								<li class="">
+									<a href="#">Competitive Skill Rank</a>
+								</li>
+
+								<li class="">
+									<a href="#">Commendations</a>
+									<ul class="nav">
+										<li><a href="#">Weapons</a></li>
+										<li><a href="#">Enemies</a></li>
+										<li><a href="#">Vehicles</a></li>
+										<li><a href="#">Ipsum</a></li>
+										<li><a href="#">Lorem</a></li>
+									</ul>
+								</li>
+
+								<li class="">
+									<a href="#">Specializations</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+</main>
+
+<script>
+	window.onload = function () {
+		var recentMatches = [
+			{
+				"featured_stat": "Kills",
+				"featured_stat_name": "67",
+				"map": "Ragnarok",
+				"game_mode": "Team Slayer",
+				"status": "Victory",
+				"id": "f78nt6fntdsf",
+				"end_date": "Tuesday, May 27th, 2015"
+			},
+			{
+				"featured_stat": "Captures",
+				"featured_stat_name": "3",
+				"map": "Complex",
+				"game_mode": "Capture The Flag",
+				"status": "Victory",
+				"id": "8s7nft78sdt",
+				"end_date": "Tuesday, May 27th, 2015"
+			},
+			{
+				"featured_stat": "Plants",
+				"featured_stat_name": "1",
+				"map": "Monolith",
+				"game_mode": "Assault",
+				"status": "Defeat",
+				"id": "sdfgsdfytrr",
+				"end_date": "Monday, May 26th, 2015"
+			}
+		];
+		var recentMatchIndex = 1;
+
+		// Cycle Match History
+		function cycleRecentMatch() {
+			if (window.innerWidth > 768) {
+				var recentMatch = recentMatches[recentMatchIndex];
+				var newContent = '\
+<strong class="' + recentMatch.status.toLowerCase() + '">' + recentMatch.status + '</strong> \
+playing <strong>' + recentMatch.game_mode + '</strong> \
+on <strong>' + recentMatch.map + '</strong>, <br /> \
+with <strong>' + recentMatch.featured_stat + '</strong> ' + recentMatch.featured_stat_name + ' <br /> \
+<span class="date">&raquo; on ' + recentMatch.end_date + '</span> \
+					';
+
+				var elem = $("#recent-match-details");
+				$('.halo4-service-record').attr('style', 'background-image:url(/images/areas/halo4/maps/' + recentMatch.map.toLowerCase() + '.jpg)')
+				elem.fadeOut(600, function () {
+					elem.html(newContent);
+					elem.fadeIn(600);
+				});
+
+				if (recentMatchIndex + 1 >= recentMatches.length)
+					recentMatchIndex = 0;
+				else
+					recentMatchIndex++;
+			}
+		};
+		setInterval(cycleRecentMatch, 6000);
+
+		// Preload Images
+		function preloadImages() {
+			for (var i = 0; i < recentMatches.length; i++) {
+				var image = new Image();
+				image.src = '/images/areas/halo4/maps/' + recentMatches[i].map.toLowerCase() + '.jpg';
+			}
+		};
+		preloadImages();
+	};
+</script>

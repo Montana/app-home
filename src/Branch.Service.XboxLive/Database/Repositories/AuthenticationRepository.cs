@@ -53,7 +53,7 @@ namespace Branch.Service.Halo4.Database.Repositories
 				item.ExpiresAt = delta.ExpiresAt;
 				item.Gamertag = delta.Gamertag;
 				item.Token = delta.Token;
-				item.UserHash = delta.Gamertag;
+				item.UserHash = delta.UserHash;
 				item.Xuid = delta.Xuid;
 
 				item.UpdatedAt = DateTime.UtcNow;
