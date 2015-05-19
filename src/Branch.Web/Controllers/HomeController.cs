@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Branch.Game.Halo4.Services;
+using Branch.Service.Halo4.Services;
 using Microsoft.AspNet.Mvc;
 
 namespace Branch.Web.Controllers

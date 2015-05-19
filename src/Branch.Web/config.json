@@ -9,7 +9,7 @@
 	},
 	"DocumentDb": {
 		"DatabaseId": "staging",
-		"CollectionId": "halo4",
+		"CollectionId": "content",
 		"AccessKey": "dqMwsAGCYPpLcYR87TLxKnxrAtGxv0rmxJwjPyzLq0faHimykuBcCHNAseWv1eKfA/RPu/NWeMe1wjWTdfbdig==",
 		"Endpoint": "https://branch-vnext.documents.azure.com:443/"
 	},

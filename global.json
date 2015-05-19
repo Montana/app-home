@@ -1,6 +1,6 @@
 {
-	"projects": [ "src", "test", "halo" ],
-	"sdk": {
-		"version": "1.0.0-beta4"
-	}
+    "projects": [ "src", "test", "halo", "xbox" ],
+    "sdk": {
+        "version": "1.0.0-beta4"
+    }
 }

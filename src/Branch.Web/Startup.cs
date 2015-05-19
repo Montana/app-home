@@ -47,11 +47,12 @@ namespace Branch.Web
 				var trimmedRoot = oldRoot.Remove(oldRoot.LastIndexOf('\\'));
 
 				options.FileProvider = new PhysicalFileProvider(trimmedRoot);
-				//var expander = new Halo4ViewLocationExpander(swag => "swag");
-				//options.ViewLocationExpanders.Insert(0, expander);
 			});
 
-			// Add EntityFramework services to the services container.
+			// Add Xbox Live services to the services container.
+			services.AddXboxLive();
+			
+			// Add Halo 4 services to the services container.
 			services.AddHalo4();
 		}
 
@@ -74,9 +75,13 @@ namespace Branch.Web
 				app.UseErrorHandler("/Home/Error");
 			}
 
+			// Add Status Code Pages
 			app.UseStatusCodePages();
 
-			// Lets get some Halo 4 goin here, ayyyy
+			// Add Xbox Live
+			app.UseXboxLive();
+
+			// Add Halo 4
 			app.UseHalo4();
 
 			// Add static files to the request pipeline.

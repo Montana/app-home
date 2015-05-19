@@ -10,7 +10,7 @@
 	"licenseUrl": "",
 
 	"dependencies": {
-		"Branch.Game.Halo4": "",
+		"Branch.Service.Halo4": "",
 		"xunit.runner.aspnet": "2.0.0-aspnet-beta4"
 	},
 

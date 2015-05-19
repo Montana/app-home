@@ -1,0 +1,34 @@
+﻿using Branch.Helpers.Services;
+using Branch.Service.Halo4.Database.Repositories;
+using Branch.Service.XboxLive.Database;
+using Branch.Service.XboxLive.Database.Repositories.Interfaces;
+using Branch.Service.XboxLive.Services;
+
+namespace Microsoft.Framework.DependencyInjection
+{
+	public static class ServiceCollectionExtentions
+	{
+		public static IServiceCollection AddXboxLive(this IServiceCollection services)
+		{
+			// Add Helper Services
+			services.AddTransient<HttpManagerService>();
+
+			//// Add Xbox Live Data Services
+			services.AddSingleton<XboxLiveDbContext>();
+			//services.AddSingleton<Halo4DdbRepository>();
+			services.AddEntityFramework().AddDbContext<XboxLiveDbContext>();
+
+			// Add Xbox Live Database Repositories
+			services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
+			//services.AddScoped<IServiceRecordRepository, ServiceRecordRepository>();
+			//services.AddScoped<IGameHistoryRepository, GameHistoryRepository>();
+
+			// Add Xbox Live Services
+			services.AddSingleton<AuthenticationService>();
+			//services.AddSingleton<ServiceRecordService>();
+			//services.AddSingleton<MatchHistoryService>();
+
+			return services;
+		}
+	}
+}
