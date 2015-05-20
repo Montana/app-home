@@ -20,43 +20,58 @@
 		<div class="row">
 			<div class="col-md-10">
 				<h2>Showcase</h2>
+
+				@if (Model.ShowcaseItems.ItemCount == 0)
+				{
+					<div class="alert alert-info" role="alert">
+						<strong>Privacy!</strong>
+						This person either doesn't have a showcase, or their privacy settings forbit it from being shown.
+					</div>
+				}
+
 				<div class="showcase-container hidden-xs hidden-sm">
 					<div class="item w2">
-						<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(0)?.ItemImage)" />
+						@await Html.PartialAsync("~/Branch.Service.XboxLive/Mvc/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(0))
 					</div>
 					<div class="item inner-container">
 						<div class="item w3">
-							<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(1)?.ItemImage)" />
+							@await Html.PartialAsync("~/Branch.Service.XboxLive/Mvc/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(1))
 						</div>
 						<div class="item w3">
-							<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(2)?.ItemImage)" />
+							@await Html.PartialAsync("~/Branch.Service.XboxLive/Mvc/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(2))
 						</div>
 					</div>
 					<div class="clearfix"></div>
 					<div class="item row">
-						<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(3)?.ItemImage)" />
+						@await Html.PartialAsync("~/Branch.Service.XboxLive/Mvc/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(3))
 					</div>
 					<div class="item row">
-						<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(4)?.ItemImage)" />
+						@await Html.PartialAsync("~/Branch.Service.XboxLive/Mvc/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(4))
+					</div>
+					<div class="item row">
+						@await Html.PartialAsync("~/Branch.Service.XboxLive/Mvc/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(5))
 					</div>
 					<div class="clearfix"></div>
 				</div>
 
 				<div class="showcase-mobile-container visible-xs visible-sm">
 					<div class="item">
-						<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(1)?.ItemImage)" />
+						@await Html.PartialAsync("~/Branch.Service.XboxLive/Mvc/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(0))
 					</div>
 					<div class="item">
-						<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(2)?.ItemImage)" />
+						@await Html.PartialAsync("~/Branch.Service.XboxLive/Mvc/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(1))
 					</div>
 					<div class="item">
-						<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(3)?.ItemImage)" />
+						@await Html.PartialAsync("~/Branch.Service.XboxLive/Mvc/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(2))
 					</div>
 					<div class="item">
-						<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(4)?.ItemImage)" />
+						@await Html.PartialAsync("~/Branch.Service.XboxLive/Mvc/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(3))
 					</div>
 					<div class="item">
-						<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(5)?.ItemImage)" />
+						@await Html.PartialAsync("~/Branch.Service.XboxLive/Mvc/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(4))
+					</div>
+					<div class="item">
+						@await Html.PartialAsync("~/Branch.Service.XboxLive/Mvc/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(5))
 					</div>
 				</div>
 			</div>
