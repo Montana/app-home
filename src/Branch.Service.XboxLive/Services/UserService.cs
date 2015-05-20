@@ -40,7 +40,7 @@ namespace Branch.Service.XboxLive.Services
 			var profileDetails = await HttpManagerService.ExecuteRequestAsync<ProfileUsers>(HttpMethod.GET, profileSettingsUri, headers:
 				new Dictionary<string, string>
 				{
-					{ "x-xbl-contract-version", "2" },
+					{ "x-xbl-contract-version", "3" },
 					{ "Authorization", string.Format("XBL3.0 x={0};{1}", authentication.UserHash, authentication.Token) }
 				});
 
@@ -65,7 +65,7 @@ namespace Branch.Service.XboxLive.Services
 			var profileShowcase = await HttpManagerService.ExecuteRequestAsync<ActivityItems>(HttpMethod.GET, profileShowcaseUri, headers:
 				new Dictionary<string, string>
 				{
-					{ "x-xbl-contract-version", "2" },
+					{ "x-xbl-contract-version", "5" },
 					{ "Authorization", string.Format("XBL3.0 x={0};{1}", authentication.UserHash, authentication.Token) }
 				});
 

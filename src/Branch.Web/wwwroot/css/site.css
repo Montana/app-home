@@ -115,6 +115,35 @@ main {
           border-top-color: #5252FF !important;
           border-bottom-color: #5252FF !important; } }
 
+.showcase-container {
+  margin-top: 40px; }
+  .showcase-container .item {
+    float: left;
+    width: 33%; }
+    .showcase-container .item.w2 {
+      width: 66%; }
+    .showcase-container .item.w3 {
+      width: 99%;
+      margin-left: 1%; }
+      .showcase-container .item.w3:last-child {
+        margin-top: 1%; }
+    .showcase-container .item.row {
+      margin-top: 3px;
+      margin-left: 0px;
+      margin-right: 3px;
+      width: 32.9%; }
+    .showcase-container .item > img {
+      max-width: 100%; }
+
+.showcase-mobile-container {
+  margin-top: 40px; }
+  .showcase-mobile-container .item {
+    margin-bottom: 3px;
+    float: none;
+    width: 100%; }
+    .showcase-mobile-container .item > img {
+      max-width: 100%; }
+
 .sidebar {
   margin-top: 50px;
   padding-left: 40px; }

@@ -1,12 +1,13 @@
 ﻿@using Branch.Service.XboxLive.Mvc.ViewModels
 @using Branch.Helpers.Extentions
-@model ProfileViewModel
+@model ShowcaseViewModel
 @addTagHelper "*, Branch.Service.XboxLive"
 @{
 	ViewBag.Title = $"{Model.ProfileUser.Settings.First(s => s.Id == "Gamertag").Value}'s Xbox Profile";
 
 	var primaryRgb = Model.PreferredColors.PrimaryColor;
 	var secondaryRgb = Model.PreferredColors.SecondaryColor;
+	var tertiaryRgb = Model.PreferredColors.TertiaryColor;
 	var gamertag = Model.ProfileUser.Settings.First(s => s.Id == "Gamertag").Value;
 }
 
@@ -14,13 +15,53 @@
 
 @await Html.PartialAsync("~/Branch.Service.XboxLive/Mvc/Views/Shared/_AreaSwitcher", Model)
 
-<main>
+<main class="xboxlive-showcase">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-9">
+			<div class="col-md-10">
+				<h2>Showcase</h2>
+				<div class="showcase-container hidden-xs hidden-sm">
+					<div class="item w2">
+						<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(0)?.ItemImage)" />
+					</div>
+					<div class="item inner-container">
+						<div class="item w3">
+							<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(1)?.ItemImage)" />
+						</div>
+						<div class="item w3">
+							<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(2)?.ItemImage)" />
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="item row">
+						<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(3)?.ItemImage)" />
+					</div>
+					<div class="item row">
+						<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(4)?.ItemImage)" />
+					</div>
+					<div class="clearfix"></div>
+				</div>
 
+				<div class="showcase-mobile-container visible-xs visible-sm">
+					<div class="item">
+						<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(1)?.ItemImage)" />
+					</div>
+					<div class="item">
+						<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(2)?.ItemImage)" />
+					</div>
+					<div class="item">
+						<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(3)?.ItemImage)" />
+					</div>
+					<div class="item">
+						<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(4)?.ItemImage)" />
+					</div>
+					<div class="item">
+						<img src="@(Model.ShowcaseItems.Items.ElementAtOrDefault(5)?.ItemImage)" />
+					</div>
+				</div>
 			</div>
-			<div class="col-md-3">
+
+			<div class="col-md-2">
 				<nav class="sidebar">
 					<ul class="nav sidenav">
 						<li class="active">
@@ -30,11 +71,11 @@
 
 							<ul class="nav">
 								<li class="active">
-									<a href="/Xbox/@gamertag">Details</a>
+									<a href="/Xbox/@gamertag">Showcase</a>
 								</li>
 
 								<li class="">
-									<a href="/Xbox/@gamertag/Showcase">Showcase</a>
+									<a href="/Xbox/@gamertag/Activity">Activity</a>
 								</li>
 
 								<li class="">
@@ -83,6 +124,6 @@
 
 <script>
 	window.onload = function () {
-		
+
 	};
 </script>

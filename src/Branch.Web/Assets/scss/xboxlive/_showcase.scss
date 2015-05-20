@@ -1,0 +1,48 @@
+﻿.xboxlive-showcase {
+	.showcase-container {
+		margin-top: 40px;
+
+		.item {
+			float: left;
+			width: 33%;
+
+			&.w2 {
+				width: calc(66% - 3px);
+			}
+
+			&.w3 {
+				width: calc(99% - 3px);
+				margin-left: 3px;
+
+				&:last-child {
+					margin-top: 3px;
+				}
+			}
+
+			&.row {
+				margin-top: 3px;
+				margin-left: 0px;
+				margin-right: 3px;
+				width: calc(33% - 3px);
+			}
+
+			> img {
+				max-width: 100%;
+			}
+		}
+	}
+
+	.showcase-mobile-container {
+		margin-top: 40px;
+
+		.item {
+			margin-bottom: 3px;
+			float: none;
+			width: 100%;
+
+			> img {
+				max-width: 100%;
+			}
+		}
+	}
+}

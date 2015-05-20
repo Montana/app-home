@@ -5,7 +5,7 @@ using Microsoft.AspNet.Mvc;
 
 namespace Branch.Service.XboxLive.Mvc.Controllers
 {
-	public class ProfileController
+	public class ShowcaseController
 		: ControllerBase
 	{
 		public async Task<IActionResult> Get(string gamertag)
@@ -17,7 +17,7 @@ namespace Branch.Service.XboxLive.Mvc.Controllers
 			var profilePreferredColorTask = UserService.GetProfileColour(profileSettings.Users.First().Settings.First(s => s.Id == "PreferredColor").Value);
 			await Task.WhenAll(profileShowcaseTask, profileSummaryTask, profilePreferredColorTask);
 
-			return View("~/Branch.Service.XboxLive/Mvc/Views/Profile/Index", new ProfileViewModel(profileSettings.Users.First(), profileSummaryTask.Result, profileShowcaseTask.Result, profilePreferredColorTask.Result));
+			return View("~/Branch.Service.XboxLive/Mvc/Views/Showcase/Index", new ShowcaseViewModel(profileSettings.Users.First(), profileSummaryTask.Result, profileShowcaseTask.Result, profilePreferredColorTask.Result));
 		}
 	}
 }
