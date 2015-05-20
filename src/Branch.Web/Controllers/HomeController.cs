@@ -1,22 +1,17 @@
-﻿using System.Threading.Tasks;
-using Branch.Service.Halo4.Services;
-using Microsoft.AspNet.Mvc;
+﻿using Microsoft.AspNet.Mvc;
 
 namespace Branch.Web.Controllers
 {
 	public class HomeController : Controller
 	{
-		[FromServices]
-		public ServiceRecordService ProfileService { get; set; }
-
-		public async Task<IActionResult> Index()
+		public IActionResult Index()
 		{
-			return View("Index"/*, await ProfileService.GetServiceRecord("PhoenixBanTrain")*/);
+			return View("~/Branch.Web/Views/Home/Index");
 		}
 		
 		public IActionResult Error()
 		{
-			return View("~/Views/Shared/Error.cshtml");
+			return View("~/Branch.Web/Views/Shared/Error.cshtml");
 		}
 	}
 }

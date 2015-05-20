@@ -1,9 +1,13 @@
 ﻿@using Branch.Service.XboxLive.Mvc.ViewModels
+@using Branch.Helpers.Extentions
 @model ProfileViewModel
 @{
 	ViewBag.Title = $"{Model.ProfileUser.Settings.First(s => s.Id == "Gamertag").Value}'s Xbox Profile";
 
-	var showTenure = Model.ProfileUser.Settings.First(s => s.Id == "TenureLevel").Value == "0" ? "collapsed" : "visible";
+	var primaryRgb = Model.PreferredColors.PrimaryColor.ToCssRgb();
+	var secondaryRgb = Model.PreferredColors.SecondaryColor.ToCssRgb();
+	var gamertag = @Model.ProfileUser.Settings.First(s => s.Id == "Gamertag").Value;
+    var showTenure = Model.ProfileUser.Settings.First(s => s.Id == "TenureLevel").Value == "0" ? "hidden-md hidden-lg hidden-ms hidden-xs" : "";
 }
 
 <header class="xboxlive-showcase" style="background-image: url('@Model.ProfileUser.Settings.First(s => s.Id == "GameDisplayPicRaw").Value')">
@@ -12,20 +16,34 @@
 			<div class="row">
 				<div class="col-md-9">
 					<div class="row name-flairs">
-						<div class="tenure hidden-sm hidden-xs col-md-2" style="visibility: @showTenure;">
+						<div class="tenure hidden-sm hidden-xs col-md-2 @showTenure">
 							<span class="years">@Model.ProfileUser.Settings.First(s => s.Id == "TenureLevel").Value</span><br />
 							<span class="unit">YEARS</span>
 						</div>
 						<div class="col-md-10">
 							<h1>
-								@Model.ProfileUser.Settings.First(s => s.Id == "Gamertag").Value
+								@gamertag
 							</h1>
-							<h2>@Model.ProfileUser.Settings.First(s => s.Id == "Gamerscore").Value G</h2>
+							<h2>@Model.ProfileUser.Settings.First(s => s.Id == "Gamerscore").Value.InterruptWithCommas() G</h2>
 						</div>
-						<div class="tenure visible-sm visible-xs col-md-2" style="visibility: @showTenure;">
+						<div class="tenure visible-sm visible-xs col-md-2 @showTenure">
 							<span class="years">@Model.ProfileUser.Settings.First(s => s.Id == "TenureLevel").Value</span><br />
 							<span class="unit">YEARS</span>
 						</div>
+					</div>
+
+					<div class="row social-data">
+						Biography: @Model.ProfileUser.Settings.First(s => s.Id == "Bio").Value
+						<br />
+						Player Behaviour: @Model.ProfileUser.Settings.First(s => s.Id == "XboxOneRep").Value
+						<br />
+						Player Membership: @Model.ProfileUser.Settings.First(s => s.Id == "AccountTier").Value
+						<br />
+						Real Name: @Model.ProfileUser.Settings.First(s => s.Id == "RealName").Value
+						<br />
+						Location: @Model.ProfileUser.Settings.First(s => s.Id == "Location").Value
+						<br />
+						Watermarks: @Model.ProfileUser.Settings.First(s => s.Id == "Watermarks").Value
 					</div>
 
 				</div>
@@ -42,16 +60,16 @@
 		<div class="selector-nav">
 			<ul class="nav-of-bar">
 				<li class="active">
-					<a class="plain" href="#">Xbox</a>
+					<a class="plain" href="/Xbox/@gamertag/">Xbox</a>
 				</li>
 				<li class="">
-					<a class="plain" href="#">Halo: Reach</a>
+					<a class="plain" href="/Xbox/@gamertag/Reach/">Halo: Reach</a>
 				</li>
 				<li class="">
-					<a class="plain" href="#">Halo 4</a>
+					<a class="plain" href="/Xbox/@gamertag/Halo4/">Halo 4</a>
 				</li>
 				<li>
-					<a class="plain" href="#">Halo 5: Guardian</a>
+					<a class="plain" href="/Games/Halo5">Halo 5: Guardian</a>
 				</li>
 			</ul>
 		</div>
