@@ -2,6 +2,7 @@
 @model ServiceRecordViewModel
 @{
 	ViewBag.Title = "PhoenixBanTrain's Service Record";
+	var gamertag = @Model.ServiceRecord.Gamertag;
 }
 
 <header class="halo4-service-record" style="background-image: url(/images/areas/halo4/maps/ragnarok.jpg)">
@@ -68,16 +69,16 @@
 		<div class="selector-nav">
 			<ul class="nav-of-bar">
 				<li class="">
-					<a class="plain" href="#">Xbox</a>
+					<a class="plain" href="/Xbox/@gamertag/">Xbox</a>
 				</li>
 				<li class="">
-					<a class="plain" href="#">Halo: Reach</a>
+					<a class="plain" href="/Xbox/@gamertag/Reach/">Halo: Reach</a>
 				</li>
 				<li class="active">
-					<a class="plain" href="#">Halo 4</a>
+					<a class="plain" href="/Xbox/@gamertag/Halo4/">Halo 4</a>
 				</li>
 				<li>
-					<a class="plain" href="#">Halo 5: Guardian</a>
+					<a class="plain" href="/Games/Halo5">Halo 5: Guardians</a>
 				</li>
 			</ul>
 		</div>

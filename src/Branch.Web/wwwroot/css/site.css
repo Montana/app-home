@@ -232,112 +232,63 @@ header.home-index {
       line-height: 40px; }
 
 header.xboxlive-showcase {
-  height: 640px;
   color: #fff;
   text-align: left;
   padding: 0;
   margin: 0;
   background-attachment: fixed;
   background-size: cover;
-  background-position-y: center;
+  background-position: center;
   transition: background 0.6s ease-in-out; }
   @media (max-width: 768px) {
     header.xboxlive-showcase {
       transition: all ease-in 0s;
-      height: 480px;
       min-height: 480px; } }
   header.xboxlive-showcase > .mask {
-    background: #3d3d7c;
-    background: -moz-linear-gradient(top, #3d3d7c 0%, rgba(48, 50, 96, 0) 69%, #2a2d53 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, #3d3d7c), color-stop(69%, rgba(48, 50, 96, 0)), color-stop(100%, #2a2d53));
-    background: -webkit-linear-gradient(top, #3d3d7c 0%, rgba(48, 50, 96, 0) 69%, #2a2d53 100%);
-    background: -o-linear-gradient(top, #3d3d7c 0%, rgba(48, 50, 96, 0) 69%, #2a2d53 100%);
-    background: -ms-linear-gradient(top, #3d3d7c 0%, rgba(48, 50, 96, 0) 69%, #2a2d53 100%);
-    background: linear-gradient(to bottom, #3d3d7c 0%, rgba(48, 50, 96, 0) 69%, #2a2d53 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3d3d7c', endColorstr='#2a2d53', GradientType=0 );
-    height: 100%; }
+    height: 100%;
+    padding-bottom: 30px; }
     header.xboxlive-showcase > .mask > .container {
       padding-top: 120px;
       padding-left: 45px; }
       @media (max-width: 992px) {
-        header.xboxlive-showcase > .mask > .container .col-md-9 .name-flairs {
+        header.xboxlive-showcase > .mask > .container .col-md-11 .name-flairs {
           text-align: center; } }
-      header.xboxlive-showcase > .mask > .container .col-md-9 .name-flairs .tenure {
-        text-align: center;
-        line-height: 20px;
-        margin-top: 30px; }
-        header.xboxlive-showcase > .mask > .container .col-md-9 .name-flairs .tenure > .years {
-          font-family: 'Exo', Arial, sans-serif;
-          font-size: 60px;
-          font-weight: 100;
-          line-height: 40px; }
-        header.xboxlive-showcase > .mask > .container .col-md-9 .name-flairs .tenure > .unit {
-          font-weight: 600; }
-      header.xboxlive-showcase > .mask > .container .col-md-9 .name-flairs h2 {
-        margin-top: -10px;
+      header.xboxlive-showcase > .mask > .container .col-md-11 .name-flairs .gamer-picture {
+        margin-top: 15px;
+        text-align: right; }
+      header.xboxlive-showcase > .mask > .container .col-md-11 .name-flairs .gamer-details .meta {
+        font-size: 18px;
         opacity: 0.7;
-        text-transform: uppercase; }
-      header.xboxlive-showcase > .mask > .container .col-md-9 .rank-flairs {
-        margin-top: 60px; }
-        @media (max-width: 992px) {
-          header.xboxlive-showcase > .mask > .container .col-md-9 .rank-flairs {
-            margin-top: 50px; } }
-        header.xboxlive-showcase > .mask > .container .col-md-9 .rank-flairs > .col-md-10 > img {
-          margin-bottom: 5px; }
-          @media (max-width: 767px) {
-            header.xboxlive-showcase > .mask > .container .col-md-9 .rank-flairs > .col-md-10 > img {
-              margin: 15px auto 0px auto; } }
-        header.xboxlive-showcase > .mask > .container .col-md-9 .rank-flairs > .col-md-10 > .progress {
-          margin-top: 10px;
-          margin-bottom: 0; }
-        header.xboxlive-showcase > .mask > .container .col-md-9 .rank-flairs > .col-md-10 > .xp {
-          font-size: 14px; }
-      header.xboxlive-showcase > .mask > .container .col-md-9 .recent-match {
-        transition: all ease-in-out 0.6s;
-        margin-top: 60px;
-        padding-left: 14px;
-        font-size: 35px;
-        font-weight: 200; }
-        @media (max-width: 768px) {
-          header.xboxlive-showcase > .mask > .container .col-md-9 .recent-match {
-            transition: all ease-in 0s;
-            visibility: collapse; } }
-        header.xboxlive-showcase > .mask > .container .col-md-9 .recent-match .details {
-          margin-top: 5px;
-          display: block;
-          font-size: 25px;
-          line-height: 40px; }
-          header.xboxlive-showcase > .mask > .container .col-md-9 .recent-match .details .victory {
-            color: #0aaed6; }
-          header.xboxlive-showcase > .mask > .container .col-md-9 .recent-match .details .defeat {
-            color: #CB2F2F; }
-          header.xboxlive-showcase > .mask > .container .col-md-9 .recent-match .details .date {
-            display: block;
-            line-height: 20px;
-            font-size: 18px; }
-      header.xboxlive-showcase > .mask > .container .col-md-3 .spartan-image {
-        height: 630px;
-        width: 320px;
-        background-repeat: no-repeat;
-        -moz-transform: scaleX(-1);
-        -ms-transform: scaleX(-1);
-        -o-transform: scaleX(-1);
-        -webkit-transform: scaleX(-1);
-        transform: scaleX(-1);
-        -ms-filter: "FlipH";
-        filter: FlipH;
-        position: absolute;
-        top: -100px;
-        right: -20px;
-        margin-bottom: -40px; }
-      header.xboxlive-showcase > .mask > .container .col-md-3 .spartan-insignia {
-        height: 100px;
-        width: 100px;
-        background-repeat: no-repeat;
-        background-position: top left;
-        position: absolute;
-        top: -40px;
-        right: 190px; }
+        list-style: none;
+        padding: 0;
+        margin: 0; }
+        header.xboxlive-showcase > .mask > .container .col-md-11 .name-flairs .gamer-details .meta > li {
+          margin-right: 15px;
+          display: inline; }
+          header.xboxlive-showcase > .mask > .container .col-md-11 .name-flairs .gamer-details .meta > li.tier-gold {
+            color: gold; }
+          header.xboxlive-showcase > .mask > .container .col-md-11 .name-flairs .gamer-details .meta > li > .gamerscore-icon {
+            margin-top: -5px; }
+      header.xboxlive-showcase > .mask > .container .col-md-11 .name-flairs .gamer-details .gamer-picture {
+        text-align: center; }
+      header.xboxlive-showcase > .mask > .container .col-md-11 .name-flairs .gamer-details .watermarks {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        margin-top: 25px; }
+        header.xboxlive-showcase > .mask > .container .col-md-11 .name-flairs .gamer-details .watermarks > li {
+          margin-right: 15px;
+          display: inline; }
+      header.xboxlive-showcase > .mask > .container .col-md-11 .social-data {
+        margin-top: 30px; }
+      header.xboxlive-showcase > .mask > .container .col-md-1 img {
+        margin-top: 15px;
+        text-align: right; }
+
+.area-switcher.xboxlive {
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed; }
 
 .swag {
   height: 30px; }

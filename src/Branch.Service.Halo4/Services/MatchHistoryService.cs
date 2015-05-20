@@ -53,7 +53,7 @@ namespace Branch.Service.Halo4.Services
 				: string.Format(GetMatchesUrl, gamertag, count, startAt));
 
 			// Get Game History metadata from Database
-			var gameHistoryMetadata = _gameHistoryRepository.Where(gh => /*gh.ServiceRecord.Gamertag == gamertag &&*/ gh.GameMode == gameMode && gh.Count == count && gh.StartAt == startAt).Where(gh => gh.ServiceRecord.Gamertag == gamertag).FirstOrDefault();
+			var gameHistoryMetadata = _gameHistoryRepository.Where(gh => gh.GameMode == gameMode && gh.Count == count && gh.StartAt == startAt).Where(gh => gh?.ServiceRecord?.Gamertag == gamertag).FirstOrDefault();
 			GameHistoryDetailsFull cachedGameHistory = null;
 			if (gameHistoryMetadata != null)
 			{

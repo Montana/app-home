@@ -1,57 +1,56 @@
 {
-    "version": "0.1.0-alpha-*",
-    "description": "",
-    "authors": [ "Alex Forbes-Reed" ],
-    "tags": [ "" ],
-    "projectUrl": "",
-    "licenseUrl": "",
+	"version": "0.1.0-alpha-*",
+	"description": "",
+	"authors": [ "Alex Forbes-Reed" ],
+	"tags": [ "" ],
+	"projectUrl": "",
+	"licenseUrl": "",
 
-    "userSecretsId": "aspnet5-Branch.vNext-20150505034655",
-    "webroot": "wwwroot",
-    "resources": [ "**/*.cshtml" ],
+	"userSecretsId": "aspnet5-Branch.vNext-20150505034655",
+	"webroot": "wwwroot",
 
-    "dependencies": {
-        "Branch.Service.Halo4": "",
-        "Microsoft.AspNet.Diagnostics": "1.0.0-beta4",
-        "Microsoft.AspNet.FileSystems": "1.0.0-beta1",
-        "Microsoft.AspNet.Mvc": "6.0.0-beta4",
-        "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta4",
-        "Microsoft.AspNet.Server.IIS": "1.0.0-beta4",
-        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta4",
-        "Microsoft.AspNet.StaticFiles": "1.0.0-beta4",
-        "Microsoft.AspNet.Tooling.Razor": "1.0.0-beta4",
-        "Microsoft.Framework.CodeGenerators.Mvc": "1.0.0-beta4",
-        "Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta4",
-        "Microsoft.Framework.ConfigurationModel.UserSecrets": "1.0.0-beta4",
-        "Microsoft.Framework.Logging": "1.0.0-beta4",
-        "Microsoft.Framework.Logging.Console": "1.0.0-beta4",
-        "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-beta4",
-        "Branch.Service.XboxLive": "1.0.0-*"
-    },
+	"dependencies": {
+		"Branch.Service.Halo4": "",
+		"Microsoft.AspNet.Diagnostics": "1.0.0-beta4",
+		"Microsoft.AspNet.FileSystems": "1.0.0-beta1",
+		"Microsoft.AspNet.Mvc": "6.0.0-beta4",
+		"Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta4",
+		"Microsoft.AspNet.Server.IIS": "1.0.0-beta4",
+		"Microsoft.AspNet.Server.WebListener": "1.0.0-beta4",
+		"Microsoft.AspNet.StaticFiles": "1.0.0-beta4",
+		"Microsoft.AspNet.Tooling.Razor": "1.0.0-beta4",
+		"Microsoft.Framework.CodeGenerators.Mvc": "1.0.0-beta4",
+		"Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta4",
+		"Microsoft.Framework.ConfigurationModel.UserSecrets": "1.0.0-beta4",
+		"Microsoft.Framework.Logging": "1.0.0-beta4",
+		"Microsoft.Framework.Logging.Console": "1.0.0-beta4",
+		"Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-beta4",
+		"Branch.Service.XboxLive": "1.0.0-*"
+	},
 
-    "commands": {
-        "gen": "Microsoft.Framework.CodeGeneration",
-        "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000"
-    },
+	"commands": {
+		"gen": "Microsoft.Framework.CodeGeneration",
+		"web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000"
+	},
 
-    "frameworks": {
-        "dnx451": { }
-    },
+	"frameworks": {
+		"dnx451": { }
+	},
 
-    "exclude": [
-        "wwwroot",
-        "node_modules",
-        "bower_components"
-    ],
-    "publishExclude": [
-        "node_modules",
-        "bower_components",
-        "**.xproj",
-        "**.user",
-        "**.vspscc"
-    ],
-    "scripts": {
-        "postrestore": [ "npm install", "bower install" ],
-        "prepare": [ "gulp copy" ]
-    }
+	"exclude": [
+		"wwwroot",
+		"node_modules",
+		"bower_components"
+	],
+	"publishExclude": [
+		"node_modules",
+		"bower_components",
+		"**.xproj",
+		"**.user",
+		"**.vspscc"
+	],
+	"scripts": {
+		"postrestore": [ "npm install", "bower install" ],
+		"prepare": [ "gulp copy" ]
+	}
 }

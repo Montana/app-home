@@ -26,10 +26,10 @@ namespace Branch.Helpers.Extentions
 
 		public static string ToCssRgb(this string hexColour)
 		{
-			return hexColour.ToCssRgb(1.0);
+			return hexColour.ToCssRgba(1.0);
 		}
 
-		public static string ToCssRgb(this string hexColour, double opacity)
+		public static string ToCssRgba(this string hexColour, double opacity)
 		{
 			var rgbParts = hexColour.Replace("#", "").SplitEvery(2).ToArray();
 			return $"rgba({rgbParts[0].ToDecimal()},{rgbParts[1].ToDecimal()},{rgbParts[2].ToDecimal()},{opacity})";

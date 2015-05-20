@@ -15,8 +15,8 @@ namespace Microsoft.Framework.DependencyInjection
 			services.AddTransient<HttpManagerService>();
 
 			//// Add Xbox Live Data Services
-			services.AddSingleton<XboxLiveDbContext>();
-			services.AddSingleton<XboxLiveDdbRepository>();
+			services.AddScoped<XboxLiveDbContext>();
+			services.AddScoped<XboxLiveDdbRepository>();
 			services.AddEntityFramework().AddDbContext<XboxLiveDbContext>();
 
 			// Add Xbox Live Database Repositories
