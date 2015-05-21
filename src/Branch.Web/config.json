@@ -1,24 +1,5 @@
 {
 	"AppSettings": {
 		"SiteTitle": "Branch vNext"
-	},
-	"Authentication": {
-		"MicrosoftAccount": "thetree-branch@outlook.com",
-		"MicrosoftAccountPassword": "RDbsCpZUajYfjaEN",
-		"ApiEndpoint": "http://auth.branchapp.co/api/v1/halo4"
-	},
-	"DocumentDb": {
-		"DatabaseId": "staging",
-		"CollectionId": "content",
-		"AccessKey": "dqMwsAGCYPpLcYR87TLxKnxrAtGxv0rmxJwjPyzLq0faHimykuBcCHNAseWv1eKfA/RPu/NWeMe1wjWTdfbdig==",
-		"Endpoint": "https://branch-vnext.documents.azure.com:443/"
-	},
-	"EntityFramework": {
-		"Halo4Context": {
-			"ConnectionString": "Data Source=(localdb)\\ProjectsV12;Initial Catalog=B_Halo4;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;MultipleActiveResultSets=True;"
-		},
-		"BranchContext": {
-			"ConnectionString": "Data Source=(localdb)\\ProjectsV12;Initial Catalog=B_Branch;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;MultipleActiveResultSets=True;"
-		}
 	}
 }

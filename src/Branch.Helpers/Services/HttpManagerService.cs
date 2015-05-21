@@ -73,7 +73,7 @@ namespace Branch.Helpers.Services
 				}
 				catch (Exception ex)
 				{
-					throw;
+					throw ex;
 				}
 			}
 		}

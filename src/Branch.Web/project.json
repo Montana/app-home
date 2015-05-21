@@ -29,6 +29,7 @@
 	},
 
 	"commands": {
+		"ef": "EntityFramework.Commands",
 		"gen": "Microsoft.Framework.CodeGeneration",
 		"web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000"
 	},
