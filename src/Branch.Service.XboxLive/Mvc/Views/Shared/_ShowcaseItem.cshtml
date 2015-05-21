@@ -2,10 +2,18 @@
 @using Microsoft.Xbox.Core.DataContracts.Abstracts
 @using Branch.Helpers.Extentions
 @model ActivityItem
-@{ 
+@{
 
 }
 @if (Model != null)
 {
-	<img src="@Model.ItemImage" />
+	<a href="/Xbox/@Model.AuthorInfo.Name/Activity/@Model.FeedItemId">
+		<img src="@Model.ItemImage" />
+		<div class="data">
+			<div class="metadata">
+				<span>@Model.ItemText</span>
+				<p>@Model.UserGeneratedContentCaption</p>
+			</div>
+		</div>
+	</a>
 }

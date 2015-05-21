@@ -59,9 +59,12 @@
 							</div>
 
 							<ul class="watermarks">
-								<li>
-									<img height="100" alt="@tenure" src="http://dlassets.xboxlive.com/public/content/ppl/watermarks/tenure/@(tenure.ToString("00")).png" />
-								</li>
+								@if (tenure > 0)
+								{
+									<li>
+										<img height="100" alt="@tenure" src="http://dlassets.xboxlive.com/public/content/ppl/watermarks/tenure/@(tenure.ToString("00")).png" />
+									</li>
+								}
 								@foreach (var watermark in watermarks.Split('|').Skip(1))
 								{
 									<li>

@@ -298,23 +298,66 @@ main {
 
 .xboxlive-showcase .container h2 {
   margin-bottom: 20px; }
-.xboxlive-showcase .container .showcase-container .item {
+.xboxlive-showcase .container .showcase-container .item, .xboxlive-showcase .container .showcase-mobile-container .item {
   float: left;
-  width: 33%; }
-  .xboxlive-showcase .container .showcase-container .item.w2 {
+  position: relative;
+  width: 33%;
+  background-color: #2b2b2b; }
+  .xboxlive-showcase .container .showcase-container .item.inner-container, .xboxlive-showcase .container .showcase-mobile-container .item.inner-container {
+    position: static;
+    background-color: transparent; }
+  .xboxlive-showcase .container .showcase-container .item.w2, .xboxlive-showcase .container .showcase-mobile-container .item.w2 {
     width: calc(66% - 3px); }
-  .xboxlive-showcase .container .showcase-container .item.w3 {
+  .xboxlive-showcase .container .showcase-container .item.w1, .xboxlive-showcase .container .showcase-mobile-container .item.w1 {
     width: calc(99% - 3px);
     margin-left: 3px; }
-    .xboxlive-showcase .container .showcase-container .item.w3:last-child {
-      margin-top: 3px; }
-  .xboxlive-showcase .container .showcase-container .item.row {
+    .xboxlive-showcase .container .showcase-container .item.w1:last-child, .xboxlive-showcase .container .showcase-mobile-container .item.w1:last-child {
+      margin-top: 5px; }
+  .xboxlive-showcase .container .showcase-container .item.row, .xboxlive-showcase .container .showcase-mobile-container .item.row {
     margin-top: 3px;
     margin-left: 0px;
     margin-right: 3px;
     width: calc(33% - 3px); }
-  .xboxlive-showcase .container .showcase-container .item > img {
+  .xboxlive-showcase .container .showcase-container .item > a:hover .data, .xboxlive-showcase .container .showcase-mobile-container .item > a:hover .data {
+    background-color: rgba(68, 68, 68, 0.5); }
+    .xboxlive-showcase .container .showcase-container .item > a:hover .data > .metadata, .xboxlive-showcase .container .showcase-mobile-container .item > a:hover .data > .metadata {
+      opacity: 0.6; }
+  .xboxlive-showcase .container .showcase-container .item > a > img, .xboxlive-showcase .container .showcase-mobile-container .item > a > img {
     max-width: 100%; }
+  .xboxlive-showcase .container .showcase-container .item > a > .data, .xboxlive-showcase .container .showcase-mobile-container .item > a > .data {
+    transition: all ease-in-out 0.2s;
+    background: rgba(255, 255, 255, 0);
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(97, 97, 97, 0) 62%, #000000 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(62%, rgba(97, 97, 97, 0)), color-stop(100%, #000000));
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(97, 97, 97, 0) 62%, #000000 100%);
+    background: -o-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(97, 97, 97, 0) 62%, #000000 100%);
+    background: -ms-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(97, 97, 97, 0) 62%, #000000 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(97, 97, 97, 0) 62%, #000000 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000', GradientType=0 );
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    position: absolute; }
+    .xboxlive-showcase .container .showcase-container .item > a > .data > .metadata, .xboxlive-showcase .container .showcase-mobile-container .item > a > .data > .metadata {
+      left: 15px;
+      right: 15px;
+      bottom: 0;
+      position: absolute;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: opacity ease-in-out 0.2s; }
+      .xboxlive-showcase .container .showcase-container .item > a > .data > .metadata > span, .xboxlive-showcase .container .showcase-mobile-container .item > a > .data > .metadata > span {
+        color: white;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; }
+      .xboxlive-showcase .container .showcase-container .item > a > .data > .metadata > p, .xboxlive-showcase .container .showcase-mobile-container .item > a > .data > .metadata > p {
+        color: #888888;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; }
 .xboxlive-showcase .container .showcase-mobile-container .item {
   margin-bottom: 3px;
   float: none;

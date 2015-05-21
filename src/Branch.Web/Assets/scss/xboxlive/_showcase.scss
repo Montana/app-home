@@ -4,21 +4,29 @@
 			margin-bottom: 20px;
 		}
 
-		.showcase-container {
+		.showcase-container,
+		.showcase-mobile-container {
 			.item {
 				float: left;
+				position: relative;
 				width: 33%;
+				background-color: #2b2b2b;
+
+				&.inner-container {
+					position: static;
+					background-color: transparent;
+				}
 
 				&.w2 {
 					width: calc(66% - 3px);
 				}
 
-				&.w3 {
+				&.w1 {
 					width: calc(99% - 3px);
 					margin-left: 3px;
 
 					&:last-child {
-						margin-top: 3px;
+						margin-top: 5px;
 					}
 				}
 
@@ -29,8 +37,62 @@
 					width: calc(33% - 3px);
 				}
 
-				> img {
-					max-width: 100%;
+				> a {
+					&:hover {
+						.data {
+							background-color: rgba(68, 68, 68, 0.5);
+
+							> .metadata {
+								opacity: 0.6;
+							}
+						}
+					}
+
+					> img {
+						max-width: 100%;
+					}
+
+					> .data {
+						transition: all ease-in-out 0.2s;
+						background: rgba(255,255,255,0);
+						background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(97,97,97,0) 62%, rgba(0,0,0,1) 100%);
+						background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(62%, rgba(97,97,97,0)), color-stop(100%, rgba(0,0,0,1)));
+						background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(97,97,97,0) 62%, rgba(0,0,0,1) 100%);
+						background: -o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(97,97,97,0) 62%, rgba(0,0,0,1) 100%);
+						background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(97,97,97,0) 62%, rgba(0,0,0,1) 100%);
+						background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(97,97,97,0) 62%, rgba(0,0,0,1) 100%);
+						filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000', GradientType=0 );
+						left: 0;
+						right: 0;
+						bottom: 0;
+						top: 0;
+						position: absolute;
+
+						> .metadata {
+							left: 15px;
+							right: 15px;
+							bottom: 0;
+							position: absolute;
+							white-space: nowrap;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							transition: opacity ease-in-out 0.2s;
+
+							> span {
+								color: white;
+								white-space: nowrap;
+								overflow: hidden;
+								text-overflow: ellipsis;
+							}
+
+							> p {
+								color: #888888;
+								white-space: nowrap;
+								overflow: hidden;
+								text-overflow: ellipsis;
+							}
+						}
+					}
 				}
 			}
 		}
