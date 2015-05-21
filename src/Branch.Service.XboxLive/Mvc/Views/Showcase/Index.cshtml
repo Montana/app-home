@@ -9,6 +9,9 @@
 	var secondaryRgb = Model.PreferredColors.SecondaryColor;
 	var tertiaryRgb = Model.PreferredColors.TertiaryColor;
 	var gamertag = Model.ProfileUser.Settings.First(s => s.Id == "Gamertag").Value;
+
+	var reputation = Model.ProfileUser.Settings.First(s => s.Id == "XboxOneRep").Value;
+	var biography = Model.ProfileUser.Settings.First(s => s.Id == "Bio").Value;
 }
 
 @await Html.PartialAsync("~/Branch.Service.XboxLive/Mvc/Views/Shared/_Header", Model)
@@ -18,7 +21,7 @@
 <main class="xboxlive-showcase">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-10">
+			<div class="col-md-9">
 				<h2>Showcase</h2>
 
 				@if (Model.ShowcaseItems.ItemCount == 0)
@@ -74,9 +77,16 @@
 						@await Html.PartialAsync("~/Branch.Service.XboxLive/Mvc/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(5))
 					</div>
 				</div>
+
+				<div class="biography" style="display: @(String.IsNullOrWhiteSpace(biography) ? "none" : "block")">
+					<h2>Biography</h2>
+					<p>
+						@biography
+					</p>
+				</div>
 			</div>
 
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<nav class="sidebar">
 					<ul class="nav sidenav">
 						<li class="active">

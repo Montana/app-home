@@ -364,6 +364,10 @@ main {
   width: 100%; }
   .xboxlive-showcase .container .showcase-mobile-container .item > img {
     max-width: 100%; }
+.xboxlive-showcase .container .biography {
+  margin-top: 45px; }
+  .xboxlive-showcase .container .biography > p {
+    font-size: 18px; }
 
 header.halo4-service-record {
   height: 640px;
