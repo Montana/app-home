@@ -12,6 +12,7 @@
 
 	var reputation = Model.ProfileUser.Settings.First(s => s.Id == "XboxOneRep").Value;
 	var biography = Model.ProfileUser.Settings.First(s => s.Id == "Bio").Value;
+	var sidebar = new SidebarViewModel(gamertag, SidebarOption.Achievements);
 }
 
 @await Html.PartialAsync("~/Branch.Service.XboxLive/Mvc/Views/Shared/_Header", Model)
@@ -87,37 +88,7 @@
 			</div>
 
 			<div class="col-md-3">
-				<nav class="sidebar">
-					<ul class="nav sidenav">
-						<li class="active">
-							<a href="#">
-								<span class="glyphicon glyphicon-tree-deciduous"></span> Branch
-							</a>
-
-							<ul class="nav">
-								<li class="active">
-									<a href="/Xbox/@gamertag">Showcase</a>
-								</li>
-
-								<li class="">
-									<a href="/Xbox/@gamertag/Activity">Activity</a>
-								</li>
-
-								<li class="">
-									<a href="/Xbox/@gamertag/Achievements">Achievements</a>
-								</li>
-
-								<li class="">
-									<a href="/Xbox/@gamertag/Following">Following</a>
-								</li>
-
-								<li class="">
-									<a href="/Xbox/@gamertag/GameClips">Game Clips</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</nav>
+				@await Html.PartialAsync("~/Branch.Service.XboxLive/Mvc/Views/Shared/_Sidebar", sidebar)
 			</div>
 		</div>
 	</div>

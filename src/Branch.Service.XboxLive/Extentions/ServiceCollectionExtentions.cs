@@ -25,6 +25,8 @@ namespace Microsoft.Framework.DependencyInjection
 			// Add Xbox Live Services
 			services.AddSingleton<AuthenticationService>();
 			services.AddSingleton<UserService>();
+			services.AddSingleton<TitleHistoryService>();
+			services.AddSingleton<EntertainmentDiscoveryService>();
 
 			return services;
 		}

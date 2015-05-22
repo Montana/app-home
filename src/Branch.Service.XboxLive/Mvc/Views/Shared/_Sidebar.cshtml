@@ -1,0 +1,33 @@
+﻿@using Branch.Service.XboxLive.Mvc.ViewModels
+@model SidebarViewModel
+<nav class="sidebar">
+	<ul class="nav sidenav">
+		<li class="active">
+			<a href="#">
+				<span class="glyphicon glyphicon-tree-deciduous"></span> Branch
+			</a>
+
+			<ul class="nav">
+				<li class="@(Model.SidebarOption.Equals(SidebarOption.Showcase) ? "active" : "")">
+					<a href="/Xbox/@Model.Gamertag">Showcase</a>
+				</li>
+
+				<li class="@(Model.SidebarOption.Equals(SidebarOption.Activity) ? "active" : "")">
+					<a href="/Xbox/@Model.Gamertag/Activity">Activity</a>
+				</li>
+
+				<li class="@(Model.SidebarOption.Equals(SidebarOption.Achievements) ? "active" : "")">
+					<a href="/Xbox/@Model.Gamertag/Achievements">Achievements</a>
+				</li>
+
+				<li class="@(Model.SidebarOption.Equals(SidebarOption.Following) ? "active" : "")">
+					<a href="/Xbox/@Model.Gamertag/Following">Following</a>
+				</li>
+
+				<li class="@(Model.SidebarOption.Equals(SidebarOption.GameClips) ? "active" : "")">
+					<a href="/Xbox/@Model.Gamertag/GameClips">Game Clips</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</nav>

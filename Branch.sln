@@ -24,6 +24,20 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{FCD9AF72-B935-4C8A-8310-0B2247A78D9D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logo", "logo", "{F1614E8D-1805-4619-8926-581F3F0F6E7C}"
+	ProjectSection(SolutionItems) = preProject
+		assets\logo\logo-1000x1000.png = assets\logo\logo-1000x1000.png
+		assets\logo\logo-100x100.png = assets\logo\logo-100x100.png
+		assets\logo\logo-1200x1200.png = assets\logo\logo-1200x1200.png
+		assets\logo\logo-125x125.png = assets\logo\logo-125x125.png
+		assets\logo\logo-150x150.png = assets\logo\logo-150x150.png
+		assets\logo\logo-250x250.png = assets\logo\logo-250x250.png
+		assets\logo\logo-255x255.ico = assets\logo\logo-255x255.ico
+		assets\logo\logo-255x255.png = assets\logo\logo-255x255.png
+		assets\logo\logo-500x500.png = assets\logo\logo-500x500.png
+		assets\logo\logo-800x800.png = assets\logo\logo-800x800.png
+		assets\logo\logo-original.png = assets\logo\logo-original.png
+		assets\logo\logo-original.svg = assets\logo\logo-original.svg
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B92A86B6-1755-416A-8D3B-9D938C840A8A}"
 EndProject
@@ -31,11 +45,16 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Branch.Service.XboxLive", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xbox", "xbox", "{5FC5F54D-969E-44FE-BCEB-ADC015353EEB}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Microsoft.Xbox.Core", "xbox\Microsoft.Xbox.Core\Microsoft.Xbox.Core.xproj", "{C0372A71-513E-4A9C-AF38-E41FECEBC7BE}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Microsoft.Xbox.Services", "xbox\Microsoft.Xbox.Core\Microsoft.Xbox.Services.xproj", "{C0372A71-513E-4A9C-AF38-E41FECEBC7BE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{1C7A8FA7-70FD-43CD-84DA-02B2971BEE34}"
 	ProjectSection(SolutionItems) = preProject
 		scripts\migrations.cmd = scripts\migrations.cmd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "icons", "icons", "{6C2F1545-F0E5-44D4-BC49-78595F54C5B1}"
+	ProjectSection(SolutionItems) = preProject
+		assets\icons\gamerscore-light.psd = assets\icons\gamerscore-light.psd
 	EndProjectSection
 EndProject
 Global
@@ -80,5 +99,6 @@ Global
 		{F1614E8D-1805-4619-8926-581F3F0F6E7C} = {FCD9AF72-B935-4C8A-8310-0B2247A78D9D}
 		{2358874B-E10B-4CB0-9C04-287DF8644643} = {7B2B1132-9E44-4737-88C3-0EDB586E0A79}
 		{C0372A71-513E-4A9C-AF38-E41FECEBC7BE} = {5FC5F54D-969E-44FE-BCEB-ADC015353EEB}
+		{6C2F1545-F0E5-44D4-BC49-78595F54C5B1} = {FCD9AF72-B935-4C8A-8310-0B2247A78D9D}
 	EndGlobalSection
 EndGlobal
