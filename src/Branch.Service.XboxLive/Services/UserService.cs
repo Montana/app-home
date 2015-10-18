@@ -29,7 +29,7 @@ namespace Branch.Service.XboxLive.Services
 		{
 			var playerXuid = await XuidLookupService.LookupAsync(gamertag);
 			var authentication = await AuthenticationService.GetAuthenticationAsync();
-			var profileSettingsUri = new Uri(string.Format(GetProfileSettingsUrl, "gt", gamertag));
+			var profileSettingsUri = new Uri(string.Format(GetProfileSettingsUrl, "xuid", playerXuid));
 
 			var profileDetails = await HttpManagerService.ExecuteRequestAsync<ProfileUsers>(HttpMethod.GET, profileSettingsUri, headers:
 				new Dictionary<string, string>
@@ -37,13 +37,7 @@ namespace Branch.Service.XboxLive.Services
 					{ "x-xbl-contract-version", "3" },
 					{ "Authorization", string.Format("XBL3.0 x={0};{1}", authentication.UserHash, authentication.Token) }
 				});
-
-			switch (profileDetails.StatusCode)
-			{
-				case StatusCode.UserDoesntExist:
-					throw new PlayerDoesntExistException();
-			}
-
+			
 			return profileDetails;
 		}
 

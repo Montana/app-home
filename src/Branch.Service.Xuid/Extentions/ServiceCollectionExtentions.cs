@@ -22,6 +22,7 @@ namespace Microsoft.Framework.DependencyInjection
 
 			// Add Xbox Live Services
 			services.AddSingleton<AuthenticationService>();
+			services.AddSingleton<XuidLookupService>();
 
 			return services;
 		}
