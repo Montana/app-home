@@ -1,0 +1,20 @@
+version: 1.0.{build}
+os: Visual Studio 2015
+shallow_clone: true
+install:
+- cmd: echo %DNX_BUILD_VERSION%
+- cmd: echo %WEBPROJ_ENABLEBETA7RENAMES%
+- cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
+- cmd: dnvm update-self
+- cmd: dnvm install 1.0.0-beta8
+- cmd: dnu restore --quiet --parallel
+- cmd: dnu build
+build:
+  project: Branch.sln
+  verbosity: minimal
+artifacts:
+  - path: '**\*.nupkg'
+environment:
+  DNX_BUILD_VERSION: beta8-%APPVEYOR_BUILD_NUMBER%
+init:
+- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
