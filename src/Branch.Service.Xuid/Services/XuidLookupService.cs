@@ -10,7 +10,10 @@ namespace Branch.Service.Xuid.Services
 		public XuidLookupService(ILoggerFactory loggerFactory, HttpManagerService httpManagerService, XuidDbContext xuidDbContext, AuthenticationService authenticationService)
 			: base(loggerFactory, httpManagerService, xuidDbContext, authenticationService)
 		{ }
-		
 
+		public long LookupPlayerByGamertag(string gamertag)
+		{
+			return 0L;
+		}
 	}
 }
