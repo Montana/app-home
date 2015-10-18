@@ -1,4 +1,4 @@
-﻿namespace Branch.Service.XboxLive.Models.Auth
+﻿namespace Branch.Service.Xuid.Models.Auth
 {
 	public class Response
 	{

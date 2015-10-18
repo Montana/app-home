@@ -3,6 +3,7 @@ using Branch.Helpers.Services;
 using Branch.Service.XboxLive.Database;
 using Branch.Service.XboxLive.DocumentDb;
 using Branch.Service.XboxLive.Exceptions;
+using Branch.Service.Xuid.Services;
 using Microsoft.Framework.Logging;
 using Microsoft.Xbox.Core.DataContracts;
 using Microsoft.Xbox.Core.DataContracts.Enum;

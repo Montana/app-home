@@ -1,21 +1,17 @@
 ﻿using System;
 using Branch.Helpers.Services;
 using Microsoft.Framework.Logging;
-using Branch.Service.XboxLive.Database;
-using Branch.Service.XboxLive.DocumentDb;
-using Branch.Service.Xuid.Services;
+using Branch.Service.Xuid.Database;
 
-namespace Branch.Service.XboxLive.Services
+namespace Branch.Service.Xuid.Services
 {
 	public abstract class ServiceBase<T>
 	{
 		public ServiceBase(ILoggerFactory loggerFactory, HttpManagerService httpManagerService,
-			XboxLiveDbContext xboxLiveDbContext, XboxLiveDdbRepository xboxLiveDdbRepository,
-			AuthenticationService authenticationService)
+			XuidDbContext xuidDbContext, AuthenticationService authenticationService)
 		{
 			HttpManagerService = httpManagerService;
-			XboxLiveDbContext = xboxLiveDbContext;
-			XboxLiveDdbRepository = xboxLiveDdbRepository;
+			XboxLiveDbContext = xuidDbContext;
 			AuthenticationService = authenticationService;
 			ServiceType = typeof(T);
 			Logger = loggerFactory.CreateLogger<T>();
@@ -28,10 +24,8 @@ namespace Branch.Service.XboxLive.Services
 
 		internal HttpManagerService HttpManagerService { get; private set; }
 
-		internal XboxLiveDbContext XboxLiveDbContext { get; private set; }
-
-		internal XboxLiveDdbRepository XboxLiveDdbRepository { get; private set; }
-
+		internal XuidDbContext XboxLiveDbContext { get; private set; }
+		
 		internal AuthenticationService AuthenticationService { get; private set; }
 	}
 }

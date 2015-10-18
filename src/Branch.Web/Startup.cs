@@ -42,7 +42,10 @@ namespace Branch.Web
 			
 			// Add EntityFramework services to the services container.
 			services.AddEntityFramework().AddSqlServer();
-			
+
+			// Add Xuid services to the services container.
+			services.AddXuid();
+
 			// Add Xbox Live services to the services container.
 			services.AddXboxLive();
 			
@@ -74,6 +77,9 @@ namespace Branch.Web
 
 			// Add Status Code Pages
 			app.UseStatusCodePages();
+
+			// Add Xuid
+			app.UseXuid();
 
 			// Add Xbox Live
 			app.UseXboxLive();

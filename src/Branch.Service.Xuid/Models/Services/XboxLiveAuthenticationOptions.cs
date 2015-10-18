@@ -1,4 +1,4 @@
-﻿namespace Branch.Service.XboxLive.Models.Services
+﻿namespace Branch.Service.Xuid.Models.Services
 {
 	public class XboxLiveAuthenticationOptions
 	{

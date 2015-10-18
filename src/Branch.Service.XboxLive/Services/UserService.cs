@@ -8,8 +8,8 @@ using Branch.Service.XboxLive.DocumentDb;
 using Branch.Service.XboxLive.Exceptions;
 using Microsoft.Framework.Logging;
 using Microsoft.Xbox.Core.DataContracts;
-using Microsoft.Xbox.Core.DataContracts.Abstracts;
 using Microsoft.Xbox.Core.DataContracts.Enum;
+using Branch.Service.Xuid.Services;
 
 namespace Branch.Service.XboxLive.Services
 {

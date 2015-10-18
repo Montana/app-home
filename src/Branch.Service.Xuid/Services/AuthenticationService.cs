@@ -3,22 +3,22 @@ using Branch.Helpers.Services;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
-using Branch.Service.XboxLive.Database;
-using Branch.Service.XboxLive.Models.Services;
-using Branch.Service.XboxLive.Database.Models;
-using Branch.Service.XboxLive.Database.Repositories.Interfaces;
-using Branch.Service.XboxLive.Models.Auth;
 using Microsoft.Framework.Configuration;
 using Branch.Helpers.Extentions;
+using Branch.Service.Xuid.Database;
+using Branch.Service.Xuid.Database.Repositories.Interfaces;
+using Branch.Service.Xuid.Database.Models;
+using Branch.Service.Xuid.Models.Services;
+using Branch.Service.Xuid.Models.Auth;
 
-namespace Branch.Service.XboxLive.Services
+namespace Branch.Service.Xuid.Services
 {
 	public class AuthenticationService
 	{
-		public AuthenticationService(ILoggerFactory x, XboxLiveDbContext xboxLiveDbContext, IAuthenticationRepository authenticationRepository, HttpManagerService httpManagerService)
+		public AuthenticationService(ILoggerFactory x, XuidDbContext xuidDbContext, IAuthenticationRepository authenticationRepository, HttpManagerService httpManagerService)
 		{
 			_serviceType = typeof(AuthenticationService);
-			_xboxLiveDbContext = xboxLiveDbContext;
+			_xuidDbContext = xuidDbContext;
 			_authenticationRepository = authenticationRepository;
 			_httpManagerService = httpManagerService;
 			_logger = x.CreateLogger<AuthenticationService>();
@@ -27,15 +27,15 @@ namespace Branch.Service.XboxLive.Services
 			var config = Startup.Configuration.GetDefaultOrBackup();
 			_options = new XboxLiveAuthenticationOptions
 			{
-				MicrosoftAccount = config.Get<string>("XboxLive:Authentication:MicrosoftAccount"),
-				MicrosoftAccountPassword = config.Get<string>("XboxLive:Authentication:MicrosoftAccountPassword"),
-				ApiEndpoint = config.Get<string>("XboxLive:Authentication:ApiEndpoint")
+				MicrosoftAccount = config.Get<string>("Xuid:Authentication:MicrosoftAccount"),
+				MicrosoftAccountPassword = config.Get<string>("Xuid:Authentication:MicrosoftAccountPassword"),
+				ApiEndpoint = config.Get<string>("Xuid:Authentication:ApiEndpoint")
 			};
 		}
 
 		private Type _serviceType { get; set; }
 
-		private XboxLiveDbContext _xboxLiveDbContext { get; set; }
+		private XuidDbContext _xuidDbContext { get; set; }
 
 		private IAuthenticationRepository _authenticationRepository { get; set; }
 

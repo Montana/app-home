@@ -1,7 +1,7 @@
-{
+﻿{
 	"version": "1.0.0-*",
 	"description": "",
-	"authors": [ "Alex Forbes-Reed" ],
+	"authors": [ "" ],
 	"tags": [ "" ],
 	"projectUrl": "",
 	"licenseUrl": "",
@@ -9,16 +9,10 @@
 
 	"dependencies": {
 		"Branch.Helpers": "1.0.0-*",
-		"Branch.Service.Xuid": "1.0.0-*",
 		"EntityFramework.Commands": "7.0.0-beta8",
 		"EntityFramework.SqlServer": "7.0.0-beta8",
-		"Microsoft.AspNet.Http": "1.0.0-beta8",
-		"Microsoft.AspNet.Mvc": "6.0.0-beta8",
-		"Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta8",
 		"Microsoft.Framework.Logging": "1.0.0-beta8",
-		"Microsoft.Framework.Logging.Console": "1.0.0-beta8",
-		"Microsoft.Halo.Core": "1.0.0-*",
-		"Microsoft.Xbox.Core": "1.0.0-*"
+		"Microsoft.Framework.Logging.Console": "1.0.0-beta8"
 	},
 
 	"commands": {

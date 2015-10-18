@@ -1,44 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Branch.Service.XboxLive.Database.Models;
+using Branch.Service.Xuid.Database.Models;
 using System.Linq.Expressions;
-using Branch.Service.XboxLive.Database.Repositories.Interfaces;
-using Branch.Service.XboxLive.Database;
-using Microsoft.Data.Entity;
+using Branch.Service.Xuid.Database.Repositories.Interfaces;
 
-namespace Branch.Service.Halo4.Database.Repositories
+namespace Branch.Service.Xuid.Database.Repositories
 {
 	public class AuthenticationRepository
 		: IAuthenticationRepository
 	{
-		public AuthenticationRepository(XboxLiveDbContext xboxLiveContext)
+		public AuthenticationRepository(XuidDbContext xuidContext)
 		{
-			_xboxLiveContext = xboxLiveContext;
+			_xuidContext = xuidContext;
 		}
 
-		private XboxLiveDbContext _xboxLiveContext { get; set; }
+		private XuidDbContext _xuidContext { get; set; }
 
 		public IEnumerable<Authentication> GetAll(int startAt = 0, int count = int.MaxValue)
 		{
-			return _xboxLiveContext.Authentications/*.Skip(startAt).Take(count).OrderBy(a => a.Id)*/.ToList();
+			return _xuidContext.Authentications/*.Skip(startAt).Take(count).OrderBy(a => a.Id)*/.ToList();
 		}
 
 		public IEnumerable<Authentication> Where(Expression<Func<Authentication, bool>> predicate)
 		{
-			return _xboxLiveContext.Authentications.Where(predicate).AsEnumerable();
+			return _xuidContext.Authentications.Where(predicate).AsEnumerable();
 		}
 
 		public Authentication GetById(int id)
 		{
-			return _xboxLiveContext.Authentications.FirstOrDefault(a => a.Id == id);
+			return _xuidContext.Authentications.FirstOrDefault(a => a.Id == id);
 		}
 
 		public Authentication Add(Authentication item)
 		{
-			_xboxLiveContext.Authentications.Add(item);
-			if (_xboxLiveContext.SaveChanges() <= 0)
+			_xuidContext.Authentications.Add(item);
+			if (_xuidContext.SaveChanges() <= 0)
 				return null;
 
 			return GetById(item.Id);
@@ -60,7 +57,7 @@ namespace Branch.Service.Halo4.Database.Repositories
 				item.UpdatedAt = DateTime.UtcNow;
 			}
 
-			if (_xboxLiveContext.SaveChanges() <= 0)
+			if (_xuidContext.SaveChanges() <= 0)
 				return null;
 
 			return GetById(item.Id);
@@ -72,8 +69,8 @@ namespace Branch.Service.Halo4.Database.Repositories
 			if (item == null)
 				return true;
 
-			_xboxLiveContext.Remove(item);
-			return _xboxLiveContext.SaveChanges() > 0;
+			_xuidContext.Remove(item);
+			return _xuidContext.SaveChanges() > 0;
 		}
 	}
 }

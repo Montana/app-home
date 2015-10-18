@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace Branch.Service.XboxLive.Models.Auth
+namespace Branch.Service.Xuid.Models.Auth
 {
-	public class XboxLiveAuthenticateRequest
+	public class XboxLiveAuthorizeRequest
 	{
 		[JsonProperty("RelyingParty")]
 		public string RelyingParty { get; set; }
@@ -11,6 +11,6 @@ namespace Branch.Service.XboxLive.Models.Auth
 		public string TokenType { get; set; }
 
 		[JsonProperty("Properties")]
-		public XboxLiveAuthenticateProperties Properties { get; set; }
+		public XboxLiveAuthorizeProperties Properties { get; set; }
 	}
 }
