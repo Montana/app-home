@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>@ViewBag.Title - @AppSettings.Options.SiteTitle</title>
+	<title>@ViewBag.Title - @AppSettings.Value.SiteTitle</title>
 
 	<link href="//fonts.googleapis.com/css?family=Exo:100" rel="stylesheet" type="text/css">
 	<link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css">
@@ -33,7 +33,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a asp-controller="Home" asp-action="Index" class="navbar-brand">@AppSettings.Options.SiteTitle</a>
+				<a asp-controller="Home" asp-action="Index" class="navbar-brand">@AppSettings.Value.SiteTitle</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -100,7 +100,7 @@
 
 	@*<hr />*@
 	<footer>
-		<p>&copy; 2015 - @AppSettings.Options.SiteTitle</p>
+		<p>&copy; 2015 - @AppSettings.Value.SiteTitle</p>
 	</footer>
 
 	<environment names="Development">

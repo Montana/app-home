@@ -1,0 +1,73 @@
+﻿@using Branch.Web.Areas.XboxLive.ViewModels
+@using Microsoft.Xbox.Core.DataContracts
+@using Branch.Helpers.Extentions
+@model AchievementsViewModel
+@addTagHelper "*, Branch.Service.XboxLive"
+@{
+	ViewBag.Title = $"{Model.ProfileUser.Settings.First(s => s.Id == "Gamertag").Value}'s Achievements";
+
+	var primaryRgb = Model.PreferredColors.PrimaryColor;
+	var secondaryRgb = Model.PreferredColors.SecondaryColor;
+	var tertiaryRgb = Model.PreferredColors.TertiaryColor;
+	var gamertag = Model.ProfileUser.Settings.First(s => s.Id == "Gamertag").Value;
+
+	var reputation = Model.ProfileUser.Settings.First(s => s.Id == "XboxOneRep").Value;
+	var biography = Model.ProfileUser.Settings.First(s => s.Id == "Bio").Value;
+	var sidebar = new SidebarViewModel(gamertag, SidebarOption.Achievements);
+}
+
+@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_Header", Model)
+
+@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_AreaSwitcher", Model)
+
+<main class="xboxlive-showcase">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				@foreach(var userTitle in Model.UserTitles)
+				{
+					if (userTitle is DurangoUserTitle)
+					{
+						var mediaItem = Model.MediaItems.First(m => m.TitleId == userTitle.TitleId);
+						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/Achievement/_DurangoAchievementPreview", Tuple.Create<DurangoUserTitle, MediaItem, string, string>(userTitle as DurangoUserTitle, mediaItem, primaryRgb, secondaryRgb))
+					}
+
+					if (userTitle is LegacyUserTitle)
+					{
+						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/Achievement/_LegacyAchievementPreview", Tuple.Create<LegacyUserTitle, string, string>(userTitle as LegacyUserTitle, primaryRgb, secondaryRgb))
+					}
+				}
+
+				<div class="col-md-12">
+					<nav>
+						<ul class="pager">
+							@if (Model.Page > 0)
+							{
+								<li class="previous">
+									<a href="@Url.Action("Get", "Achievements", new { gamertag = gamertag, page = Model.Page - 1 })"><span aria-hidden="true">&larr;</span> Newer</a>
+								</li>
+							}
+
+							@if (Model.HasMoreUserTitles)
+							{
+								<li class="next">
+									<a href="@Url.Action("Get", "Achievements", new { gamertag = gamertag, page = Model.Page + 1 })">Older <span aria-hidden="true">&rarr;</span></a>
+								</li>
+							}
+						</ul>
+					</nav>
+				</div>
+			</div>
+
+			<div class="col-md-3">
+				@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_Sidebar", sidebar)
+			</div>
+		</div>
+	</div>
+</main>
+
+<script>
+	window.onload = function () {
+
+	};
+</script>

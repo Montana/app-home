@@ -1,5 +1,5 @@
-﻿using Branch.Helpers.Configuration;
-using Branch.Helpers.DocumentDb;
+﻿using Branch.Helpers.DocumentDb;
+using Branch.Helpers.Extentions;
 
 namespace Branch.Service.XboxLive.DocumentDb
 {
@@ -7,7 +7,7 @@ namespace Branch.Service.XboxLive.DocumentDb
 		: DocumentDbRepository
 	{
 		public XboxLiveDdbRepository()
-			: base(ConfigurationLoader.Retrieve().GetSubKey("XboxLive"))
+			: base(Startup.Configuration.GetDefaultOrBackup(), "XboxLive")
 		{ }
 	}
 }

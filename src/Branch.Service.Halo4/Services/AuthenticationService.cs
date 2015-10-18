@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System;
 using Branch.Service.Halo4.Models.Auth;
 using Branch.Service.Halo4.Database.Models;
-using Branch.Helpers.Configuration;
 using Branch.Service.Halo4.Database.Repositories.Interfaces;
+using Microsoft.Framework.Configuration;
 
 namespace Branch.Service.Halo4.Services
 {
@@ -23,12 +23,12 @@ namespace Branch.Service.Halo4.Services
 			_logger = x.CreateLogger<AuthenticationService>();
 			_logger.LogInformation($"Service Registered");
 
-			var config = ConfigurationLoader.Retrieve();
+			var config = Startup.Configuration;
 			_options = new Halo4AuthenticationOptions
 			{
-				MicrosoftAccount = config.Get("Halo4:Authentication:MicrosoftAccount"),
-				MicrosoftAccountPassword = config.Get("Halo4:Authentication:MicrosoftAccountPassword"),
-				ApiEndpoint = config.Get("Halo4:Authentication:ApiEndpoint")
+				MicrosoftAccount = config.Get<string>("Halo4:Authentication:MicrosoftAccount"),
+				MicrosoftAccountPassword = config.Get<string>("Halo4:Authentication:MicrosoftAccountPassword"),
+				ApiEndpoint = config.Get<string>("Halo4:Authentication:ApiEndpoint")
 			};
 		}
 
@@ -48,7 +48,7 @@ namespace Branch.Service.Halo4.Services
 		{
 			_logger.LogVerbose($"Entered GetToken");
 
-			var authentication = (await _authenticationRepository.GetAllAsync()).FirstOrDefault();
+			var authentication = _authenticationRepository.GetAll().FirstOrDefault();
 			_logger.LogVerbose($"Retrieved Authentication from Database");
 
 			if (authentication != null)
@@ -82,7 +82,7 @@ namespace Branch.Service.Halo4.Services
 			authentication.Gamertag = x.Result.Gamertag;
 			authentication.SpartanToken = x.Result.SpartanToken;
 			authentication.ExpiresAt = DateTime.UtcNow.AddMinutes(55);
-			await _authenticationRepository.UpdateAsync(authentication);
+			_authenticationRepository.Update(authentication);
 
 			return authentication;
 		}

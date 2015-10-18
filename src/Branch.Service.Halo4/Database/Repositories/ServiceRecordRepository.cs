@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Branch.Service.Halo4.Database.Models;
 using System.Linq.Expressions;
 using Branch.Service.Halo4.Database.Repositories.Interfaces;
+using Microsoft.Data.Entity;
 
 namespace Branch.Service.Halo4.Database.Repositories
 {
@@ -18,9 +19,9 @@ namespace Branch.Service.Halo4.Database.Repositories
 		
 		private Halo4DbContext _halo4Context { get; set; }
 
-		public async Task<IEnumerable<ServiceRecord>> GetAllAsync(int startAt = 0, int count = int.MaxValue)
+		public  IEnumerable<ServiceRecord> GetAll(int startAt = 0, int count = int.MaxValue)
 		{
-			return await _halo4Context.ServiceRecords/*.Skip(startAt).Take(count).OrderBy(a => a.Id)*/.ToListAsync();
+			return _halo4Context.ServiceRecords/*.Skip(startAt).Take(count).OrderBy(a => a.Id)*/.ToList();
 		}
 
 		public IEnumerable<ServiceRecord> Where(Expression<Func<ServiceRecord,bool>> predicate)
@@ -28,25 +29,25 @@ namespace Branch.Service.Halo4.Database.Repositories
 			return _halo4Context.ServiceRecords.Where(predicate).AsEnumerable();
 		}
 
-		public async Task<ServiceRecord> GetByIdAsync(int id)
+		public  ServiceRecord GetById(int id)
 		{
-			return await _halo4Context.ServiceRecords.FirstOrDefaultAsync(a => a.Id == id);
+			return _halo4Context.ServiceRecords.FirstOrDefault(a => a.Id == id);
 		}
 
-		public async Task<ServiceRecord> AddAsync(ServiceRecord item)
+		public  ServiceRecord Add(ServiceRecord item)
 		{
 			_halo4Context.ServiceRecords.Add(item);
-			if (await _halo4Context.SaveChangesAsync() <= 0)
+			if (_halo4Context.SaveChanges() <= 0)
 				return null;
 
-			return await GetByIdAsync(item.Id);
+			return GetById(item.Id);
 		}
 
-		public async Task<ServiceRecord> UpdateAsync(ServiceRecord delta)
+		public  ServiceRecord Update(ServiceRecord delta)
 		{
-			var item = await GetByIdAsync(delta.Id);
+			var item = GetById(delta.Id);
 			if (item == null)
-				return await AddAsync(delta);
+				return Add(delta);
 			else
 			{
 				item.Gamertag = delta.Gamertag;
@@ -56,28 +57,28 @@ namespace Branch.Service.Halo4.Database.Repositories
 				item.UpdatedAt = DateTime.UtcNow;
 			}
 
-			if (await _halo4Context.SaveChangesAsync() <= 0)
+			if (_halo4Context.SaveChanges() <= 0)
 				return null;
 
-			return await GetByIdAsync(item.Id);
+			return GetById(item.Id);
 		}
 
-		public async Task RefreshUpdatedAt(int id)
+		public void RefreshUpdatedAt(int id)
 		{
-			var item = await GetByIdAsync(id);
+			var item = GetById(id);
 			if (item == null) return;
 
-			await UpdateAsync(item);
+			Update(item);
 		}
 
-		public async Task<bool> DeleteAsync(int id)
+		public bool Delete(int id)
 		{
-			var item = await GetByIdAsync(id);
+			var item = GetById(id);
 			if (item == null)
 				return true;
 
 			_halo4Context.Remove(item);
-			return await _halo4Context.SaveChangesAsync() > 0;
+			return _halo4Context.SaveChanges() > 0;
 		}
 	}
 }

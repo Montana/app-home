@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
-using Microsoft.Framework.ConfigurationModel;
+using Microsoft.Framework.Configuration;
 using Newtonsoft.Json;
 
 namespace Branch.Helpers.DocumentDb
@@ -18,12 +18,12 @@ namespace Branch.Helpers.DocumentDb
 		/// 
 		/// </summary>
 		/// <param name="configuration"></param>
-		public DocumentDbRepository(IConfiguration configuration)
+		public DocumentDbRepository(IConfiguration configuration, string baseKey)
 		{
-			var endpoint = configuration.Get("DocumentDb:Endpoint");
-			var accessKey = configuration.Get("DocumentDb:AccessKey");
-			var databaseId = configuration.Get("DocumentDb:DatabaseId");
-			var collectionId = configuration.Get("DocumentDb:CollectionId");
+			var endpoint = configuration.Get<string>($"{baseKey}:DocumentDb:Endpoint");
+			var accessKey = configuration.Get<string>($"{baseKey}:DocumentDb:AccessKey");
+			var databaseId = configuration.Get<string>($"{baseKey}:DocumentDb:DatabaseId");
+			var collectionId = configuration.Get<string>($"{baseKey}:DocumentDb:CollectionId");
 
 			_client = new DocumentClient(new Uri(endpoint), accessKey, connectionPolicy: new ConnectionPolicy
 			{

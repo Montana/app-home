@@ -1,0 +1,81 @@
+﻿@using Branch.Web.Areas.XboxLive.ViewModels
+@using Branch.Helpers.Extentions
+@model ViewModelBase
+@{ 
+	var primaryRgb = Model.PreferredColors.PrimaryColor;
+	var secondaryRgb = Model.PreferredColors.SecondaryColor;
+
+	var gamertag = Model.ProfileUser.Settings.First(s => s.Id == "Gamertag").Value;
+	var watermarks = Model.ProfileUser.Settings.First(s => s.Id == "Watermarks").Value;
+	var gamerPicture = Model.ProfileUser.Settings.First(s => s.Id == "GameDisplayPicRaw").Value;
+	gamerPicture = gamerPicture.Remove(gamerPicture.IndexOf('&'));
+	var tenure = 0;
+	int.TryParse(Model.ProfileUser.Settings.First(s => s.Id == "TenureLevel").Value, out tenure);
+
+	var friendsCount = Model.ProfileSummary.TargetFollowingCount > 0 ? Model.ProfileSummary.TargetFollowingCount.ToString().InterruptWithCommas() : "--";
+	var showRealName = Model.ProfileUser.Settings.First(s => s.Id == "RealName").Value;
+	showRealName = String.IsNullOrWhiteSpace(showRealName) ? "none" : "inline";
+	var showLocation = Model.ProfileUser.Settings.First(s => s.Id == "Location").Value;
+	showLocation = String.IsNullOrWhiteSpace(showLocation) ? "none" : "inline";
+}
+<header class="xboxlive-showcase" style="background-image: url('@Model.ProfileUser.Settings.First(s => s.Id == "GameDisplayPicRaw").Value')">
+	<div class="mask" style="background-color: @primaryRgb.ToCssRgba(0.9);">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-11">
+					<div class="row name-flairs">
+						<div class="gamer-picture hidden-sm hidden-xs col-md-2">
+							<img class="img-circle" height="120" src="@gamerPicture" />
+						</div>
+						<div class="gamer-details col-md-10">
+							<h1>
+								@gamertag
+							</h1>
+
+							<ul class="meta">
+								<li>
+									<img class="gamerscore-icon" height="18" src="/images/Areas/XboxLive/Views/icons/gamerscore-light.png" />
+									@Model.ProfileUser.Settings.First(s => s.Id == "Gamerscore").Value.InterruptWithCommas()
+								</li>
+								<li>
+									@friendsCount
+									Friends
+								</li>
+								<li class="tier-@Model.ProfileUser.Settings.First(s => s.Id == "AccountTier").Value.ToLowerInvariant()">
+									@Model.ProfileUser.Settings.First(s => s.Id == "AccountTier").Value
+								</li>
+							</ul>
+							<ul class="meta">
+								<li style="display: @showRealName;">
+									@Model.ProfileUser.Settings.First(s => s.Id == "RealName").Value
+								</li>
+								<li style="display: @showLocation;">
+									@Model.ProfileUser.Settings.First(s => s.Id == "Location").Value
+								</li>
+							</ul>
+
+							<div class="gamer-picture visible-sm visible-xs">
+								<img class="img-circle" height="120" src="@gamerPicture" />
+							</div>
+
+							<ul class="watermarks">
+								@if (tenure > 0)
+								{
+									<li>
+										<img height="100" alt="@tenure" src="http://dlassets.xboxlive.com/public/content/ppl/watermarks/tenure/@(tenure.ToString("00")).png" />
+									</li>
+								}
+								@foreach (var watermark in watermarks.Split('|').Skip(1))
+								{
+									<li>
+										<img height="100" alt="@watermark" src="http://dlassets.xboxlive.com/public/content/ppl/watermarks/launch/@(watermark.ToLowerInvariant()).png" />
+									</li>
+								}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>

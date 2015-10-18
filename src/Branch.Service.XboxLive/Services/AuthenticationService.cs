@@ -3,12 +3,13 @@ using Branch.Helpers.Services;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
-using Branch.Helpers.Configuration;
 using Branch.Service.XboxLive.Database;
 using Branch.Service.XboxLive.Models.Services;
 using Branch.Service.XboxLive.Database.Models;
 using Branch.Service.XboxLive.Database.Repositories.Interfaces;
 using Branch.Service.XboxLive.Models.Auth;
+using Microsoft.Framework.Configuration;
+using Branch.Helpers.Extentions;
 
 namespace Branch.Service.XboxLive.Services
 {
@@ -23,12 +24,12 @@ namespace Branch.Service.XboxLive.Services
 			_logger = x.CreateLogger<AuthenticationService>();
 			_logger.LogInformation($"Service Registered");
 
-			var config = ConfigurationLoader.Retrieve();
+			var config = Startup.Configuration.GetDefaultOrBackup();
 			_options = new XboxLiveAuthenticationOptions
 			{
-				MicrosoftAccount = config.Get("XboxLive:Authentication:MicrosoftAccount"),
-				MicrosoftAccountPassword = config.Get("XboxLive:Authentication:MicrosoftAccountPassword"),
-				ApiEndpoint = config.Get("XboxLive:Authentication:ApiEndpoint")
+				MicrosoftAccount = config.Get<string>("XboxLive:Authentication:MicrosoftAccount"),
+				MicrosoftAccountPassword = config.Get<string>("XboxLive:Authentication:MicrosoftAccountPassword"),
+				ApiEndpoint = config.Get<string>("XboxLive:Authentication:ApiEndpoint")
 			};
 		}
 
@@ -48,7 +49,7 @@ namespace Branch.Service.XboxLive.Services
 		{
 			_logger.LogVerbose($"Entered GetToken");
 
-			var authentication = (await _authenticationRepository.GetAllAsync()).FirstOrDefault();
+			var authentication = _authenticationRepository.GetAll().FirstOrDefault();
 			_logger.LogVerbose($"Retrieved Authentication from Database");
 
 			if (authentication != null)
@@ -73,7 +74,7 @@ namespace Branch.Service.XboxLive.Services
 					MicrosoftAccountPassword = _options.MicrosoftAccountPassword
 				});
 
-			var xboxLiveAuthentication= await _httpManagerService.ExecuteRequestAsync<XboxLiveAuthenticateResponse>(HttpMethod.POST,
+			var xboxLiveAuthentication = await _httpManagerService.ExecuteRequestAsync<XboxLiveAuthenticateResponse>(HttpMethod.POST,
 				new Uri("https://user.auth.xboxlive.com/user/authenticate"), payload: new XboxLiveAuthenticateRequest
 				{
 					Properties = new XboxLiveAuthenticateProperties
@@ -97,7 +98,7 @@ namespace Branch.Service.XboxLive.Services
 					RelyingParty = "http://xboxlive.com",
 					TokenType = "JWT"
 				});
-			
+
 			if (authentication == null)
 				authentication = new Authentication();
 			authentication.ExpiresAt = DateTime.UtcNow.AddMinutes(55);
@@ -105,7 +106,7 @@ namespace Branch.Service.XboxLive.Services
 			authentication.Token = xboxLiveAuthorization.Token;
 			authentication.UserHash = xboxLiveAuthentication.DisplayClaims["xui"][0]["uhs"];
 			authentication.Xuid = Int64.Parse(xboxLiveAuthorization.DisplayClaims["xui"][0]["xid"].ToString());
-			authentication = await _authenticationRepository.UpdateAsync(authentication);
+			authentication = _authenticationRepository.Update(authentication);
 
 			return authentication;
 		}

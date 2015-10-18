@@ -100,13 +100,13 @@ namespace Branch.Service.Halo4.Services
 
 			// Create DocumentDb and Database entry
 			cachedGameHistory = await Halo4DdbRepository.CreateAsync<GameHistoryDetailsFull>(gameHistory);
-			var serviceRecord = _serviceRecordRepository.Where(sr => sr.Gamertag == gamertag).FirstOrDefault() ?? await _serviceRecordRepository.AddAsync(new ServiceRecord
+			var serviceRecord = _serviceRecordRepository.Where(sr => sr.Gamertag == gamertag).FirstOrDefault() ?? _serviceRecordRepository.Add(new ServiceRecord
 				{
 					DocumentId = null,
 					Gamertag = gamertag,
 					ServiceTag = "SWAG"
 				});
-			await _gameHistoryRepository.AddAsync(new GameHistory
+			_gameHistoryRepository.Add(new GameHistory
 			{
 				DocumentId = cachedGameHistory.Id,
 				Count = count,

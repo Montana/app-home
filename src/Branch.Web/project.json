@@ -11,27 +11,26 @@
 
 	"dependencies": {
 		"Branch.Service.Halo4": "",
-		"Microsoft.AspNet.Diagnostics": "1.0.0-beta4",
-		"Microsoft.AspNet.FileSystems": "1.0.0-beta1",
-		"Microsoft.AspNet.Mvc": "6.0.0-beta4",
-		"Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta4",
-		"Microsoft.AspNet.Server.IIS": "1.0.0-beta4",
-		"Microsoft.AspNet.Server.WebListener": "1.0.0-beta4",
-		"Microsoft.AspNet.StaticFiles": "1.0.0-beta4",
-		"Microsoft.AspNet.Tooling.Razor": "1.0.0-beta4",
-		"Microsoft.Framework.CodeGenerators.Mvc": "1.0.0-beta4",
-		"Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta4",
-		"Microsoft.Framework.ConfigurationModel.UserSecrets": "1.0.0-beta4",
-		"Microsoft.Framework.Logging": "1.0.0-beta4",
-		"Microsoft.Framework.Logging.Console": "1.0.0-beta4",
-		"Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-beta4",
-		"Branch.Service.XboxLive": "1.0.0-*"
+		"Branch.Service.XboxLive": "1.0.0-*",
+		"Microsoft.AspNet.Diagnostics": "1.0.0-beta8",
+		"Microsoft.AspNet.Mvc": "6.0.0-beta8",
+		"Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta8",
+		"Microsoft.AspNet.Server.Kestrel": "1.0.0-beta8",
+		"Microsoft.AspNet.Server.WebListener": "1.0.0-beta8",
+		"Microsoft.AspNet.StaticFiles": "1.0.0-beta8",
+		"Microsoft.AspNet.Tooling.Razor": "1.0.0-beta8",
+		"Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
+		"Microsoft.Framework.Configuration.UserSecrets": "1.0.0-beta8",
+		"Microsoft.Framework.Logging": "1.0.0-beta8",
+		"Microsoft.Framework.Logging.Console": "1.0.0-beta8",
+		"Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-beta8"
 	},
 
 	"commands": {
 		"ef": "EntityFramework.Commands",
-		"gen": "Microsoft.Framework.CodeGeneration",
-		"web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000"
+		"web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000",
+		"kestrel dev": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.Kestrel --ASPNET_ENV development --server.urls http://branch.dev:3000",
+		"kestrel prod": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.Kestrel --ASPNET_ENV production --server.urls http://branch.prod:3000"
 	},
 
 	"frameworks": {

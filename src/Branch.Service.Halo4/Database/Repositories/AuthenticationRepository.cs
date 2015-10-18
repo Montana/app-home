@@ -18,9 +18,9 @@ namespace Branch.Service.Halo4.Database.Repositories
 		
 		private Halo4DbContext _halo4Context { get; set; }
 
-		public async Task<IEnumerable<Authentication>> GetAllAsync(int startAt = 0, int count = int.MaxValue)
+		public IEnumerable<Authentication> GetAll(int startAt = 0, int count = int.MaxValue)
 		{
-			return await _halo4Context.Authentications/*.Skip(startAt).Take(count).OrderBy(a => a.Id)*/.ToListAsync();
+			return _halo4Context.Authentications/*.Skip(startAt).Take(count).OrderBy(a => a.Id)*/.ToList();
 		}
 
 		public IEnumerable<Authentication> Where(Expression<Func<Authentication,bool>> predicate)
@@ -28,25 +28,25 @@ namespace Branch.Service.Halo4.Database.Repositories
 			return _halo4Context.Authentications.Where(predicate).AsEnumerable();
 		}
 
-		public async Task<Authentication> GetByIdAsync(int id)
+		public Authentication GetById(int id)
 		{
-			return await _halo4Context.Authentications.FirstOrDefaultAsync(a => a.Id == id);
+			return _halo4Context.Authentications.FirstOrDefault(a => a.Id == id);
 		}
 
-		public async Task<Authentication> AddAsync(Authentication item)
+		public Authentication Add(Authentication item)
 		{
 			_halo4Context.Authentications.Add(item);
-			if (await _halo4Context.SaveChangesAsync() <= 0)
+			if (_halo4Context.SaveChanges() <= 0)
 				return null;
 
-			return await GetByIdAsync(item.Id);
+			return GetById(item.Id);
 		}
 
-		public async Task<Authentication> UpdateAsync(Authentication delta)
+		public Authentication Update(Authentication delta)
 		{
-			var item = await GetByIdAsync(delta.Id);
+			var item = GetById(delta.Id);
 			if (item == null)
-				return await AddAsync(delta);
+				return Add(delta);
 			else
 			{
 				item.AnalyticsToken = delta.AnalyticsToken;
@@ -57,20 +57,20 @@ namespace Branch.Service.Halo4.Database.Repositories
 				item.UpdatedAt = DateTime.UtcNow;
 			}
 
-			if (await _halo4Context.SaveChangesAsync() <= 0)
+			if (_halo4Context.SaveChanges() <= 0)
 				return null;
 
-			return await GetByIdAsync(item.Id);
+			return GetById(item.Id);
 		}
 
-		public async Task<bool> DeleteAsync(int id)
+		public bool Delete(int id)
 		{
-			var item = await GetByIdAsync(id);
+			var item = GetById(id);
 			if (item == null)
 				return true;
 
 			_halo4Context.Remove(item);
-			return await _halo4Context.SaveChangesAsync() > 0;
+			return _halo4Context.SaveChanges() > 0;
 		}
 	}
 }

@@ -78,7 +78,7 @@ namespace Branch.Service.Halo4.Services
 
 			// Create DocumentDb and Database entry
 			cachedServiceRecord = await Halo4DdbRepository.CreateAsync<ServiceRecordDetailsFull>(serviceRecord);
-			await _serviceRecordRepository.AddAsync(new Database.Models.ServiceRecord
+			_serviceRecordRepository.Add(new Database.Models.ServiceRecord
 			{
 				DocumentId = cachedServiceRecord.Id,
 				Gamertag = cachedServiceRecord.Gamertag,

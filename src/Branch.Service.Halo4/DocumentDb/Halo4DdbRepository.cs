@@ -1,6 +1,5 @@
-﻿using Branch.Helpers.Configuration;
-using Branch.Helpers.DocumentDb;
-using Newtonsoft.Json;
+﻿using Branch.Helpers.DocumentDb;
+using Branch.Helpers.Extentions;
 
 namespace Branch.Service.Halo4.DocumentDb
 {
@@ -8,7 +7,7 @@ namespace Branch.Service.Halo4.DocumentDb
 		: DocumentDbRepository
 	{
 		public Halo4DdbRepository()
-			: base(ConfigurationLoader.Retrieve().GetSubKey("Halo4"))
+			: base(Startup.Configuration.GetDefaultOrBackup(), "Halo4")
 		{ }
 	}
 }

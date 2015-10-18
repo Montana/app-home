@@ -6,6 +6,7 @@ using Branch.Service.XboxLive.Database.Models;
 using System.Linq.Expressions;
 using Branch.Service.XboxLive.Database.Repositories.Interfaces;
 using Branch.Service.XboxLive.Database;
+using Microsoft.Data.Entity;
 
 namespace Branch.Service.Halo4.Database.Repositories
 {
@@ -19,9 +20,9 @@ namespace Branch.Service.Halo4.Database.Repositories
 
 		private XboxLiveDbContext _xboxLiveContext { get; set; }
 
-		public async Task<IEnumerable<Authentication>> GetAllAsync(int startAt = 0, int count = int.MaxValue)
+		public IEnumerable<Authentication> GetAll(int startAt = 0, int count = int.MaxValue)
 		{
-			return await _xboxLiveContext.Authentications/*.Skip(startAt).Take(count).OrderBy(a => a.Id)*/.ToListAsync();
+			return _xboxLiveContext.Authentications/*.Skip(startAt).Take(count).OrderBy(a => a.Id)*/.ToList();
 		}
 
 		public IEnumerable<Authentication> Where(Expression<Func<Authentication, bool>> predicate)
@@ -29,25 +30,25 @@ namespace Branch.Service.Halo4.Database.Repositories
 			return _xboxLiveContext.Authentications.Where(predicate).AsEnumerable();
 		}
 
-		public async Task<Authentication> GetByIdAsync(int id)
+		public Authentication GetById(int id)
 		{
-			return await _xboxLiveContext.Authentications.FirstOrDefaultAsync(a => a.Id == id);
+			return _xboxLiveContext.Authentications.FirstOrDefault(a => a.Id == id);
 		}
 
-		public async Task<Authentication> AddAsync(Authentication item)
+		public Authentication Add(Authentication item)
 		{
 			_xboxLiveContext.Authentications.Add(item);
-			if (await _xboxLiveContext.SaveChangesAsync() <= 0)
+			if (_xboxLiveContext.SaveChanges() <= 0)
 				return null;
 
-			return await GetByIdAsync(item.Id);
+			return GetById(item.Id);
 		}
 
-		public async Task<Authentication> UpdateAsync(Authentication delta)
+		public Authentication Update(Authentication delta)
 		{
-			var item = await GetByIdAsync(delta.Id);
+			var item = GetById(delta.Id);
 			if (item == null)
-				return await AddAsync(delta);
+				return Add(delta);
 			else
 			{
 				item.ExpiresAt = delta.ExpiresAt;
@@ -59,20 +60,20 @@ namespace Branch.Service.Halo4.Database.Repositories
 				item.UpdatedAt = DateTime.UtcNow;
 			}
 
-			if (await _xboxLiveContext.SaveChangesAsync() <= 0)
+			if (_xboxLiveContext.SaveChanges() <= 0)
 				return null;
 
-			return await GetByIdAsync(item.Id);
+			return GetById(item.Id);
 		}
 
-		public async Task<bool> DeleteAsync(int id)
+		public bool Delete(int id)
 		{
-			var item = await GetByIdAsync(id);
+			var item = GetById(id);
 			if (item == null)
 				return true;
 
 			_xboxLiveContext.Remove(item);
-			return await _xboxLiveContext.SaveChangesAsync() > 0;
+			return _xboxLiveContext.SaveChanges() > 0;
 		}
 	}
 }

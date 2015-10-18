@@ -1,0 +1,126 @@
+﻿@using Branch.Web.Areas.XboxLive.ViewModels
+@using Branch.Helpers.Extentions
+@model ShowcaseViewModel
+@addTagHelper "*, Branch.Service.XboxLive"
+@{
+	Layout = "/Areas/XboxLive/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = $"{Model.ProfileUser.Settings.First(s => s.Id == "Gamertag").Value}'s Xbox Profile";
+
+	var primaryRgb = Model.PreferredColors.PrimaryColor;
+	var secondaryRgb = Model.PreferredColors.SecondaryColor;
+	var tertiaryRgb = Model.PreferredColors.TertiaryColor;
+	var gamertag = Model.ProfileUser.Settings.First(s => s.Id == "Gamertag").Value;
+
+	var reputation = Model.ProfileUser.Settings.First(s => s.Id == "XboxOneRep").Value;
+	var biography = Model.ProfileUser.Settings.First(s => s.Id == "Bio").Value;
+	var sidebar = new SidebarViewModel(gamertag, SidebarOption.Achievements);
+}
+
+@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_Header", Model)
+
+@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_AreaSwitcher", Model)
+
+<main class="xboxlive-showcase">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<h2>Showcase</h2>
+
+				@if (Model.ShowcaseItems.ItemCount == 0)
+				{
+					<div class="alert alert-info" role="alert">
+						<strong>Privacy!</strong>
+						This person either doesn't have a showcase, or their privacy settings forbit it from being shown.
+					</div>
+				}
+
+				<div class="showcase-container hidden-xs hidden-sm">
+					<div class="item w2">
+						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(0))
+					</div>
+					<div class="item inner-container">
+						<div class="item w1">
+							@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(1))
+						</div>
+						<div class="item w1">
+							@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(2))
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="item row">
+						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(3))
+					</div>
+					<div class="item row">
+						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(4))
+					</div>
+					<div class="item row">
+						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(5))
+					</div>
+					<div class="clearfix"></div>
+				</div>
+
+				<div class="showcase-mobile-container visible-xs visible-sm">
+					<div class="item">
+						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(0))
+					</div>
+					<div class="item">
+						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(1))
+					</div>
+					<div class="item">
+						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(2))
+					</div>
+					<div class="item">
+						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(3))
+					</div>
+					<div class="item">
+						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(4))
+					</div>
+					<div class="item">
+						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(5))
+					</div>
+				</div>
+
+				<div class="biography" style="display: @(String.IsNullOrWhiteSpace(biography) ? "none" : "block")">
+					<h2>Biography</h2>
+					<p>
+						@biography
+					</p>
+				</div>
+			</div>
+
+			<div class="col-md-3">
+				@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_Sidebar", sidebar)
+			</div>
+		</div>
+	</div>
+
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+	<div class="swag"></div>
+</main>
+
+<script>
+	window.onload = function () {
+
+	};
+</script>

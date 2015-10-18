@@ -20,6 +20,7 @@ namespace Branch.Service.XboxLive.Services
 		{ }
 
 		public const string GetTitleAchievementsUrl = "https://achievements.xboxlive.com/users/{0}({1})/achievements?titleId={2}&maxItems=2000&orderBy=EndingSoon";
+		public const string GetLegacyTitleHistoryUrl = "{0}{1}{2}{3}{4}";
 		
 		public async Task<UserTitleHistory<DurangoUserTitle>> GetDurangoTitleHistory(Int64 xuid, UInt32 titleId)
 		{

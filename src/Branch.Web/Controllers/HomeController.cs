@@ -6,12 +6,12 @@ namespace Branch.Web.Controllers
 	{
 		public IActionResult Index()
 		{
-			return View("~/Branch.Web/Views/Home/Index");
+			return View();
 		}
 		
 		public IActionResult Error()
 		{
-			return View("~/Branch.Web/Views/Shared/Error.cshtml");
+			return View();
 		}
 	}
 }

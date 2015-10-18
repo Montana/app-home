@@ -7,13 +7,14 @@
 	"licenseUrl": "",
 
 	"dependencies": {
-		"EntityFramework": "7.0.0-beta4",
-		"Microsoft.AspNet.Http.Core": "1.0.0-beta4",
-		"Microsoft.AspNet.Razor.Runtime": "4.0.0-beta4",
-		"Microsoft.Azure.Documents.Client": "0.9.3-preview",
-		"Microsoft.DataAnnotations": "1.0.0-beta1",
-		"Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta4",
-		"Microsoft.Framework.ConfigurationModel.UserSecrets": "1.0.0-beta4",
+		"EntityFramework.Core": "7.0.0-beta8",
+		"Microsoft.AspNet.Http": "1.0.0-beta8",
+		"Microsoft.AspNet.Razor.Runtime": "4.0.0-beta8",
+		"Microsoft.Azure.DocumentDB": "1.5.0",
+		"Microsoft.Dnx.Runtime": "1.0.0-beta8",
+		"Microsoft.Framework.Configuration": "1.0.0-beta8",
+		"Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
+		"Microsoft.Framework.Configuration.UserSecrets": "1.0.0-beta8",
 		"Microsoft.Net.Http": "2.2.29"
 	},
 

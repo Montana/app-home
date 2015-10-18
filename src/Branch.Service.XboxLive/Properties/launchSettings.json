@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ef - list migrations": {
+      "commandName": "ef",
+      "commandLineArgs": "migrations list"
+    }
+  }
+}
