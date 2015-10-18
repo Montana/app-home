@@ -17,5 +17,5 @@ artifacts:
 environment:
   DNX_BUILD_VERSION: beta8-%APPVEYOR_BUILD_NUMBER%
 init:
-- $npmPath = npm config get prefix
-- $env:Path = $env:Path + ";" + $npmPath
+- ps: $npmPath = npm config get prefix
+- ps: $env:Path = $env:Path + ";" + $npmPath
