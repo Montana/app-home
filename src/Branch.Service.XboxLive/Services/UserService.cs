@@ -1,26 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Branch.Helpers.Exceptions;
 using Branch.Helpers.Services;
 using Branch.Service.XboxLive.Database;
 using Branch.Service.XboxLive.DocumentDb;
-using Branch.Service.XboxLive.Exceptions;
 using Microsoft.Framework.Logging;
 using Microsoft.Xbox.Core.DataContracts;
 using Microsoft.Xbox.Core.DataContracts.Enum;
 using Branch.Service.Xuid.Services;
+using Branch.Service.Xuid.Exceptions;
 
 namespace Branch.Service.XboxLive.Services
 {
 	public class UserService
 		: ServiceBase<UserService>
 	{
-		public UserService(ILoggerFactory loggerFactory, HttpManagerService httpManagerService, XboxLiveDbContext halo4DbContext, XboxLiveDdbRepository halo4DdbRepository, AuthenticationService authenticationService)
-			: base(loggerFactory, httpManagerService, halo4DbContext, halo4DdbRepository, authenticationService)
-		{
-
-		}
+		public UserService(ILoggerFactory loggerFactory, HttpManagerService httpManagerService, XuidLookupService xuidLookupService, XboxLiveDbContext halo4DbContext, XboxLiveDdbRepository halo4DdbRepository, AuthenticationService authenticationService)
+			: base(loggerFactory, httpManagerService, xuidLookupService, halo4DbContext, halo4DdbRepository, authenticationService)
+		{ }
 
 		public const string GetProfileSettingsUrl = "https://profile.xboxlive.com/users/{0}({1})/profile/settings?settings=GameDisplayPicRaw,Gamerscore,Gamertag,AccountTier,XboxOneRep,PreferredColor,RealName,Bio,TenureLevel,Watermarks,Location,ShowUserAsAvatar";
 
@@ -30,13 +27,10 @@ namespace Branch.Service.XboxLive.Services
 
 		public async Task<ProfileUsers> GetProfileDetails(string gamertag)
 		{
+			var playerXuid = await XuidLookupService.LookupAsync(gamertag);
 			var authentication = await AuthenticationService.GetAuthenticationAsync();
-			var validAuthentication = authentication != null && authentication.Token != null;
 			var profileSettingsUri = new Uri(string.Format(GetProfileSettingsUrl, "gt", gamertag));
 
-			if (!validAuthentication)
-				throw new XboxLiveAuthenticationDownException();
-			
 			var profileDetails = await HttpManagerService.ExecuteRequestAsync<ProfileUsers>(HttpMethod.GET, profileSettingsUri, headers:
 				new Dictionary<string, string>
 				{

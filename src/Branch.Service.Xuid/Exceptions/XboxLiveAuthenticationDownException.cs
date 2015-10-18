@@ -1,6 +1,5 @@
 ﻿using System;
-
-namespace Branch.Service.XboxLive.Exceptions
+namespace Branch.Service.Xuid.Exceptions
 {
 	public class XboxLiveAuthenticationDownException
 		: Exception

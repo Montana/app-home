@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using Microsoft.Halo.Core.DataContracts.Enums;
 using Branch.Service.Halo4.Database.Repositories.Interfaces;
 using Branch.Service.Halo4.Exceptions;
-using Branch.Helpers.Exceptions;
+using Branch.Service.Xuid.Exceptions;
 
 namespace Branch.Service.Halo4.Services
 {

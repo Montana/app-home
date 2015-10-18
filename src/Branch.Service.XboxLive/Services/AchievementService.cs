@@ -1,8 +1,7 @@
-﻿using Branch.Helpers.Exceptions;
-using Branch.Helpers.Services;
+﻿using Branch.Helpers.Services;
 using Branch.Service.XboxLive.Database;
 using Branch.Service.XboxLive.DocumentDb;
-using Branch.Service.XboxLive.Exceptions;
+using Branch.Service.Xuid.Exceptions;
 using Branch.Service.Xuid.Services;
 using Microsoft.Framework.Logging;
 using Microsoft.Xbox.Core.DataContracts;
@@ -16,8 +15,8 @@ namespace Branch.Service.XboxLive.Services
 	public class AchievementService
 		: ServiceBase<AchievementService>
 	{
-		public AchievementService(ILoggerFactory loggerFactory, HttpManagerService httpManagerService, XboxLiveDbContext halo4DbContext, XboxLiveDdbRepository halo4DdbRepository, AuthenticationService authenticationService)
-			: base(loggerFactory, httpManagerService, halo4DbContext, halo4DdbRepository, authenticationService)
+		public AchievementService(ILoggerFactory loggerFactory, HttpManagerService httpManagerService, XuidLookupService xuidLookupService, XboxLiveDbContext halo4DbContext, XboxLiveDdbRepository halo4DdbRepository, AuthenticationService authenticationService)
+			: base(loggerFactory, httpManagerService, xuidLookupService, halo4DbContext, halo4DdbRepository, authenticationService)
 		{ }
 
 		public const string GetTitleAchievementsUrl = "https://achievements.xboxlive.com/users/{0}({1})/achievements?titleId={2}&maxItems=2000&orderBy=EndingSoon";

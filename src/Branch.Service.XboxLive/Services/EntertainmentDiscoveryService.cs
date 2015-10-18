@@ -2,7 +2,7 @@
 using Branch.Helpers.Services;
 using Branch.Service.XboxLive.Database;
 using Branch.Service.XboxLive.DocumentDb;
-using Branch.Service.XboxLive.Exceptions;
+using Branch.Service.Xuid.Exceptions;
 using Branch.Service.Xuid.Services;
 using Microsoft.Framework.Logging;
 using Microsoft.Xbox.Core.DataContracts;
@@ -16,8 +16,8 @@ namespace Branch.Service.XboxLive.Services
 	public class EntertainmentDiscoveryService
 		: ServiceBase<EntertainmentDiscoveryService>
 	{
-		public EntertainmentDiscoveryService(ILoggerFactory loggerFactory, HttpManagerService httpManagerService, XboxLiveDbContext halo4DbContext, XboxLiveDdbRepository halo4DdbRepository, AuthenticationService authenticationService)
-			: base(loggerFactory, httpManagerService, halo4DbContext, halo4DdbRepository, authenticationService)
+		public EntertainmentDiscoveryService(ILoggerFactory loggerFactory, HttpManagerService httpManagerService, XuidLookupService xuidLookupService, XboxLiveDbContext halo4DbContext, XboxLiveDdbRepository halo4DdbRepository, AuthenticationService authenticationService)
+			: base(loggerFactory, httpManagerService, xuidLookupService, halo4DbContext, halo4DdbRepository, authenticationService)
 		{ }
 
 		public const string GetMediaDetailsUrl = "https://eds.xboxlive.com/media/en-US/details?idType=XboxHexTitle&ids={0}&targetDevices=XboxOne&desiredMediaItemTypes=DApp.DGame.DGameDemo&desired=TitleId.RelatedMedia.ParentItems.ReleaseDate.Images.DeveloperName.PublisherName.ZuneId.ParentalRatings.AllTimeAverageRating.AllTimeRatingCount.ReducedDescription.Description.RatingId.UserRatingCount.RatingDescriptors.SlideShows.Genres.Capabilities.HasCompanion.IsBundle.BundlePrimaryItemId.IsPartOfAnyBundle.Availabilities";

@@ -10,10 +10,12 @@ namespace Branch.Service.XboxLive.Services
 	public abstract class ServiceBase<T>
 	{
 		public ServiceBase(ILoggerFactory loggerFactory, HttpManagerService httpManagerService,
+			XuidLookupService xuidLookupService,
 			XboxLiveDbContext xboxLiveDbContext, XboxLiveDdbRepository xboxLiveDdbRepository,
 			AuthenticationService authenticationService)
 		{
 			HttpManagerService = httpManagerService;
+			XuidLookupService = xuidLookupService;
 			XboxLiveDbContext = xboxLiveDbContext;
 			XboxLiveDdbRepository = xboxLiveDdbRepository;
 			AuthenticationService = authenticationService;
@@ -27,6 +29,8 @@ namespace Branch.Service.XboxLive.Services
 		internal ILogger Logger { get; private set; }
 
 		internal HttpManagerService HttpManagerService { get; private set; }
+
+		internal XuidLookupService XuidLookupService { get; private set; }
 
 		internal XboxLiveDbContext XboxLiveDbContext { get; private set; }
 
