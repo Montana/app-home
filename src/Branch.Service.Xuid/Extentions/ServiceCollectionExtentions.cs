@@ -13,12 +13,13 @@ namespace Microsoft.Framework.DependencyInjection
 			// Add Helper Services
 			services.AddTransient<HttpManagerService>();
 
-			//// Add Xbox Live Data Services
+			// Add Xbox Live Data Services
 			services.AddScoped<XuidDbContext>();
 			services.AddEntityFramework().AddDbContext<XuidDbContext>();
 
 			// Add Xbox Live Database Repositories
 			services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
+			services.AddScoped<IXuidCacheRepository, XuidCacheRepository>();
 
 			// Add Xbox Live Services
 			services.AddSingleton<AuthenticationService>();

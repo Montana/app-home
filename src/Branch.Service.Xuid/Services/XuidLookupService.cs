@@ -8,20 +8,29 @@ using System.Collections.Generic;
 using Microsoft.Xbox.Core.DataContracts;
 using Microsoft.Xbox.Core.DataContracts.Enum;
 using System.Linq;
+using Branch.Service.Xuid.Database.Repositories.Interfaces;
+using Branch.Service.Xuid.Database.Models;
 
 namespace Branch.Service.Xuid.Services
 {
 	public class XuidLookupService
 		: ServiceBase<XuidLookupService>
 	{
-		public XuidLookupService(ILoggerFactory loggerFactory, HttpManagerService httpManagerService, XuidDbContext xuidDbContext, AuthenticationService authenticationService)
-			: base(loggerFactory, httpManagerService, xuidDbContext, authenticationService)
+		public XuidLookupService(ILoggerFactory loggerFactory, HttpManagerService httpManagerService, XuidDbContext xuidDbContext, IXuidCacheRepository xuidCacheRepository, AuthenticationService authenticationService)
+			: base(loggerFactory, httpManagerService, xuidDbContext, xuidCacheRepository, authenticationService)
 		{ }
 
-		private const string GetGamertagProfileUrl = "https://profile.xboxlive.com/users/gt({0})/profile/settings";
+		private const string GetGamertagProfileUrl = "https://profile.xboxlive.com/users/gt({0})/profile/settings?settings=gamertag";
 
-		public async Task<long> LookupAsync(string gamertag)
+		public async Task<Int64> LookupAsync(string gamertag)
 		{
+			// Check if we can retrieve the lookup from the local database
+			var cachedLookup = XuidCacheRepository.GetByGamertag(gamertag);
+
+			// Check if cached xuid exists, and is valid
+			if (cachedLookup != null && cachedLookup.ExpiresAt < DateTime.UtcNow)
+				return cachedLookup.Xuid;
+
 			var authentication = await AuthenticationService.GetAuthenticationAsync();
 			var validAuthentication = authentication != null && authentication.Token != null;
 			var durangoTitleHistoryUri = new Uri(string.Format(GetGamertagProfileUrl, gamertag));
@@ -42,7 +51,18 @@ namespace Branch.Service.Xuid.Services
 					throw new PlayerDoesntExistException();
 			}
 
-			return profileDetails.Users.First().Xuid;
+			// Retrieve profile details from container
+			var userSettings = profileDetails.Users.First();
+
+			// Save lookup to repository
+			XuidCacheRepository.Add(new XuidCache
+			{
+				Gamertag = userSettings.Settings.First(s => s.Id == "Gamertag").Value,
+				Xuid = userSettings.Xuid
+			});
+
+			// Return Xuid
+			return userSettings.Xuid;
 		}
 	}
 }

@@ -8,9 +8,10 @@ using Branch.Service.Xuid.Database;
 namespace Branch.Service.Xuid.Migrations
 {
     [DbContext(typeof(XuidDbContext))]
-    partial class XuidDbContextModelSnapshot : ModelSnapshot
+    [Migration("20151019103438_AddedXuidCacheTable")]
+    partial class AddedXuidCacheTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .Annotation("ProductVersion", "7.0.0-beta8-15964")

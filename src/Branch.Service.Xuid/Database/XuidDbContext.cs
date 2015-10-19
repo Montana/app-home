@@ -20,5 +20,7 @@ namespace Branch.Service.Xuid.Database
 		}
 
 		public DbSet<Authentication> Authentications { get; set; }
+
+		public DbSet<XuidCache> XuidCaches { get; set; }
 	}
 }
