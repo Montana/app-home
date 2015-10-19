@@ -17,4 +17,4 @@ artifacts:
 environment:
   DNX_BUILD_VERSION: beta8-%APPVEYOR_BUILD_NUMBER%
 init:
-- ps: npm install -g bower
+#- ps: npm install -g bower
