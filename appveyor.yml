@@ -8,11 +8,9 @@ install:
 - cmd: dnvm update-self
 - cmd: dnvm install 1.0.0-beta8
 - cmd: dnu restore --quiet --parallel
+build_script:
 - cmd: cd src\Branch.Web
 - cmd: dnu build
-build:
-  project: Branch.sln
-  verbosity: minimal
 artifacts:
   - path: '**\*.nupkg'
 environment:
