@@ -13,6 +13,7 @@ Pull the git repo to begin.
 > git clone git@github.com:TheTree/branch.git
 > cd branch
 > dnu restore
+> cd src\Branch.Web
 > dnu build
 ```
 
