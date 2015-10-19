@@ -13,7 +13,7 @@
 
 	var reputation = Model.ProfileUser.Settings.First(s => s.Id == "XboxOneRep").Value;
 	var biography = Model.ProfileUser.Settings.First(s => s.Id == "Bio").Value;
-	var sidebar = new SidebarViewModel(gamertag, SidebarOption.Achievements);
+	var sidebar = new SidebarViewModel(gamertag, SidebarOption.Showcase);
 }
 
 @await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_Header", Model)

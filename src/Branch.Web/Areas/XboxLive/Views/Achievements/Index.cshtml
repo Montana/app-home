@@ -4,6 +4,7 @@
 @model AchievementsViewModel
 @addTagHelper "*, Branch.Service.XboxLive"
 @{
+	Layout = "/Areas/XboxLive/Views/Shared/_Layout.cshtml";
 	ViewBag.Title = $"{Model.ProfileUser.Settings.First(s => s.Id == "Gamertag").Value}'s Achievements";
 
 	var primaryRgb = Model.PreferredColors.PrimaryColor;
@@ -24,7 +25,25 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-9">
-				@foreach(var userTitle in Model.UserTitles)
+				<div class="col-md-12">
+					<ul class="pager">
+						@if (Model.Page > 0)
+						{
+							<li class="previous">
+								<a href="@Url.Action("Get", "Achievements", new { gamertag = gamertag, page = Model.Page - 1 })"><span aria-hidden="true">&larr;</span> Last</a>
+							</li>
+						}
+
+						@if (Model.HasMoreUserTitles)
+						{
+							<li class="next">
+								<a href="@Url.Action("Get", "Achievements", new { gamertag = gamertag, page = Model.Page + 1 })">Next <span aria-hidden="true">&rarr;</span></a>
+							</li>
+						}
+					</ul>
+				</div>
+
+				@foreach (var userTitle in Model.UserTitles)
 				{
 					if (userTitle is DurangoUserTitle)
 					{
@@ -39,23 +58,21 @@
 				}
 
 				<div class="col-md-12">
-					<nav>
-						<ul class="pager">
-							@if (Model.Page > 0)
-							{
-								<li class="previous">
-									<a href="@Url.Action("Get", "Achievements", new { gamertag = gamertag, page = Model.Page - 1 })"><span aria-hidden="true">&larr;</span> Newer</a>
-								</li>
-							}
+					<ul class="pager">
+						@if (Model.Page > 0)
+						{
+							<li class="previous">
+								<a href="@Url.Action("Get", "Achievements", new { gamertag = gamertag, page = Model.Page - 1 })"><span aria-hidden="true">&larr;</span> Last</a>
+							</li>
+						}
 
-							@if (Model.HasMoreUserTitles)
-							{
-								<li class="next">
-									<a href="@Url.Action("Get", "Achievements", new { gamertag = gamertag, page = Model.Page + 1 })">Older <span aria-hidden="true">&rarr;</span></a>
-								</li>
-							}
-						</ul>
-					</nav>
+						@if (Model.HasMoreUserTitles)
+						{
+							<li class="next">
+								<a href="@Url.Action("Get", "Achievements", new { gamertag = gamertag, page = Model.Page + 1 })">Next <span aria-hidden="true">&rarr;</span></a>
+							</li>
+						}
+					</ul>
 				</div>
 			</div>
 
