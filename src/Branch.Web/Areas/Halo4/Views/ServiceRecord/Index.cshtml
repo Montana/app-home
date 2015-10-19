@@ -1,10 +1,13 @@
 ﻿@using Branch.Web.Areas.Halo4.ViewModels
+@using Branch.Web.Areas.Halo4.Extentions
+@using Newtonsoft.Json
 @model ServiceRecordViewModel
 @{
 	Layout = "/Areas/Halo4/Views/Shared/_Layout";
 	ViewBag.Title = "PhoenixBanTrain's Service Record";
 	var gamertag = @Model.ServiceRecord.Gamertag;
 }
+@addTagHelper "*, Branch.Web"
 
 <header class="halo4-service-record" style="background-image: url(/images/areas/halo4/maps/ragnarok.jpg)">
 	<div class="mask">
@@ -26,6 +29,7 @@
 						</div>
 					</div>
 
+					
 					<div class="row rank-flairs">
 						<div class="col-md-10">
 							<img class="hidden-xs" height="25" alt="" src="https://assets.halowaypoint.com/games/h4/ranks/v1/large/sr-130.png">
@@ -169,34 +173,12 @@
 <script>
 	window.onload = function () {
 		var recentMatches = [
-			{
-				"featured_stat": "67",
-				"featured_stat_name": "Kills",
-				"map": "Ragnarok",
-				"game_mode": "Team Slayer",
-				"status": "Victory",
-				"id": "f78nt6fntdsf",
-				"end_date": "Tuesday, May 27th, 2015"
-			},
-			{
-				"featured_stat": "3",
-				"featured_stat_name": "Captures",
-				"map": "Complex",
-				"game_mode": "Capture The Flag",
-				"status": "Victory",
-				"id": "8s7nft78sdt",
-				"end_date": "Tuesday, May 27th, 2015"
-			},
-			{
-				"featured_stat": "1",
-				"featured_stat_name": "Plant",
-				"map": "Monolith",
-				"game_mode": "Assault",
-				"status": "Defeat",
-				"id": "sdfgsdfytrr",
-				"end_date": "Monday, May 26th, 2015"
+			@if (Model.GameHistory != null && Model.GameHistory.Games.Any())
+			{ 
+				@Html.Raw(Model.GameHistory.Games.ToJavascriptArray())
 			}
 		];
+
 		var recentMatchIndex = 1;
 
 		// Cycle Match History
@@ -204,11 +186,11 @@
 			if (window.innerWidth > 768) {
 				var recentMatch = recentMatches[recentMatchIndex];
 				var newContent = '\
-<strong class="' + recentMatch.status.toLowerCase() + '">' + recentMatch.status + '</strong> \
-playing <strong>' + recentMatch.game_mode + '</strong> \
+<strong class="' + recentMatch.resultClass + '">' + recentMatch.result + '</strong> \
+playing <strong>' + recentMatch.gameMode + '</strong> \
 on <strong>' + recentMatch.map + '</strong>, <br /> \
-with <strong>' + recentMatch.featured_stat + '</strong> ' + recentMatch.featured_stat_name + ' <br /> \
-<span class="date">&raquo; on ' + recentMatch.end_date + '</span> \
+with <strong>' + recentMatch.featuredStatValue + '</strong> ' + recentMatch.featuredStatName + ' <br /> \
+<span class="date">&raquo; on ' + recentMatch.endDate + '</span> \
 					';
 
 				var elem = $("#recent-match-details");

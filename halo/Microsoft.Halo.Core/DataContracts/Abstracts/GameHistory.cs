@@ -25,7 +25,7 @@ namespace Microsoft.Halo.Core.DataContracts.Abstracts
 		public bool Completed { get; set; }
 
 		[JsonProperty("Result")]
-		public int Result { get; set; }
+		public GameResult Result { get; set; }
 
 		[JsonProperty("EndDateUtc")]
 		public DateTime EndDateUtc { get; set; }
