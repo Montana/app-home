@@ -43,6 +43,7 @@ namespace Branch.Web.Areas.Halo4.Extentions
 					featuredStatValue = game.FeaturedStatValue,
 					featuredStatName = game.FeaturedStatName,
 					map = game.MapVariantName,
+					baseMapName = "complex", // TODO: this
 					endDate = game.EndDateUtc.ToString("dddd, MMMM dd yyyy")
 				};
 

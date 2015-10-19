@@ -1,13 +1,9 @@
-﻿@using Branch.Web.Areas.Halo4.ViewModels
-@using Branch.Web.Areas.Halo4.Extentions
-@using Newtonsoft.Json
+﻿@using Newtonsoft.Json
 @model ServiceRecordViewModel
 @{
-	Layout = "/Areas/Halo4/Views/Shared/_Layout";
 	ViewBag.Title = "PhoenixBanTrain's Service Record";
 	var gamertag = @Model.ServiceRecord.Gamertag;
 }
-@addTagHelper "*, Branch.Web"
 
 <header class="halo4-service-record" style="background-image: url(/images/areas/halo4/maps/ragnarok.jpg)">
 	<div class="mask">
