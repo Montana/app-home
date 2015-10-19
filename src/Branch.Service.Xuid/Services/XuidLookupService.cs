@@ -20,9 +20,9 @@ namespace Branch.Service.Xuid.Services
 			: base(loggerFactory, httpManagerService, xuidDbContext, xuidCacheRepository, authenticationService)
 		{ }
 
-		private const string GetGamertagProfileUrl = "https://profile.xboxlive.com/users/gt({0})/profile/settings?settings=gamertag";
+		private const string GetGamertagProfileUrl = "https://profile.xboxlive.com/users/{0}({1})/profile/settings?settings=gamertag";
 
-		public async Task<Int64> LookupAsync(string gamertag)
+		public async Task<Int64> LookupXuidAsync(string gamertag)
 		{
 			// Check if we can retrieve the lookup from the local database
 			var cachedLookup = XuidCacheRepository.GetByGamertag(gamertag);
@@ -33,12 +33,12 @@ namespace Branch.Service.Xuid.Services
 
 			var authentication = await AuthenticationService.GetAuthenticationAsync();
 			var validAuthentication = authentication != null && authentication.Token != null;
-			var durangoTitleHistoryUri = new Uri(string.Format(GetGamertagProfileUrl, gamertag));
+			var xboxProfileSettingsUri = new Uri(string.Format(GetGamertagProfileUrl, "gamertag", gamertag));
 
 			if (!validAuthentication)
 				throw new XboxLiveAuthenticationDownException();
 
-			var profileDetails = await HttpManagerService.ExecuteRequestAsync<ProfileUsers>(HttpMethod.GET, durangoTitleHistoryUri, headers:
+			var profileDetails = await HttpManagerService.ExecuteRequestAsync<ProfileUsers>(HttpMethod.GET, xboxProfileSettingsUri, headers:
 				new Dictionary<string, string>
 				{
 					{ "x-xbl-contract-version", "2" },
@@ -63,6 +63,49 @@ namespace Branch.Service.Xuid.Services
 
 			// Return Xuid
 			return userSettings.Xuid;
+		}
+		
+		public async Task<string> LookupGamertagAsync(Int64 xuid)
+		{
+			// Check if we can retrieve the lookup from the local database
+			var cachedLookup = XuidCacheRepository.GetByXuid(xuid);
+
+			// Check if cached gamertag exists, and is valid
+			if (cachedLookup != null && cachedLookup.ExpiresAt < DateTime.UtcNow)
+				return cachedLookup.Gamertag;
+
+			var authentication = await AuthenticationService.GetAuthenticationAsync();
+			var validAuthentication = authentication != null && authentication.Token != null;
+			var xboxProfileSettingsUri = new Uri(string.Format(GetGamertagProfileUrl, "xuid", xuid));
+
+			if (!validAuthentication)
+				throw new XboxLiveAuthenticationDownException();
+
+			var profileDetails = await HttpManagerService.ExecuteRequestAsync<ProfileUsers>(HttpMethod.GET, xboxProfileSettingsUri, headers:
+				new Dictionary<string, string>
+				{
+					{ "x-xbl-contract-version", "2" },
+					{ "Authorization", string.Format("XBL3.0 x={0};{1}", authentication.UserHash, authentication.Token) }
+				});
+
+			switch (profileDetails.StatusCode)
+			{
+				case StatusCode.UserDoesntExist:
+					throw new PlayerDoesntExistException();
+			}
+
+			// Retrieve profile details from container
+			var userSettings = profileDetails.Users.First();
+
+			// Save lookup to repository
+			XuidCacheRepository.Add(new XuidCache
+			{
+				Gamertag = userSettings.Settings.First(s => s.Id == "Gamertag").Value,
+				Xuid = userSettings.Xuid
+			});
+
+			// Return Gamertag
+			return userSettings.Settings.First(s => s.Id == "Gamertag").Value;
 		}
 	}
 }

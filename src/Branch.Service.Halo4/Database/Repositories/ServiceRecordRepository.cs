@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Branch.Service.Halo4.Database.Models;
 using System.Linq.Expressions;
 using Branch.Service.Halo4.Database.Repositories.Interfaces;
-using Microsoft.Data.Entity;
 
 namespace Branch.Service.Halo4.Database.Repositories
 {
@@ -50,7 +48,7 @@ namespace Branch.Service.Halo4.Database.Repositories
 				return Add(delta);
 			else
 			{
-				item.Gamertag = delta.Gamertag;
+				item.Xuid = delta.Xuid;
 				item.ServiceTag = delta.ServiceTag;
 				item.DocumentId = delta.DocumentId;
 

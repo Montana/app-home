@@ -27,7 +27,7 @@ namespace Branch.Service.XboxLive.Services
 
 		public async Task<ProfileUsers> GetProfileDetails(string gamertag)
 		{
-			var playerXuid = await XuidLookupService.LookupAsync(gamertag);
+			var playerXuid = await XuidLookupService.LookupXuidAsync(gamertag);
 			var authentication = await AuthenticationService.GetAuthenticationAsync();
 			var profileSettingsUri = new Uri(string.Format(GetProfileSettingsUrl, "xuid", playerXuid));
 

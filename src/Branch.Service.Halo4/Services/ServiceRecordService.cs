@@ -10,14 +10,15 @@ using System.Linq;
 using Microsoft.Halo.Core.DataContracts.Enums;
 using Branch.Service.Halo4.Exceptions;
 using Branch.Service.Xuid.Exceptions;
+using Branch.Service.Xuid.Services;
 
 namespace Branch.Service.Halo4.Services
 {
 	public class ServiceRecordService
 		: ServiceBase<ServiceRecordService>
 	{
-		public ServiceRecordService(ILoggerFactory loggerFactory, HttpManagerService httpManagerService, Halo4DbContext halo4DbContext, Halo4DdbRepository halo4DdbRepository, AuthenticationService authenticationService, IServiceRecordRepository serviceRecordRepository)
-			: base(loggerFactory, httpManagerService, halo4DbContext, halo4DdbRepository, authenticationService)
+		public ServiceRecordService(ILoggerFactory loggerFactory, HttpManagerService httpManagerService, XuidLookupService xuidLookupService, Halo4DbContext halo4DbContext, Halo4DdbRepository halo4DdbRepository, AuthenticationService authenticationService, IServiceRecordRepository serviceRecordRepository)
+			: base(loggerFactory, httpManagerService, xuidLookupService, halo4DbContext, halo4DdbRepository, authenticationService)
 		{
 			_serviceRecordRepository = serviceRecordRepository;
 		}
@@ -35,11 +36,11 @@ namespace Branch.Service.Halo4.Services
 
 		public async Task<ServiceRecordDetailsFull> GetServiceRecord(string gamertag, bool takeCached)
 		{
-			// Populate template service record url
-			var getServiceRecordUri = new Uri(string.Format(GetServiceRecordUrl, gamertag));
+			// Get Player XUID
+			var playerXuid = await XuidLookupService.LookupXuidAsync(gamertag);
 
 			// Get Service Record metadata from Database
-			var serviceRecordMetadata = _serviceRecordRepository.Where(sr => sr.Gamertag == gamertag).FirstOrDefault();
+			var serviceRecordMetadata = _serviceRecordRepository.Where(sr => sr.Xuid == playerXuid).FirstOrDefault();
 			ServiceRecordDetailsFull cachedServiceRecord = null;
 			if (serviceRecordMetadata != null)
 			{
@@ -55,15 +56,18 @@ namespace Branch.Service.Halo4.Services
 				}
 			}
 
+			// Populate template service record url
+			var getServiceRecordUri = new Uri(string.Format(GetServiceRecordUrl, gamertag));
+
 			// Get Service Record from 343's Halo Service
-			var serviceRecord = await HttpManagerService.ExecuteRequestAsync<ServiceRecordDetailsFull>(HttpMethod.GET, getServiceRecordUri);
+			var serviceRecordResponse = await HttpManagerService.ExecuteRequestAsync<ServiceRecordDetailsFull>(HttpMethod.GET, getServiceRecordUri);
 
 			// Check if something went wrong with the request or parsing
-			if (serviceRecord == null)
-				return null; // TODO: find a way to acess this data and throw the relevant exception
+			if (serviceRecordResponse == null)
+				return null; // TODO: find a way to access this data and throw the relevant exception
 
 			// Check response
-			switch (serviceRecord.StatusCode)
+			switch (serviceRecordResponse.StatusCode)
 			{
 				case StatusCode.NoData:
 					throw new PlayerHasntPlayedHalo4Exception();
@@ -72,18 +76,30 @@ namespace Branch.Service.Halo4.Services
 					throw new PlayerDoesntExistException();
 			}
 
+			// Set the XUID in the service record
+			serviceRecordResponse.Xuid = playerXuid;
+
 			// Update documentdb and return data if it exists in the DocumentDb
 			if (serviceRecordMetadata != null)
-				return await Halo4DdbRepository.UpdateAsync<ServiceRecordDetailsFull>(serviceRecordMetadata.DocumentId, serviceRecord);
+				cachedServiceRecord = await Halo4DdbRepository.UpdateAsync<ServiceRecordDetailsFull>(serviceRecordMetadata.DocumentId, serviceRecordResponse);
+			else
+				cachedServiceRecord = await Halo4DdbRepository.CreateAsync<ServiceRecordDetailsFull>(serviceRecordResponse);
 
 			// Create DocumentDb and Database entry
-			cachedServiceRecord = await Halo4DdbRepository.CreateAsync<ServiceRecordDetailsFull>(serviceRecord);
-			_serviceRecordRepository.Add(new Database.Models.ServiceRecord
+			var serviceRecord = _serviceRecordRepository.Where(sr => sr.Xuid == playerXuid).FirstOrDefault();
+			if (serviceRecord == null)
+				_serviceRecordRepository.Add(new Database.Models.ServiceRecord
+				{
+					DocumentId = cachedServiceRecord.Id,
+					Xuid = cachedServiceRecord.Xuid,
+					ServiceTag = cachedServiceRecord.ServiceTag
+				});
+			else
 			{
-				DocumentId = cachedServiceRecord.Id,
-				Gamertag = cachedServiceRecord.Gamertag,
-				ServiceTag = cachedServiceRecord.ServiceTag
-			});
+				serviceRecord.DocumentId = cachedServiceRecord.Id;
+				serviceRecord.ServiceTag = cachedServiceRecord.ServiceTag;
+				_serviceRecordRepository.Update(serviceRecord);
+			}
 
 			// Return Service Record to user
 			return cachedServiceRecord;

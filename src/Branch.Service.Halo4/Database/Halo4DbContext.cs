@@ -1,4 +1,5 @@
 ﻿using Branch.Helpers.Database;
+using Branch.Helpers.Extentions;
 using Branch.Service.Halo4.Database.Models;
 using Microsoft.Data.Entity;
 using Microsoft.Framework.Configuration;
@@ -10,7 +11,7 @@ namespace Branch.Service.Halo4.Database
 	{
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseSqlServer(Startup.Configuration.Get<string>("Halo4:EntityFramework:ConnectionString"));
+			optionsBuilder.UseSqlServer(Startup.Configuration.GetDefaultOrBackup().Get<string>("Halo4:EntityFramework:ConnectionString"));
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Halo.Core.DataContracts;
 
-namespace Branch.Service.Halo4.Mvc.ViewModels
+namespace Branch.Web.Areas.Halo4.ViewModels
 {
 	public class ServiceRecordViewModel
 		: ViewModelBase

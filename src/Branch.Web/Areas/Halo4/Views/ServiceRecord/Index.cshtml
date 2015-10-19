@@ -1,6 +1,7 @@
-﻿@using Branch.Service.Halo4.Mvc.ViewModels
+﻿@using Branch.Web.Areas.Halo4.ViewModels
 @model ServiceRecordViewModel
 @{
+	Layout = "/Areas/Halo4/Views/Shared/_Layout";
 	ViewBag.Title = "PhoenixBanTrain's Service Record";
 	var gamertag = @Model.ServiceRecord.Gamertag;
 }
@@ -169,8 +170,8 @@
 	window.onload = function () {
 		var recentMatches = [
 			{
-				"featured_stat": "Kills",
-				"featured_stat_name": "67",
+				"featured_stat": "67",
+				"featured_stat_name": "Kills",
 				"map": "Ragnarok",
 				"game_mode": "Team Slayer",
 				"status": "Victory",
@@ -178,8 +179,8 @@
 				"end_date": "Tuesday, May 27th, 2015"
 			},
 			{
-				"featured_stat": "Captures",
-				"featured_stat_name": "3",
+				"featured_stat": "3",
+				"featured_stat_name": "Captures",
 				"map": "Complex",
 				"game_mode": "Capture The Flag",
 				"status": "Victory",
@@ -187,8 +188,8 @@
 				"end_date": "Tuesday, May 27th, 2015"
 			},
 			{
-				"featured_stat": "Plants",
-				"featured_stat_name": "1",
+				"featured_stat": "1",
+				"featured_stat_name": "Plant",
 				"map": "Monolith",
 				"game_mode": "Assault",
 				"status": "Defeat",

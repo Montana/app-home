@@ -7,7 +7,7 @@ namespace Branch.Service.Halo4.Database.Models
 	public class ServiceRecord
 		: Audit
 	{
-		public string Gamertag { get; set; }
+		public Int64 Xuid { get; set; }
 
 		public string ServiceTag { get; set; }
 

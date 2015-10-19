@@ -9,6 +9,7 @@ using Branch.Service.Halo4.Models.Auth;
 using Branch.Service.Halo4.Database.Models;
 using Branch.Service.Halo4.Database.Repositories.Interfaces;
 using Microsoft.Framework.Configuration;
+using Branch.Helpers.Extentions;
 
 namespace Branch.Service.Halo4.Services
 {
@@ -23,8 +24,8 @@ namespace Branch.Service.Halo4.Services
 			_logger = x.CreateLogger<AuthenticationService>();
 			_logger.LogInformation($"Service Registered");
 
-			var config = Startup.Configuration;
-			_options = new Halo4AuthenticationOptions
+			var config = Startup.Configuration.GetDefaultOrBackup();
+            _options = new Halo4AuthenticationOptions
 			{
 				MicrosoftAccount = config.Get<string>("Halo4:Authentication:MicrosoftAccount"),
 				MicrosoftAccountPassword = config.Get<string>("Halo4:Authentication:MicrosoftAccountPassword"),

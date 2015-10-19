@@ -3,16 +3,18 @@ using Branch.Service.Halo4.Database;
 using Branch.Helpers.Services;
 using Branch.Service.Halo4.DocumentDb;
 using Microsoft.Framework.Logging;
+using Branch.Service.Xuid.Services;
 
 namespace Branch.Service.Halo4.Services
 {
 	public abstract class ServiceBase<T>
 	{
 		public ServiceBase(ILoggerFactory loggerFactory, HttpManagerService httpManagerService,
-			Halo4DbContext halo4DbContext, Halo4DdbRepository halo4DdbRepository,
+			XuidLookupService xuidLookupService, Halo4DbContext halo4DbContext, Halo4DdbRepository halo4DdbRepository,
 			AuthenticationService authenticationService)
 		{
 			HttpManagerService = httpManagerService;
+			XuidLookupService = xuidLookupService;
 			Halo4DbContext = halo4DbContext;
 			Halo4DdbRepository = halo4DdbRepository;
 			AuthenticationService = authenticationService;
@@ -26,6 +28,8 @@ namespace Branch.Service.Halo4.Services
 		internal ILogger Logger { get; private set; }
 
 		internal HttpManagerService HttpManagerService { get; private set; }
+
+		internal XuidLookupService XuidLookupService { get; private set; }
 
 		internal Halo4DbContext Halo4DbContext { get; private set; }
 

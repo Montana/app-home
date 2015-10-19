@@ -47,6 +47,9 @@ namespace Microsoft.Halo.Core.DataContracts
 		[JsonProperty("Gamertag")]
 		public string Gamertag { get; set; }
 
+		[JsonProperty("Xuid")]
+		public Int64 Xuid { get; set; }
+
 		[JsonProperty("ServiceTag")]
 		public string ServiceTag { get; set; }
 

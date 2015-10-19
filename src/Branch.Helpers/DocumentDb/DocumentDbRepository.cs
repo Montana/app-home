@@ -82,14 +82,14 @@ namespace Branch.Helpers.DocumentDb
 		public T GetById<T>(string id)
 			where T : Document
 		{
-			dynamic doc = _client.CreateDocumentQuery<Document>(_collection.SelfLink)
+			Document doc = _client.CreateDocumentQuery<Document>(_collection.SelfLink)
 				.Where(d => d.Id == id)
 				.AsEnumerable()
 				.FirstOrDefault();
 				
 			if (doc == null)
-				return doc;
-			
+				return null;
+
 			var x = DeserializeObject<T>(doc.ToString());
 			return x;
 		}
