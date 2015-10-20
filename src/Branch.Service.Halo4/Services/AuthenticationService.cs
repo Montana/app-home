@@ -25,7 +25,7 @@ namespace Branch.Service.Halo4.Services
 			_logger.LogInformation($"Service Registered");
 
 			var config = Startup.Configuration.GetDefaultOrBackup();
-            _options = new Halo4AuthenticationOptions
+			_options = new Halo4AuthenticationOptions
 			{
 				MicrosoftAccount = config.Get<string>("Halo4:Authentication:MicrosoftAccount"),
 				MicrosoftAccountPassword = config.Get<string>("Halo4:Authentication:MicrosoftAccountPassword"),
@@ -73,10 +73,10 @@ namespace Branch.Service.Halo4.Services
 					MicrosoftAccount = _options.MicrosoftAccount,
 					MicrosoftAccountPassword = _options.MicrosoftAccountPassword
 				});
-			
+
 			if (x == null)
 				return null;// TODO: handle failure, and alert owner
-			
+
 			if (authentication == null)
 				authentication = new Authentication();
 			authentication.AnalyticsToken = x.Result.AnalyticsToken;

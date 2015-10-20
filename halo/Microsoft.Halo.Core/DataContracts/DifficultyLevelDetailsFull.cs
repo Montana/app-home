@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 
 namespace Microsoft.Halo.Core.DataContracts
-{
+{
 	public class DifficultyLevelDetailsFull
 	{
 		[JsonProperty("Id")]

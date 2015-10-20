@@ -17,7 +17,7 @@ namespace Branch.Service.Halo4.Database
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<ServiceRecord>()
-				.HasMany<GameHistory>(sr => sr.GameHistories)
+				.HasMany(sr => sr.GameHistories)
 				.WithOne(gh => gh.ServiceRecord)
 				.ForeignKey(gh => gh.ServiceRecordId);
 		}
@@ -27,5 +27,7 @@ namespace Branch.Service.Halo4.Database
 		public DbSet<ServiceRecord> ServiceRecords { get; set; }
 
 		public DbSet<GameHistory> GameHistories { get; set; }
+
+		public DbSet<Metadata> Metadata { get; set; }
 	}
 }

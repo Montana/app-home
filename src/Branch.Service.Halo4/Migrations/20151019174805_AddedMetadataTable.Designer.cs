@@ -8,9 +8,10 @@ using Branch.Service.Halo4.Database;
 namespace Branch.Service.Halo4.Migrations
 {
     [DbContext(typeof(Halo4DbContext))]
-    partial class Halo4DbContextModelSnapshot : ModelSnapshot
+    [Migration("20151019174805_AddedMetadataTable")]
+    partial class AddedMetadataTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .Annotation("ProductVersion", "7.0.0-beta8-15964")
@@ -65,7 +66,7 @@ namespace Branch.Service.Halo4.Migrations
 
                     b.Property<DateTime>("CreatedAt");
 
-                    b.Property<string>("DocumentId");
+                    b.Property<string>("DatabaseId");
 
                     b.Property<DateTime>("UpdatedAt");
 
