@@ -1,6 +1,6 @@
 branch
 ===
-[![Build status](https://img.shields.io/appveyor/ci/0xdeafcafe/branch.svg?style=flat-square&label=windows%20build)](https://ci.appveyor.com/project/0xdeafcafe/branch/branch/vnext) [![Github Issues](https://img.shields.io/github/issues/TheTree/branch.svg?style=flat-square)](https://github.com/TheTree/branch/issues) [![Github Forks](https://img.shields.io/github/forks/TheTree/branch.svg?style=flat-square)](https://github.com/TheTree/branch/network) [![Github Stars](https://img.shields.io/github/stars/TheTree/branch.svg?style=flat-square)](https://github.com/TheTree/branch/stargazers)
+[![Build status](https://img.shields.io/appveyor/ci/0xdeafcafe/branch.svg?style=flat-square&label=windows%20build)](https://ci.appveyor.com/project/0xdeafcafe/branch/branch/vnext) [![Github Issues](https://img.shields.io/github/issues/TheTree/branch.svg?style=flat-square)](https://github.com/TheTree/branch/issues) [![Github Forks](https://img.shields.io/github/forks/TheTree/branch.svg?style=flat-square)](https://github.com/TheTree/branch/network) [![Github Stars](https://img.shields.io/github/stars/TheTree/branch.svg?style=flat-square)](https://github.com/TheTree/branch/stargazers) [![Github License](https://img.shields.io/github/license/thetree/branch-vnext-auth.svg?style=flat-square)](https://github.com/thetree/branch-vnext-auth/blob/master/LICENSE.md)
 
 
 AspNet5 application for viewing Xbox Live, Halo: Reach, and Halo 4 stats. Expandable and service based for easy addition of new titles with minimal reworking.
