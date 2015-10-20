@@ -15,6 +15,8 @@ Pull the git repo to begin.
 > dnu restore
 > cd src\Branch.Web
 > dnu build
+> # Populate secrets.json with settings
+> dnx 'kestrel dev'
 ```
 
 
