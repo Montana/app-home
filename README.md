@@ -56,6 +56,16 @@ All configuration for services are stored inside the secrets json config. For mo
 		"EntityFramework": {
 			"ConnectionString": ""
 		}
+	},
+	"Xuid": {
+		"Authentication": {
+			"MicrosoftAccount": "",
+			"MicrosoftAccountPassword": "",
+			"ApiEndpoint": ""
+		},
+		"EntityFramework": {
+			"ConnectionString": ""
+		}
 	}
 }
 ```
