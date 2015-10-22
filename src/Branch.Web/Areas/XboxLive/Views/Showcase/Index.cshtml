@@ -1,9 +1,6 @@
-﻿@using Branch.Web.Areas.XboxLive.ViewModels
-@using Branch.Helpers.Extentions
-@model ShowcaseViewModel
+﻿@model ShowcaseViewModel
 @addTagHelper "*, Branch.Service.XboxLive"
 @{
-	Layout = "/Areas/XboxLive/Views/Shared/_Layout.cshtml";
 	ViewBag.Title = $"{Model.ProfileUser.Settings.First(s => s.Id == "Gamertag").Value}'s Xbox Profile";
 
 	var primaryRgb = Model.PreferredColors.PrimaryColor;
@@ -18,7 +15,7 @@
 
 @await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_Header", Model)
 
-@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_AreaSwitcher", Model)
+@await Html.PartialAsync("/Areas/Shared/Views/_AreaSwitcher", new AreaSwitcherViewModel(secondaryRgb, "xboxlive", Model.ProfileUser.Settings.First(s => s.Id == "GameDisplayPicRaw").Value, gamertag, Area.XboxLive))
 
 <main class="xboxlive-showcase">
 	<div class="container">

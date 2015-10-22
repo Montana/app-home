@@ -6,11 +6,7 @@ namespace Branch.Web.Areas.Halo4.ViewModels
 		: ViewModelBase
 	{
 		public ServiceRecordViewModel(ServiceRecordDetailsFull serviceRecord, GameHistoryDetailsFull gameHistory)
-			: base(serviceRecord)
-		{
-			GameHistory = gameHistory;
-		}
-
-		public GameHistoryDetailsFull GameHistory { get; set; }
+			: base(serviceRecord, gameHistory)
+		{ }
 	}
 }

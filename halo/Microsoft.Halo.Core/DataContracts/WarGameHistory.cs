@@ -26,7 +26,7 @@ namespace Microsoft.Halo.Core.DataContracts
 		public int FeaturedStatValue { get; set; }
 
 		[JsonProperty("PromotionIds")]
-		public Guid[] PromotionIds { get; set; }
+		public int[] PromotionIds { get; set; }
 
 		[JsonProperty("TotalMedals")]
 		public uint TotalMedals { get; set; }

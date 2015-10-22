@@ -1,90 +1,13 @@
 ﻿@using Newtonsoft.Json
 @model ServiceRecordViewModel
 @{
-	ViewBag.Title = "PhoenixBanTrain's Service Record";
 	var gamertag = @Model.ServiceRecord.Gamertag;
+	ViewBag.Title = $"{gamertag}'s Service Record";
 }
 
-<header class="halo4-service-record" style="background-image: url(/images/areas/halo4/maps/ragnarok.jpg)">
-	<div class="mask">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-9">
-					<div class="row name-flairs">
-						<div class="spartan-csr hidden-sm hidden-xs col-md-1">
-							<csr-asset skill-rank="@Model.ServiceRecord.TopSkillRank" gamertag="@Model.ServiceRecord.Gamertag" height="72" />
-						</div>
-						<div class="col-md-10">
-							<h1>
-								@Model.ServiceRecord.Gamertag
-							</h1>
-							<h2>@Model.ServiceRecord.ServiceTag</h2>
-						</div>
-						<div class="visible-sm visible-xs col-md-1">
-							<csr-asset skill-rank="@Model.ServiceRecord.TopSkillRank" gamertag="@Model.ServiceRecord.Gamertag" height="72" />
-						</div>
-					</div>
+@await Html.PartialAsync("/Areas/Halo4/Views/Shared/_Header", Model)
 
-					
-					<div class="row rank-flairs">
-						<div class="col-md-10">
-							<img class="hidden-xs" height="25" alt="" src="https://assets.halowaypoint.com/games/h4/ranks/v1/large/sr-130.png">
-
-							<div class="progress">
-								<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-									<span class="progress-bar-indicator">100% Complete</span>
-									<span class="sr-only">100% Complete</span>
-								</div>
-							</div>
-							<div class="XP">
-								<div class="left lower-bound">338,400 Xp</div>
-								<div class="right upper-bound"></div>
-								<div class="clearfix"></div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row recent-match">
-						Recent Matches:
-						<br />
-						<span id="recent-match-details" class="details">
-							<strong class="victory">Victory</strong> playing <strong>Team Slayer</strong> on <strong>Ragnarok</strong>,<br />
-							with <strong>69</strong> kills <br />
-							<span class="date">
-								&raquo; on Tuesday, May 27th 2015
-							</span>
-						</span>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="spartan-insignia hidden-sm hidden-xs" style="background-image: url(https://emblems.svc.halowaypoint.com/h4/emblems/white_cobalt_grid-on-silver_4diamonds?size=100);"></div>
-					<div class="spartan-image hidden-sm hidden-xs" style="background-image: url('https://spartans.svc.halowaypoint.com/players/PhoenixBanTrain/h4/spartans/fullbody?target=large');"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-</header>
-
-<article class="area-switcher">
-	<div class="container">
-		<div class="selector-nav">
-			<ul class="nav-of-bar">
-				<li class="">
-					<a class="plain" href="/Xbox/@gamertag/">Xbox</a>
-				</li>
-				<li class="">
-					<a class="plain" href="/Xbox/@gamertag/Reach/">Halo: Reach</a>
-				</li>
-				<li class="active">
-					<a class="plain" href="/Xbox/@gamertag/Halo4/">Halo 4</a>
-				</li>
-				<li>
-					<a class="plain" href="/Games/Halo5">Halo 5: Guardians</a>
-				</li>
-			</ul>
-		</div>
-	</div>
-</article>
+@await Html.PartialAsync("/Areas/Shared/Views/_AreaSwitcher", new AreaSwitcherViewModel("2A2D53", "halo4", "", gamertag, Area.Halo4))
 
 <main>
 	<div class="container">
@@ -166,51 +89,8 @@
 	<div class="swag"></div>
 </main>
 
-<script>
-	window.onload = function () {
-		var recentMatches = [
-			@if (Model.GameHistory != null && Model.GameHistory.Games.Any())
-			{ 
-				@Html.Raw(Model.GameHistory.Games.ToJavascriptArray())
-			}
-		];
-
-		var recentMatchIndex = 1;
-
-		// Cycle Match History
-		function cycleRecentMatch() {
-			if (window.innerWidth > 768) {
-				var recentMatch = recentMatches[recentMatchIndex];
-				var newContent = '\
-<strong class="' + recentMatch.resultClass + '">' + recentMatch.result + '</strong> \
-playing <strong>' + recentMatch.gameMode + '</strong> \
-on <strong>' + recentMatch.map + '</strong>, <br /> \
-with <strong>' + recentMatch.featuredStatValue + '</strong> ' + recentMatch.featuredStatName + ' <br /> \
-<span class="date">&raquo; on ' + recentMatch.endDate + '</span> \
-					';
-
-				var elem = $("#recent-match-details");
-				$('.halo4-service-record').attr('style', 'background-image:url(/images/areas/halo4/maps/' + recentMatch.map.toLowerCase() + '.jpg)')
-				elem.fadeOut(600, function () {
-					elem.html(newContent);
-					elem.fadeIn(600);
-				});
-
-				if (recentMatchIndex + 1 >= recentMatches.length)
-					recentMatchIndex = 0;
-				else
-					recentMatchIndex++;
-			}
-		};
-		setInterval(cycleRecentMatch, 6000);
-
-		// Preload Images
-		function preloadImages() {
-			for (var i = 0; i < recentMatches.length; i++) {
-				var image = new Image();
-				image.src = '/images/areas/halo4/maps/' + recentMatches[i].map.toLowerCase() + '.jpg';
-			}
-		};
-		preloadImages();
-	};
-</script>
+@section scripts {
+	<script>
+		var RecentGames = @Html.Raw(await Model.GameHistory?.Games.ToJavascriptArrayAsync(MetadataService));
+	</script>
+}

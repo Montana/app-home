@@ -1,17 +1,19 @@
-﻿using Microsoft.Halo.Core.DataContracts;
+﻿using Branch.Service.Halo4.Services;
+using Microsoft.Halo.Core.DataContracts;
 using Microsoft.Halo.Core.DataContracts.Abstracts;
 using Microsoft.Halo.Core.DataContracts.Enums;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Branch.Web.Areas.Halo4.Extentions
 {
 	public static class GameHistoryExtentions
 	{
-		public static string ToJavascriptArray(this IReadOnlyCollection<GameHistory> gameHistory)
+		public static async Task<string> ToJavascriptArrayAsync(this IReadOnlyCollection<GameHistory> gameHistory, MetadataService metadataService)
 		{
-			var sb = new StringBuilder();
+			var javascriptObjectArray = new List<object>();
 
 			foreach (WarGameHistory game in gameHistory)
 			{
@@ -35,23 +37,23 @@ namespace Branch.Web.Areas.Halo4.Extentions
 						break;
 				}
 
-				var model = new
-				{
-					result = result,
-					resultClass = resultClass,
-					gameMode = game.PlaylistName,
-					featuredStatValue = game.FeaturedStatValue,
-					featuredStatName = game.FeaturedStatName,
-					map = game.MapVariantName,
-					baseMapName = "complex", // TODO: this
-					endDate = game.EndDateUtc.ToString("dddd, MMMM dd yyyy")
-				};
+				var mapMetadata = (await metadataService.GetMetadataAsync()).MapsMetadata.Maps.First(m => m.Id == game.MapId);
 
-				sb.Append(JsonConvert.SerializeObject(model));
-				sb.Append(",");
+				javascriptObjectArray.Add(new
+				{
+					Result = result,
+					ResultClass = resultClass,
+					GameMode = game.VariantName,
+					FeaturedStatValue = game.FeaturedStatValue,
+					FeaturedStatName = game.FeaturedStatName,
+					Map = game.MapVariantName,
+					BaseMapName = mapMetadata.Name,
+					BaseMapImageUrl = (await metadataService.ResolveAssetContainerAsync(mapMetadata.ImageUrl)),
+					EndDate = game.EndDateUtc.ToString("dddd, MMMM dd yyyy")
+				});
 			}
 
-			return sb.ToString();
+			return JsonConvert.SerializeObject(javascriptObjectArray);
 		}
 	}
 }

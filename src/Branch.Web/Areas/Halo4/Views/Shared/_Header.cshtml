@@ -1,0 +1,92 @@
+﻿@using Branch.Web.Areas.Halo4.ViewModels
+@using Branch.Helpers.Extentions
+@model ViewModelBase
+@{
+	string recentGameMapImage = "";
+	if (Model.GameHistory?.Games.Any() == true)
+	{
+		recentGameMapImage = await MetadataService.ResolveAssetContainerAsync((Model.GameHistory.Games.First() as WarGameHistory).MapImageUrl);
+	}
+}
+<header class="halo4-service-record" style="background-image: url(@recentGameMapImage)">
+	<div class="mask">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9">
+					<div class="row name-flairs">
+						<div class="spartan-csr hidden-sm hidden-xs col-md-1">
+							<csr-asset skill-rank="@Model.ServiceRecord.TopSkillRank" gamertag="@Model.ServiceRecord.Gamertag" height="72" />
+						</div>
+						<div class="col-md-10">
+							<h1>
+								@Model.ServiceRecord.Gamertag
+							</h1>
+							<h2>@Model.ServiceRecord.ServiceTag</h2>
+						</div>
+						<div class="visible-sm visible-xs col-md-1">
+							<csr-asset skill-rank="@Model.ServiceRecord.TopSkillRank" gamertag="@Model.ServiceRecord.Gamertag" height="72" />
+						</div>
+					</div>
+
+					<div class="row rank-flairs">
+						<div class="col-md-10">
+							<img class="hidden-xs" height="25" alt="" src="@await MetadataService.ResolveAssetContainerAsync(Model.ServiceRecord.RankImageUrl, "large")">
+
+							<div class="progress">
+								<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+									<span class="progress-bar-indicator">100% Complete</span>
+									<span class="sr-only">100% Complete</span>
+								</div>
+							</div>
+							<div class="XP">
+								<div class="left lower-bound">338,400 Xp</div>
+								<div class="right upper-bound"></div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+
+					@if (Model.GameHistory != null && Model.GameHistory.Games.Any())
+					{
+						var game = Model.GameHistory.Games.First() as WarGameHistory;
+						var result = "Did Not Finish";
+						var resultClass = "dnf";
+						switch (game.Result)
+						{
+							case GameResult.Won:
+								result = "Victory";
+								resultClass = "victory";
+								break;
+
+							case GameResult.Lost:
+								result = "Defeat";
+								resultClass = "defeat";
+								break;
+
+							case GameResult.Draw:
+								result = "Tie";
+								resultClass = "dnf";
+								break;
+						}
+
+						<div class="row recent-match">
+							Recent Matches:
+							<br />
+							<span id="recent-match-details" class="details">
+								<strong class="@resultClass">@result</strong> playing <strong>@game.ModeName</strong> on <strong>@game.MapVariantName</strong>,<br />
+								with <strong>@game.FeaturedStatValue</strong> @game.FeaturedStatName <br />
+								<span class="date">
+									&raquo; on @game.EndDateUtc.ToString("dddd, MMMM dd yyyy")
+								</span>
+							</span>
+						</div>
+					}
+				</div>
+				<div class="col-md-3">
+					<div class="spartan-insignia hidden-sm hidden-xs" style="background-image: url(@await MetadataService.ResolveAssetContainerAsync(Model.ServiceRecord.EmblemImageUrl, "100");"></div>
+					<div class="spartan-image hidden-sm hidden-xs" style="background-image: url('@await MetadataService.ResolveSpartanImage(Model.ServiceRecord, "fullbody", "large")');"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>

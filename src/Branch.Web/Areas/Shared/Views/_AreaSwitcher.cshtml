@@ -1,0 +1,28 @@
+﻿@using Branch.Web.Areas.Shared.Enums
+@using Branch.Web.Areas.Shared.ViewModels;
+@using Branch.Helpers.Extentions
+@model AreaSwitcherViewModel
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+
+<article class="area-switcher @Model.Class" style="background-image: url('@Model.BackgroundImage')">
+	<div class="mask" style="background-color: @Model.Rgb.ToCssRgba(0.9);">
+		<div class="container">
+			<div class="selector-nav">
+				<ul class="nav-of-bar">
+					<li class="@(Model.Area == Area.XboxLive ? "active" : "")">
+						<a class="plain" href="/Xbox/@Model.Gamertag/">Xbox</a>
+					</li>
+					<li class="@(Model.Area == Area.HaloReach ? "active" : "")">
+						<a class="plain" href="/Xbox/@Model.Gamertag/Reach/">Halo: Reach</a>
+					</li>
+					<li class="@(Model.Area == Area.Halo4 ? "active" : "")">
+						<a class="plain" href="/Xbox/@Model.Gamertag/Halo4/">Halo 4</a>
+					</li>
+					<li class="@(Model.Area == Area.Halo5Guardians ? "active" : "")">
+						<a class="plain" href="/Xbox/@Model.Gamertag/Halo5">Halo 5: Guardians</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</article>

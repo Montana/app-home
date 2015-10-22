@@ -2,6 +2,8 @@
 
 var gulp = require("gulp"),
 	sass = require("gulp-sass"),
+	typescript = require("gulp-typescript"),
+	sourcemaps = require("gulp-sourcemaps"),
 	watch = require("gulp-watch"),
 	rimraf = require("rimraf"),
 	fs = require("fs");
@@ -19,6 +21,7 @@ gulp.task("clean", function (cb) {
 
 gulp.task('watch', function () {
 	gulp.watch('./Assets/scss/**/*.scss', ['sass']);
+	gulp.watch('./Assets/typescript/**/*.ts', ['typescript']);
 });
 
 gulp.task('sass', function () {
@@ -27,10 +30,24 @@ gulp.task('sass', function () {
 		.pipe(gulp.dest(project.webroot + '/css'));
 });
 
+gulp.task('typescript', function () {
+	var tsResult = gulp.src('./Assets/typescript/**/*.ts')
+		.pipe(sourcemaps.init())
+		.pipe(typescript({
+			noImplicitAny: true,
+			noExternalResolve: true,
+			declaration: true
+		}));
+
+	tsResult.js
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest(project.webroot + '/js'))
+});
+
 gulp.task("copy", ["clean"], function () {
 	var bower = {
 		"bootstrap": "bootstrap/dist/**/*.{js,map,css,ttf,svg,woff,eot}",
-		"jquery": "jquery/jquery*.{js,map}",
+		"jquery": "jquery/dist/jquery*.{js,map}",
 		"jquery-validation": "jquery-validation/jquery.validate.js",
 		"jquery-validation-unobtrusive": "jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
 		"particles.js": "**/particles.js"
@@ -38,6 +55,6 @@ gulp.task("copy", ["clean"], function () {
 
 	for (var destinationDir in bower) {
 		gulp.src(paths.bower + bower[destinationDir])
-		  .pipe(gulp.dest(paths.lib + destinationDir));
+			.pipe(gulp.dest(paths.lib + destinationDir));
 	}
 });

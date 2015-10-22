@@ -1,12 +1,6 @@
-﻿@using Branch.Web.Areas.XboxLive.ViewModels
-@using Microsoft.Xbox.Core.DataContracts
-@using Branch.Helpers.Extentions
-@model AchievementsViewModel
+﻿@model AchievementsViewModel
 @addTagHelper "*, Branch.Service.XboxLive"
 @{
-	Layout = "/Areas/XboxLive/Views/Shared/_Layout.cshtml";
-	ViewBag.Title = $"{Model.ProfileUser.Settings.First(s => s.Id == "Gamertag").Value}'s Achievements";
-
 	var primaryRgb = Model.PreferredColors.PrimaryColor;
 	var secondaryRgb = Model.PreferredColors.SecondaryColor;
 	var tertiaryRgb = Model.PreferredColors.TertiaryColor;
@@ -15,11 +9,13 @@
 	var reputation = Model.ProfileUser.Settings.First(s => s.Id == "XboxOneRep").Value;
 	var biography = Model.ProfileUser.Settings.First(s => s.Id == "Bio").Value;
 	var sidebar = new SidebarViewModel(gamertag, SidebarOption.Achievements);
+
+	ViewBag.Title = $"{gamertag}'s Achievements";
 }
 
 @await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_Header", Model)
 
-@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_AreaSwitcher", Model)
+@await Html.PartialAsync("/Areas/Shared/Views/_AreaSwitcher", new AreaSwitcherViewModel(secondaryRgb, "xboxlive", Model.ProfileUser.Settings.First(s => s.Id == "GameDisplayPicRaw").Value, gamertag, Area.XboxLive))
 
 <main class="xboxlive-showcase">
 	<div class="container">
