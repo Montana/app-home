@@ -1,4 +1,6 @@
-﻿@using Branch.Service.Halo4.Services
+﻿@using Branch.Helpers.Extentions;
+@using Branch.Service.Halo4.Extentions
+@using Branch.Service.Halo4.Services
 @using Branch.Web.Areas.Halo4.Extentions
 @using Branch.Web.Areas.Halo4.ViewModels
 @using Branch.Web.Areas.Shared.Enums
@@ -6,5 +8,7 @@
 @using Microsoft.Halo.Core.DataContracts
 @using Microsoft.Halo.Core.DataContracts.Abstracts;
 @using Microsoft.Halo.Core.DataContracts.Enums;
+@using System.Globalization
 @inject MetadataService MetadataService
 @addTagHelper "*, Branch.Web"
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"

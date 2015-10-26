@@ -9,7 +9,7 @@ namespace Microsoft.Halo.Core.DataContracts.Abstracts
 		public GameModeDetailsFull() { }
 
 		[JsonProperty("Id")]
-		public uint Id { get; set; }
+		public GameMode Id { get; set; }
 
 		[JsonProperty("TotalDuration")]
 		public TimeSpan TotalDuration { get; set; }

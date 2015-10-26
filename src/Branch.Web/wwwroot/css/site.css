@@ -455,7 +455,7 @@ header.halo4-service-record {
         -ms-filter: "FlipH";
         filter: FlipH;
         position: absolute;
-        top: -100px;
+        top: -90px;
         right: -20px;
         margin-bottom: -40px; }
       header.halo4-service-record > .mask > .container .col-md-3 .spartan-insignia {
@@ -464,8 +464,137 @@ header.halo4-service-record {
         background-repeat: no-repeat;
         background-position: top left;
         position: absolute;
-        top: -40px;
+        top: -30px;
         right: 190px; }
 
-.swag {
-  height: 30px; }
+main.halo4-service-record .game-history .game-history-entry {
+  margin: 20px 0;
+  padding: 0 10px;
+  height: 220px;
+  overflow: hidden; }
+  main.halo4-service-record .game-history .game-history-entry.selected {
+    box-shadow: 0px 0px 10px red; }
+  main.halo4-service-record .game-history .game-history-entry > a {
+    color: white; }
+    main.halo4-service-record .game-history .game-history-entry > a:hover {
+      text-decoration: none;
+      color: white; }
+    main.halo4-service-record .game-history .game-history-entry > a > .game-history-container {
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 100%;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box; }
+      main.halo4-service-record .game-history .game-history-entry > a > .game-history-container:hover > .mask {
+        opacity: 1.0; }
+      main.halo4-service-record .game-history .game-history-entry > a > .game-history-container > .mask {
+        width: 100%;
+        height: 100%;
+        opacity: 0.4;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        -moz-transition: 0.25s ease;
+        -o-transition: 0.25s ease;
+        -webkit-transition: 0.25s ease;
+        transition: 0.25s ease; }
+        main.halo4-service-record .game-history .game-history-entry > a > .game-history-container > .mask.dnf {
+          /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+          background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPHJhZGlhbEdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNzUlIj4KICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNzI3MjcyIiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHg9Ii01MCIgeT0iLTUwIiB3aWR0aD0iMTAxIiBoZWlnaHQ9IjEwMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+          background: -moz-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0) 0%, #727272 100%);
+          /* FF3.6+ */
+          background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #727272));
+          /* Chrome,Safari4+ */
+          background: -webkit-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0) 0%, #727272 100%);
+          /* Chrome10+,Safari5.1+ */
+          background: -o-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0) 0%, #727272 100%);
+          /* Opera 12+ */
+          background: -ms-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0) 0%, #727272 100%);
+          /* IE10+ */
+          background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0) 0%, #727272 100%);
+          /* W3C */
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#727272',GradientType=1 );
+          /* IE6-8 fallback on horizontal gradient */ }
+        main.halo4-service-record .game-history .game-history-entry > a > .game-history-container > .mask.defeat {
+          /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+          background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPHJhZGlhbEdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNzUlIj4KICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNzI3MjcyIiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHg9Ii01MCIgeT0iLTUwIiB3aWR0aD0iMTAxIiBoZWlnaHQ9IjEwMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+          background: -moz-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0) 0%, rgba(213, 19, 14, 0.5) 100%);
+          /* FF3.6+ */
+          background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(213, 19, 14, 0.5)));
+          /* Chrome,Safari4+ */
+          background: -webkit-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0) 0%, rgba(213, 19, 14, 0.5) 100%);
+          /* Chrome10+,Safari5.1+ */
+          background: -o-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0) 0%, rgba(213, 19, 14, 0.5) 100%);
+          /* Opera 12+ */
+          background: -ms-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0) 0%, rgba(213, 19, 14, 0.5) 100%);
+          /* IE10+ */
+          background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0) 0%, rgba(213, 19, 14, 0.5) 100%);
+          /* W3C */
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#aad5130e',GradientType=1 );
+          /* IE6-8 fallback on horizontal gradient */ }
+        main.halo4-service-record .game-history .game-history-entry > a > .game-history-container > .mask.victory {
+          /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+          background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPHJhZGlhbEdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNzUlIj4KICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNzI3MjcyIiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHg9Ii01MCIgeT0iLTUwIiB3aWR0aD0iMTAxIiBoZWlnaHQ9IjEwMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+          background: -moz-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0) 0%, rgba(10, 133, 190, 0.5) 100%);
+          /* FF3.6+ */
+          background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(10, 133, 190, 0.5)));
+          /* Chrome,Safari4+ */
+          background: -webkit-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0) 0%, rgba(10, 133, 190, 0.5) 100%);
+          /* Chrome10+,Safari5.1+ */
+          background: -o-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0) 0%, rgba(10, 133, 190, 0.5) 100%);
+          /* Opera 12+ */
+          background: -ms-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0) 0%, rgba(10, 133, 190, 0.5) 100%);
+          /* IE10+ */
+          background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0) 0%, rgba(10, 133, 190, 0.5) 100%);
+          /* W3C */
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#aa0a85be',GradientType=1 );
+          /* IE6-8 fallback on horizontal gradient */ }
+      main.halo4-service-record .game-history .game-history-entry > a > .game-history-container > .gametype-icon {
+        width: 100%;
+        height: 100%;
+        top: 10px;
+        right: 20px;
+        position: absolute;
+        background-position: top right;
+        background-repeat: no-repeat; }
+      main.halo4-service-record .game-history .game-history-entry > a > .game-history-container > .inner {
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        height: 100%;
+        width: 100%;
+        overflow: hidden; }
+        main.halo4-service-record .game-history .game-history-entry > a > .game-history-container > .inner .gametype {
+          font-size: 25px;
+          font-weight: 600;
+          opacity: 0.7; }
+        main.halo4-service-record .game-history .game-history-entry > a > .game-history-container > .inner .selector {
+          opacity: 0.7; }
+        main.halo4-service-record .game-history .game-history-entry > a > .game-history-container > .inner .map-name {
+          font-size: 20px;
+          font-weight: 500; }
+        main.halo4-service-record .game-history .game-history-entry > a > .game-history-container > .inner .stats {
+          position: absolute;
+          bottom: -5px;
+          left: 0; }
+          main.halo4-service-record .game-history .game-history-entry > a > .game-history-container > .inner .stats > .type {
+            font-size: 20px; }
+          main.halo4-service-record .game-history .game-history-entry > a > .game-history-container > .inner .stats > .stat {
+            font-size: 80px;
+            font-weight: 200;
+            opacity: 0.6; }
+        main.halo4-service-record .game-history .game-history-entry > a > .game-history-container > .inner .windicator {
+          position: absolute;
+          right: 25px;
+          bottom: -10px;
+          opacity: 0.3;
+          font-size: 60px;
+          font-weight: 900;
+          text-transform: uppercase; }
+          @media (min-width: 1200px) {
+            main.halo4-service-record .game-history .game-history-entry > a > .game-history-container > .inner .windicator {
+              opacity: 0.3;
+              font-size: 40px;
+              bottom: -5px;
+              font-weight: 900; } }

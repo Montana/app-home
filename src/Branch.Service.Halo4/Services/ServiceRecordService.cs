@@ -81,9 +81,9 @@ namespace Branch.Service.Halo4.Services
 
 			// Update documentdb and return data if it exists in the DocumentDb
 			if (serviceRecordMetadata != null)
-				cachedServiceRecord = await Halo4DdbRepository.UpdateAsync<ServiceRecordDetailsFull>(serviceRecordMetadata.DocumentId, serviceRecordResponse);
+				cachedServiceRecord = await Halo4DdbRepository.UpdateAsync(serviceRecordMetadata.DocumentId, serviceRecordResponse);
 			else
-				cachedServiceRecord = await Halo4DdbRepository.CreateAsync<ServiceRecordDetailsFull>(serviceRecordResponse);
+				cachedServiceRecord = await Halo4DdbRepository.CreateAsync(serviceRecordResponse);
 
 			// Create DocumentDb and Database entry
 			var serviceRecord = _serviceRecordRepository.Where(sr => sr.Xuid == playerXuid).FirstOrDefault();

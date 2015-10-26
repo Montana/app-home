@@ -6,6 +6,7 @@
 		"jquery": "2.1.4",
 		"jquery-validation": "1.11.1",
 		"jquery-validation-unobtrusive": "3.2.2",
-		"particles.js": "2.0.0"
+		"particles.js": "2.0.0",
+		"chartjs": "1.0.2"
 	}
 }

@@ -50,7 +50,8 @@ gulp.task("copy", ["clean"], function () {
 		"jquery": "jquery/dist/jquery*.{js,map}",
 		"jquery-validation": "jquery-validation/jquery.validate.js",
 		"jquery-validation-unobtrusive": "jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
-		"particles.js": "**/particles.js"
+		"particles.js": "**/particles.js",
+		"chartjs": "chartjs/Chart.{js,map}"
 	}
 
 	for (var destinationDir in bower) {

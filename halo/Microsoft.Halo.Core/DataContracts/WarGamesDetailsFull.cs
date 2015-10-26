@@ -19,7 +19,7 @@ namespace Microsoft.Halo.Core.DataContracts
 		public uint AveragePersonalScore { get; set; }
 
 		[JsonProperty("KDRatio")]
-		public decimal KDRatio { get; set; }
+		public decimal KillDeathRatio { get; set; }
 
 		[JsonProperty("TotalGameBaseVariantMedals")]
 		public uint TotalGameBaseVariantMedals { get; set; }

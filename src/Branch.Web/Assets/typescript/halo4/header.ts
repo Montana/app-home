@@ -29,7 +29,7 @@ with <strong>' + recentGame.FeaturedStatValue + '</strong> ' + recentGame.Featur
 					';
 
 			var elem = $("#recent-match-details");
-			$('.halo4-service-record').attr('style', 'background-image:url(' + recentGame.BaseMapImageUrl + ')')
+			$('header.halo4-service-record').attr('style', 'background-image:url(' + recentGame.BaseMapImageUrl + ')')
 			elem.fadeOut(600, function () {
 				elem.html(newContent);
 				elem.fadeIn(600);

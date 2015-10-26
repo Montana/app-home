@@ -5,6 +5,17 @@
 @RenderBody()
 
 @section scripts {
+	<environment names="Development">
+		<script src="~/lib/chartjs/Chart.js"></script>
+	</environment>
+	<environment names="Staging,Production">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"
+				asp-fallback-src="~/lib/chartjs/Chart.js"
+				asp-fallback-test="window.Chart">
+		</script>
+	</environment>
+
 	<script src="~/js/halo4/header.js"></script>
+
 	@RenderSection("scripts", false)
 }

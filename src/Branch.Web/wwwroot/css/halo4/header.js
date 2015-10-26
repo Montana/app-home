@@ -7,7 +7,7 @@ window.onload = function () {
             var newContent = '\
 <strong class="' + recentGame.ResultClass + '">' + recentGame.Result + '</strong> \
 playing <strong>' + recentGame.GameMode + '</strong> \
-on <strong>' + recentGame.BaseMapName + '</strong>, <br /> \
+on <strong>' + recentGame.Map + '</strong>, <br /> \
 with <strong>' + recentGame.FeaturedStatValue + '</strong> ' + recentGame.FeaturedStatName + ' <br /> \
 <span class="date">&raquo; on ' + recentGame.EndDate + '</span> \
 					';

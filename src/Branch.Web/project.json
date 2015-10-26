@@ -1,17 +1,19 @@
 {
 	"version": "0.1.0-alpha-*",
 	"description": "",
-	"authors": [ "Alex Forbes-Reed" ],
-	"tags": [ "" ],
+	"authors": [
+		"Alex Forbes-Reed"
+	],
+	"tags": [
+		""
+	],
 	"projectUrl": "",
 	"licenseUrl": "",
-
 	"userSecretsId": "aspnet5-Branch.vNext-20150505034655",
 	"webroot": "wwwroot",
-
 	"dependencies": {
 		"Branch.Service.Halo4": "",
-		"Branch.Service.XboxLive": "1.0.0-*",
+		"Branch.Service.XboxLive": "",
 		"Microsoft.AspNet.Diagnostics": "1.0.0-beta8",
 		"Microsoft.AspNet.Mvc": "6.0.0-beta8",
 		"Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta8",
@@ -26,21 +28,18 @@
 		"Microsoft.Framework.Logging.Console": "1.0.0-beta8",
 		"Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-beta8"
 	},
-
 	"commands": {
 		"ef": "EntityFramework.Commands",
 		"gen": "Microsoft.Framework.CodeGeneration",
-		"web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000",
-		"kestrel dev": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.Kestrel --ASPNET_ENV development --server.urls http://branch.dev:3001",
-		"kestrel prod": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.Kestrel --ASPNET_ENV production --server.urls http://branch.prod:3001",
-		"watch kestrel dev": "dnx-watch 'kestrel dev' --debug 1",
-		"watch kestrel prod": "dnx-watch 'kestrel prod'"
+		"web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:4000",
+		"kestrel-dev": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.Kestrel --ASPNET_ENV development --server.urls http://branch.dev:3000",
+		"kestrel-prod": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.Kestrel --ASPNET_ENV production --server.urls http://branch.prod:3000",
+		"watch-kestrel-dev": "dnx-watch kestrel-dev --debug 1",
+		"watch-kestrel-prod": "dnx-watch kestrel-prod"
 	},
-
 	"frameworks": {
 		"dnx451": { }
 	},
-
 	"exclude": [
 		"wwwroot",
 		"node_modules",
@@ -53,6 +52,5 @@
 		"**.user",
 		"**.vspscc"
 	],
-	"scripts": {
-	}
+	"scripts": { }
 }

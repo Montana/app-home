@@ -34,9 +34,7 @@ namespace Branch.Service.Halo4.Services
 		private static Metadata _cachedMetadata = null;
 
 		private static WebAppSettings _cachedWebAppSettings = null;
-
-		private readonly TimeSpan CacheRefreshTime = new TimeSpan(12, 0, 0);
-
+		
 		public async Task<WebAppSettings> GetWebAppSettingsAsync()
 		{
 			if (_cachedWebAppSettings != null)
