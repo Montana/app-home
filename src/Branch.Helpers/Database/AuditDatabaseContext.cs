@@ -11,23 +11,36 @@ namespace Branch.Helpers.Database
 	{
 		#region [ Overrides & Audit ]
 
+		/// <summary>
+		/// Save pending changes to the database.
+		/// </summary>
+		/// <returns>Returns the number of changes saved.</returns>
 		public override int SaveChanges()
 		{
 			UpdateAuditInformation();
 			return base.SaveChanges();
 		}
 
+		/// <summary>
+		/// Gets the tracker entries.
+		/// </summary>
 		private IEnumerable<EntityEntry> ChangeTrackerEntries
 		{
 			get { return ChangeTracker.Entries().AsEnumerable(); }
 		}
 
+		/// <summary>
+		/// Updates the added and modified audit information.
+		/// </summary>
 		private void UpdateAuditInformation()
 		{
 			UpdateAddedEntries();
 			UpdateModifiedEntries();
 		}
 
+		/// <summary>
+		/// Updates the added entries, sets their Created At, and Updated At times.
+		/// </summary>
 		private void UpdateAddedEntries()
 		{
 			var addedEntries = ChangeTrackerEntries.Where(e => e.State == EntityState.Added && e.Entity is Audit).Select(e => e.Entity as Audit);
@@ -35,6 +48,9 @@ namespace Branch.Helpers.Database
 				addedEntry.UpdatedAt = addedEntry.CreatedAt = DateTime.UtcNow;
 		}
 
+		/// <summary>
+		/// Updates the modified entries, sets their Updated At times.
+		/// </summary>
 		private void UpdateModifiedEntries()
 		{
 			var modifiedEntries = ChangeTrackerEntries.Where(e => e.State == EntityState.Modified && e.Entity is Audit).Select(e => e.Entity as Audit);
