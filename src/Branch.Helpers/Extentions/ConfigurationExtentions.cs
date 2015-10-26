@@ -13,7 +13,7 @@ namespace Branch.Helpers.Extentions
 			return configuration ?? new ConfigurationBuilder()
 				.SetBasePath(appEnv.ApplicationBasePath)
 				.AddUserSecrets()
-				//.AddEnvironmentVariables()
+				.AddEnvironmentVariables()
 				.Build();
 		}
 	}

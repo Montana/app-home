@@ -15,6 +15,7 @@
 		"Microsoft.Framework.Configuration": "1.0.0-beta8",
 		"Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
 		"Microsoft.Framework.Configuration.UserSecrets": "1.0.0-beta8",
+		"Microsoft.Framework.Configuration.EnvironmentVariables": "1.0.0-beta8",
 		"Microsoft.Net.Http": "2.2.29"
 	},
 
