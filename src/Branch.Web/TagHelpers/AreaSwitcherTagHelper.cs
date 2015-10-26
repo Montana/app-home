@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Microsoft.AspNet.Razor.Runtime.TagHelpers;
 
-namespace Branch.Helpers.TagHelpers
+namespace Branch.Web.TagHelpers
 {
 	public enum AreaTypes
 	{
