@@ -10,19 +10,19 @@
 			<div class="selector-nav">
 				<ul class="nav-of-bar">
 					<li class="@(Model.Area == Area.XboxLive ? "active" : "")">
-						<a class="plain" href="/Xbox/@Model.Gamertag/">Xbox</a>
+						<a class="plain" asp-route-area="Xbox" asp-controller="Showcase" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Xbox</a>
 					</li>
 					<li class="@(Model.Area == Area.Halo3 ? "active" : "")">
-						<a class="plain" href="/Xbox/@Model.Gamertag/Halo3/">Halo 3</a>
+						<a class="plain" asp-route-area="Halo3" asp-controller="ServiceRecord" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Halo 3</a>
 					</li>
 					<li class="@(Model.Area == Area.HaloReach ? "active" : "")">
-						<a class="plain" href="/Xbox/@Model.Gamertag/Reach/">Halo: Reach</a>
+						<a class="plain" asp-route-area="HaloReach" asp-controller="ServiceRecord" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Halo: Reach</a>
 					</li>
 					<li class="@(Model.Area == Area.Halo4 ? "active" : "")">
-						<a class="plain" href="/Xbox/@Model.Gamertag/Halo4/">Halo 4</a>
+						<a class="plain" asp-route-area="Halo4" asp-route-controller="ServiceRecord" asp-route-action="Index" asp-route-gamertag="@Model.Gamertag">Halo 4	</a>
 					</li>
 					<li class="@(Model.Area == Area.Halo5Guardians ? "active" : "")">
-						<a class="plain" href="/Xbox/@Model.Gamertag/Halo5">Halo 5: Guardians</a>
+						<a class="plain" asp-route-area="Halo5" asp-controller="ServiceRecord" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Halo 5: Guardians</a>
 					</li>
 				</ul>
 			</div>

@@ -1,0 +1,39 @@
+﻿main.halo4-commendations {
+	.entry {
+		margin-bottom: 35px;
+		height: 200px;
+		border: 1px solid #eee;
+
+		> .title {
+			font-size: 16px;
+
+			> .numerical {
+				font-size: 30px;
+				font-weight: 300;
+				color: #aaa;
+			}
+		}
+
+		> .description {
+			font-size: 14px;
+			color: #aaa;
+		}
+
+		> .progression {
+			margin-top: 20px;
+
+			> .points {
+				display: inline;
+				color: #aaa;
+
+				> .lower {
+					float: left;
+				}
+
+				> .upper {
+					float: right;
+				}
+			}
+		}
+	}
+}

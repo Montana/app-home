@@ -598,3 +598,26 @@ main.halo4-service-record .game-history .game-history-entry {
               font-size: 40px;
               bottom: -5px;
               font-weight: 900; } }
+
+main.halo4-commendations .entry {
+  margin-bottom: 35px;
+  height: 200px;
+  border: 1px solid #eee; }
+  main.halo4-commendations .entry > .title {
+    font-size: 16px; }
+    main.halo4-commendations .entry > .title > .numerical {
+      font-size: 30px;
+      font-weight: 300;
+      color: #aaa; }
+  main.halo4-commendations .entry > .description {
+    font-size: 14px;
+    color: #aaa; }
+  main.halo4-commendations .entry > .progression {
+    margin-top: 20px; }
+    main.halo4-commendations .entry > .progression > .points {
+      display: inline;
+      color: #aaa; }
+      main.halo4-commendations .entry > .progression > .points > .lower {
+        float: left; }
+      main.halo4-commendations .entry > .progression > .points > .upper {
+        float: right; }

@@ -3,9 +3,10 @@
 @{
 	var gamertag = @Model.ServiceRecord.Gamertag;
 	ViewBag.Title = $"{gamertag}'s Service Record";
+	var sidebar = new SidebarViewModel(gamertag, SidebarOption.ServiceRecord);
 }
 
-@await Html.PartialAsync("/Areas/Halo4/Views/Shared/_Header", Model)
+@await Html.PartialAsync("_Header", Model)
 
 @await Html.PartialAsync("/Areas/Shared/Views/_AreaSwitcher", new AreaSwitcherViewModel("2A2D53", "halo4", "", gamertag, Area.Halo4))
 
@@ -101,50 +102,7 @@
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div class="sidebar">
-					<ul class="nav sidenav">
-						<li class="active">
-							<a href="#">
-								<span class="glyphicon glyphicon-tree-deciduous"></span> Branch
-							</a>
-
-							<ul class="nav">
-								<li class="active">
-									<a href="#">Service Record</a>
-								</li>
-
-								<li class="">
-									<a href="#">Game History</a>
-									<ul class="nav">
-										<li><a href="#">Matchmaking</a></li>
-										<li><a href="#">Custom Games</a></li>
-										<li><a href="#">Campaign</a></li>
-										<li><a href="#">Spartan Ops</a></li>
-									</ul>
-								</li>
-
-								<li class="">
-									<a href="#">Competitive Skill Rank</a>
-								</li>
-
-								<li class="">
-									<a href="#">Commendations</a>
-									<ul class="nav">
-										<li><a href="#">Weapons</a></li>
-										<li><a href="#">Enemies</a></li>
-										<li><a href="#">Vehicles</a></li>
-										<li><a href="#">Ipsum</a></li>
-										<li><a href="#">Lorem</a></li>
-									</ul>
-								</li>
-
-								<li class="">
-									<a href="#">Specializations</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
+				@await Html.PartialAsync("_Sidebar", sidebar)
 			</div>
 		</div>
 	</div>

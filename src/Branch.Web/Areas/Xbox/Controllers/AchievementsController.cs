@@ -20,9 +20,9 @@ namespace Branch.Web.Areas.XboxLive.Controllers
 		public EntertainmentDiscoveryService EntertainmentDiscoveryService { get; set; }
 
 		public const int AchievementsPerPage = 10;
-
-		[HttpGet("Achievements/{page?}")]
-		public async Task<IActionResult> Get(string gamertag, uint page = 0)
+		
+		[HttpGet("achievements/{page?}")]
+		public async Task<IActionResult> Index(string gamertag, uint page = 0)
 		{
 			var profileSettings = (await UserService.GetProfileDetails(gamertag)).Users.First();
 			var playerXuid = profileSettings.Xuid;
@@ -41,13 +41,12 @@ namespace Branch.Web.Areas.XboxLive.Controllers
 
 			var edsDurangoTitleInfo = await EntertainmentDiscoveryService.GetMediaDetailsBatch(durangoTitleHistoryTask.Result.Titles.Select(t => t.TitleId));
 
-			return View("/Areas/XboxLive/Views/Achievements/Index", 
-				new AchievementsViewModel(
-					profileSettings, profileSummaryTask.Result, profilePreferredColorTask.Result, 
-					page, userTitles, hasAnymoreTitles, edsDurangoTitleInfo));
+			return View(new AchievementsViewModel(
+							profileSettings, profileSummaryTask.Result, profilePreferredColorTask.Result, 
+							page, userTitles, hasAnymoreTitles, edsDurangoTitleInfo));
 		}
 
-		[HttpGet("Achievements/{titleId}-{slug}")]
+		[HttpGet("achievements/{titleId}-{slug}")]
 		public async Task<IActionResult> GetXboxOneAchievementDetails(string gamertag, string titleId, string slug)
 		{
 			var profileSettings = (await UserService.GetProfileDetails(gamertag)).Users.First();
@@ -64,7 +63,7 @@ namespace Branch.Web.Areas.XboxLive.Controllers
 			
 			//var edsDurangoTitleInfo = await EntertainmentDiscoveryService.GetMediaDetailsBatch(durangoTitleHistoryTask.Result.Titles.Select(t => t.TitleId));
 
-			return View("/Areas/XboxLive/Views/Achievements/Index");
+			return View();
 		}
 	}
 }

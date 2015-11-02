@@ -1,0 +1,72 @@
+﻿@model CommendationsViewModel
+@{
+	var gamertag = @Model.ServiceRecord.Gamertag;
+	ViewBag.Title = $"{gamertag}'s Halo 4 Commendations";
+	var sidebar = new SidebarViewModel(gamertag, SidebarOption.Commendations, Model.CommendationCategory);
+}
+
+@await Html.PartialAsync("_Header", Model)
+
+@await Html.PartialAsync("/Areas/Shared/Views/_AreaSwitcher", new AreaSwitcherViewModel("2A2D53", "halo4", "", gamertag, Area.Halo4))
+
+<main class="halo4-commendations">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<h3>Commendations</h3>
+
+				@foreach (var commendation in Model.Commendations.Commendations.Where(c => c.Category == Model.CommendationCategory))
+				{
+					<div class="col-lg-5 col-md-6 entry">
+						<div class="title">
+							<span class="numerical">
+								@commendation.LevelId / @((await MetadataService.GetMetadataAsync()).CommendationsMetadata.CommendationLevels.Where(c => c.CommendationId == commendation.Id).Count())
+							</span>
+							@if (string.IsNullOrEmpty(commendation.LevelName))
+							{
+								@(commendation.Name + Html.Raw(" - Learner"))
+							}
+							else
+							{
+								@commendation.LevelName
+							}
+						</div>
+						<div class="description">@commendation.Description</div>
+
+						@{
+							var percentage = Math.Round(commendation.NextLevel.ProgressToNextLevel * 100, 2);
+						}
+						<div class="progression">
+							<div class="points">
+								<div class="lower">@commendation.LevelStartTicks</div>
+								<div class="upper">@commendation.NextLevel.NextLevelStartTicks</div>
+								<div class="clearfix"></div>
+							</div>
+
+
+							<div class="progress">
+								<div class="progress-bar" role="progressbar"
+									 aria-valuenow="@percentage" aria-valuemin="0"
+									 aria-valuemax="100" style="width: @percentage%">
+									<span class="sr-only">@percentage% Complete</span>
+									<span class="progress-bar-indicator">@percentage% Complete</span>
+								</div>
+							</div>
+						</div>
+						<hr />
+					</div>
+					<div class="visible-lg col-md-1"></div>
+
+							}
+
+			</div>
+			<div class="col-md-3">
+				@await Html.PartialAsync("_Sidebar", sidebar)
+			</div>
+		</div>
+	</div>
+</main>
+
+@section scripts {
+	
+}

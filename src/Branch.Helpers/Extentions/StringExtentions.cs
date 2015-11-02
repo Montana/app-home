@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Branch.Helpers.Extentions
 {
@@ -33,6 +34,16 @@ namespace Branch.Helpers.Extentions
 		{
 			var rgbParts = hexColour.Replace("#", "").SplitEvery(2).ToArray();
 			return $"rgba({rgbParts[0].ToDecimal()},{rgbParts[1].ToDecimal()},{rgbParts[2].ToDecimal()},{opacity})";
+		}
+
+		public static bool TryParseToEnum<T>(this string value, bool ignoreCase, out T output)
+			where T : struct
+		{
+			// strip and sanitise non-legal enum name chars
+			value = Regex.Replace(value, @"[^a-z]+[^a-zA-Z0-9]*", "");
+
+			// conventional TryParse
+			return Enum.TryParse<T>(value, ignoreCase, out output);
 		}
 	}
 }

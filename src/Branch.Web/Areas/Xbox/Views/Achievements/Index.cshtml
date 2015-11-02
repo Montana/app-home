@@ -13,7 +13,7 @@
 	ViewBag.Title = $"{gamertag}'s Achievements";
 }
 
-@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_Header", Model)
+@await Html.PartialAsync("_Header", Model)
 
 @await Html.PartialAsync("/Areas/Shared/Views/_AreaSwitcher", new AreaSwitcherViewModel(secondaryRgb, "xboxlive", Model.ProfileUser.Settings.First(s => s.Id == "GameDisplayPicRaw").Value, gamertag, Area.XboxLive))
 
@@ -26,12 +26,12 @@
 					if (userTitle is DurangoUserTitle)
 					{
 						var mediaItem = Model.MediaItems.First(m => m.TitleId == userTitle.TitleId);
-						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/Achievement/_DurangoAchievementPreview", Tuple.Create<DurangoUserTitle, MediaItem, string, string>(userTitle as DurangoUserTitle, mediaItem, primaryRgb, secondaryRgb))
+						@await Html.PartialAsync("Achievement/_DurangoAchievementPreview", Tuple.Create<DurangoUserTitle, MediaItem, string, string>(userTitle as DurangoUserTitle, mediaItem, primaryRgb, secondaryRgb))
 					}
 
 					if (userTitle is LegacyUserTitle)
 					{
-						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/Achievement/_LegacyAchievementPreview", Tuple.Create<LegacyUserTitle, string, string>(userTitle as LegacyUserTitle, primaryRgb, secondaryRgb))
+						@await Html.PartialAsync("Achievement/_LegacyAchievementPreview", Tuple.Create<LegacyUserTitle, string, string>(userTitle as LegacyUserTitle, primaryRgb, secondaryRgb))
 					}
 				}
 
@@ -55,7 +55,7 @@
 			</div>
 
 			<div class="col-md-3">
-				@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_Sidebar", sidebar)
+				@await Html.PartialAsync("_Sidebar", sidebar)
 			</div>
 		</div>
 	</div>

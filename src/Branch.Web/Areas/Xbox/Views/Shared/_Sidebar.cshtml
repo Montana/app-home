@@ -1,5 +1,6 @@
 ﻿@using Branch.Web.Areas.XboxLive.ViewModels
 @model SidebarViewModel
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
 <div class="sidebar">
 	<ul class="nav sidenav">
 		<li class="active">
@@ -9,23 +10,23 @@
 
 			<ul class="nav">
 				<li class="@(Model.SidebarOption.Equals(SidebarOption.Showcase) ? "active" : "")">
-					<a href="/Xbox/@Model.Gamertag">Showcase</a>
+					<a asp-controller="Showcase" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Showcase</a>
 				</li>
 
 				<li class="@(Model.SidebarOption.Equals(SidebarOption.Activity) ? "active" : "")">
-					<a href="/Xbox/@Model.Gamertag/Activity">Activity</a>
+					<a asp-controller="Activity" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Activity</a>
 				</li>
 
 				<li class="@(Model.SidebarOption.Equals(SidebarOption.Achievements) ? "active" : "")">
-					<a href="/Xbox/@Model.Gamertag/Achievements">Achievements</a>
+					<a asp-controller="Achievements" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Achievements</a>
 				</li>
 
 				<li class="@(Model.SidebarOption.Equals(SidebarOption.Following) ? "active" : "")">
-					<a href="/Xbox/@Model.Gamertag/Following">Following</a>
+					<a asp-controller="Following" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Following</a>
 				</li>
 
 				<li class="@(Model.SidebarOption.Equals(SidebarOption.GameClips) ? "active" : "")">
-					<a href="/Xbox/@Model.Gamertag/GameClips">Game Clips</a>
+					<a asp-controller="GameClips" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Game Clips</a>
 				</li>
 			</ul>
 		</li>

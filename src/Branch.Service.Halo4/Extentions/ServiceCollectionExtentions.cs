@@ -23,6 +23,7 @@ namespace Microsoft.Framework.DependencyInjection
 			services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
 			services.AddScoped<IServiceRecordRepository, ServiceRecordRepository>();
 			services.AddScoped<IGameHistoryRepository, GameHistoryRepository>();
+			services.AddScoped<ICommendationsRepository, CommendationsRepository>();
 			services.AddScoped<IMetadataRepository, MetadataRepository>();
 
 			// Add Halo 4 Services
@@ -30,6 +31,7 @@ namespace Microsoft.Framework.DependencyInjection
 			services.AddSingleton<AuthenticationService>();
 			services.AddSingleton<ServiceRecordService>();
 			services.AddSingleton<MatchHistoryService>();
+			services.AddSingleton<CommendationsService>();
 			services.AddSingleton<MetadataService>();
 
 			return services;

@@ -15,9 +15,10 @@ namespace Branch.Helpers.DocumentDb
 	public class DocumentDbRepository
 	{
 		/// <summary>
-		/// 
+		/// Creates a new DocumentDb Repository
 		/// </summary>
 		/// <param name="configuration"></param>
+		/// <param name="baseKey"></param>
 		public DocumentDbRepository(IConfiguration configuration, string baseKey)
 		{
 			var endpoint = configuration.Get<string>($"{baseKey}:DocumentDb:Endpoint");

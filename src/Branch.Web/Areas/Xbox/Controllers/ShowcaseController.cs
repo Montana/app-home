@@ -8,7 +8,9 @@ namespace Branch.Web.Areas.XboxLive.Controllers
 	public class ShowcaseController
 		: ControllerBase
 	{
-		public async Task<IActionResult> Get(string gamertag)
+		[HttpGet("")]
+		[HttpGet("showcase")]
+		public async Task<IActionResult> Index(string gamertag)
 		{
 			var profileSettings = await UserService.GetProfileDetails(gamertag);
 
@@ -17,7 +19,7 @@ namespace Branch.Web.Areas.XboxLive.Controllers
 			var profilePreferredColorTask = UserService.GetProfileColour(profileSettings.Users.First().Settings.First(s => s.Id == "PreferredColor").Value);
 			await Task.WhenAll(profileShowcaseTask, profileSummaryTask, profilePreferredColorTask);
 
-			return View("/Areas/XboxLive/Views/Showcase/Index", new ShowcaseViewModel(profileSettings.Users.First(), profileSummaryTask.Result, profileShowcaseTask.Result, profilePreferredColorTask.Result));
+			return View(new ShowcaseViewModel(profileSettings.Users.First(), profileSummaryTask.Result, profileShowcaseTask.Result, profilePreferredColorTask.Result));
 		}
 	}
 }

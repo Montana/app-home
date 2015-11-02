@@ -13,7 +13,7 @@
 	var sidebar = new SidebarViewModel(gamertag, SidebarOption.Showcase);
 }
 
-@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_Header", Model)
+@await Html.PartialAsync("_Header", Model)
 
 @await Html.PartialAsync("/Areas/Shared/Views/_AreaSwitcher", new AreaSwitcherViewModel(secondaryRgb, "xboxlive", Model.ProfileUser.Settings.First(s => s.Id == "GameDisplayPicRaw").Value, gamertag, Area.XboxLive))
 
@@ -33,47 +33,47 @@
 
 				<div class="showcase-container hidden-xs hidden-sm">
 					<div class="item w2">
-						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(0))
+						@await Html.PartialAsync("_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(0))
 					</div>
 					<div class="item inner-container">
 						<div class="item w1">
-							@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(1))
+							@await Html.PartialAsync("_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(1))
 						</div>
 						<div class="item w1">
-							@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(2))
+							@await Html.PartialAsync("_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(2))
 						</div>
 					</div>
 					<div class="clearfix"></div>
 					<div class="item row">
-						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(3))
+						@await Html.PartialAsync("_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(3))
 					</div>
 					<div class="item row">
-						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(4))
+						@await Html.PartialAsync("_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(4))
 					</div>
 					<div class="item row">
-						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(5))
+						@await Html.PartialAsync("_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(5))
 					</div>
 					<div class="clearfix"></div>
 				</div>
 
 				<div class="showcase-mobile-container visible-xs visible-sm">
 					<div class="item">
-						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(0))
+						@await Html.PartialAsync("_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(0))
 					</div>
 					<div class="item">
-						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(1))
+						@await Html.PartialAsync("_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(1))
 					</div>
 					<div class="item">
-						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(2))
+						@await Html.PartialAsync("_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(2))
 					</div>
 					<div class="item">
-						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(3))
+						@await Html.PartialAsync("_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(3))
 					</div>
 					<div class="item">
-						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(4))
+						@await Html.PartialAsync("_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(4))
 					</div>
 					<div class="item">
-						@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(5))
+						@await Html.PartialAsync("_ShowcaseItem", Model.ShowcaseItems.Items.ElementAtOrDefault(5))
 					</div>
 				</div>
 
@@ -86,7 +86,7 @@
 			</div>
 
 			<div class="col-md-3">
-				@await Html.PartialAsync("/Areas/XboxLive/Views/Shared/_Sidebar", sidebar)
+				@await Html.PartialAsync("_Sidebar", sidebar)
 			</div>
 		</div>
 	</div>

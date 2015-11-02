@@ -39,7 +39,7 @@ namespace Branch.Web
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-			
+
 			// Add EntityFramework services to the services container.
 			services.AddEntityFramework().AddSqlServer();
 
@@ -48,12 +48,19 @@ namespace Branch.Web
 
 			// Add Xbox Live services to the services container.
 			services.AddXboxLive();
-			
+
 			// Add Halo 4 services to the services container.
 			services.AddHalo4();
 
 			// Add Mvc services to the services container.
 			services.AddMvc();
+
+			// Configure MVC routing
+			services.ConfigureRouting(routeOptions =>
+			{
+				routeOptions.AppendTrailingSlash = true;
+				routeOptions.LowercaseUrls = true;
+			});
 		}
 
 		// Configure is called after ConfigureServices is called.
@@ -61,7 +68,7 @@ namespace Branch.Web
 		{
 			// Add the console logger.
 			loggerfactory.AddConsole();
-			
+
 			// Add the following to the request pipeline only in development environment.
 			if (env.IsEnvironment("Development"))
 			{
@@ -89,7 +96,7 @@ namespace Branch.Web
 
 			// Add static files to the request pipeline.
 			app.UseStaticFiles();
-			
+
 			// Add MVC to the request pipeline.
 			app.UseMvc(routes =>
 			{

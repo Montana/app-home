@@ -1,0 +1,56 @@
+﻿@model SidebarViewModel
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+<div class="sidebar">
+	<ul class="nav sidenav">
+		<li class="active">
+			<a href="#">
+				<span class="glyphicon glyphicon-tree-deciduous"></span> Branch
+			</a>
+
+			<ul class="nav">
+				<li class="@(Model.SidebarOption.Equals(SidebarOption.ServiceRecord) ? "active" : "")">
+					<a asp-controller="ServiceRecord" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Service Record</a>
+				</li>
+
+				<li class="@(Model.SidebarOption.Equals(SidebarOption.GameHistory) ? "active" : "")">
+					<a href="#">Game History</a>
+					<ul class="nav">
+						<li><a href="#">Matchmaking</a></li>
+						<li><a href="#">Custom Games</a></li>
+						<li><a href="#">Campaign</a></li>
+						<li><a href="#">Spartan Ops</a></li>
+					</ul>
+				</li>
+
+				<li class="@(Model.SidebarOption.Equals(SidebarOption.CompetitiveSkillRanking) ? "active" : "")">
+					<a href="#">Competitive Skill Rank</a>
+				</li>
+
+				<li class="@(Model.SidebarOption.Equals(SidebarOption.Commendations) ? "active" : "")">
+					<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Commendations</a>
+					<ul class="nav">
+						<li class="@(Model.SidebarSubOption.Equals(CommendationCategory.Weapons) ? "active" : "")">
+							<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-slug="weapons">Weapons</a>
+						</li>
+						<li class="@(Model.SidebarSubOption.Equals(CommendationCategory.Enemies) ? "active" : "")">
+							<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-slug="enemies">Enemies</a>
+						</li>
+						<li class="@(Model.SidebarSubOption.Equals(CommendationCategory.Vehicles) ? "active" : "")">
+							<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-slug="vehicles">Vehicles</a>
+						</li>
+						<li class="@(Model.SidebarSubOption.Equals(CommendationCategory.Player) ? "active" : "")">
+							<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-slug="player">Player</a>
+						</li>
+						<li class="@(Model.SidebarSubOption.Equals(CommendationCategory.GameTypes) ? "active" : "")">
+							<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-slug="game-types">Game Types</a>
+						</li>
+					</ul>
+				</li>
+
+				<li class="@(Model.SidebarOption.Equals(SidebarOption.Specializations) ? "active" : "")">
+					<a href="#">Specializations</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
