@@ -6,12 +6,12 @@ namespace Microsoft.Halo.Core.DataContracts
     public class CommendationsMetadata
     {
 		[JsonProperty("Commendations")]
-		public IList<CommendationMetadata> Commendations { get; set; }
+		public IList<CommendationDetailsFull> Commendations { get; set; }
 
 		[JsonProperty("CommendationCategories")]
-		public IList<CommendationCategoryMetadata> CommendationCategories { get; set; }
+		public IList<CommendationCategoryDetailsFull> CommendationCategories { get; set; }
 
 		[JsonProperty("CommendationLevels")]
-		public IList<CommendationLevelMetadata> CommendationLevels { get; set; }
+		public IList<CommendationLevelDetailsFull> CommendationLevels { get; set; }
 	}
 }

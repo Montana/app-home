@@ -2,7 +2,7 @@
 
 namespace Microsoft.Halo.Core.DataContracts
 {
-	public class CommendationLevelMetadata
+	public class CommendationLevelDetailsFull
 	{
 		[JsonProperty("CommendationId")]
 		public int CommendationId { get; set; }

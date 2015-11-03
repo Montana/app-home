@@ -9,9 +9,6 @@ namespace Branch.Web.Areas.Halo4.Controllers
 	public class ServiceRecordController
 		: ControllerBase
 	{
-		[FromServices]
-		public MatchHistoryService MatchHistoryService { get; set; }
-
 		[HttpGet]
 		[HttpGet("service-record")]
 		public async Task<IActionResult> Index(string gamertag)

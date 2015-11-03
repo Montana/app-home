@@ -11,9 +11,6 @@ namespace Branch.Web.Areas.Halo4.Controllers
 		: ControllerBase
 	{
 		[FromServices]
-		public MatchHistoryService MatchHistoryService { get; set; }
-
-		[FromServices]
 		public CommendationsService CommendationsService { get; set; }
 		
 		[HttpGet("commendations/{slug?}")]

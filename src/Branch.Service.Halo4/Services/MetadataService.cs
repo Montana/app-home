@@ -29,6 +29,8 @@ namespace Branch.Service.Halo4.Services
 
 		private const string GetSpartanImageUrl = "https://spartans.svc.halowaypoint.com/players/{0}/h4/spartans/{1}?target={2}";
 
+		private const string GetCsrImageUrl = "https://assets.halowaypoint.com/games/h4/csr/v1/{0}/{1}.png";
+
 		private IMetadataRepository _metadataRepository;
 
 		private static Metadata _cachedMetadata = null;
@@ -75,11 +77,14 @@ namespace Branch.Service.Halo4.Services
 			}
 		}
 
-		public async Task<string> ResolveSpartanImage(ServiceRecordDetailsFull serviceRecord, string pose, string size)
+		public string ResolveSpartanImage(ServiceRecordDetailsFull serviceRecord, string pose, string size)
 		{
-			var webappSettings = await GetWebAppSettingsAsync();
-
 			return string.Format(GetSpartanImageUrl, serviceRecord.Gamertag, pose, size);
+		}
+
+		public string ResolveCsrImage(SkillRankDetailsFull skillRank, string size)
+		{
+			return string.Format(GetCsrImageUrl, size, skillRank.CurrentSkillRank);
 		}
 	}
 }

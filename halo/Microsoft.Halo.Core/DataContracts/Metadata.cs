@@ -11,5 +11,8 @@ namespace Microsoft.Halo.Core.DataContracts
 
 		[JsonProperty("CommendationsMetadata")]
 		public CommendationsMetadata CommendationsMetadata { get; set; }
+
+		[JsonProperty("PlaylistsMetadata")]
+		public PlaylistsMetadata PlaylistsMetadata { get; set; }
 	}
 }

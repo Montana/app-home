@@ -84,7 +84,7 @@
 				</div>
 				<div class="col-md-3">
 					<div class="spartan-insignia hidden-sm hidden-xs" style="background-image: url(@await MetadataService.ResolveAssetContainerAsync(Model.ServiceRecord.EmblemImageUrl, "100")"></div>
-					<div class="spartan-image hidden-sm hidden-xs" style="background-image: url('@await MetadataService.ResolveSpartanImage(Model.ServiceRecord, "fullbody", "large")')"></div>
+					<div class="spartan-image hidden-sm hidden-xs" style="background-image: url('@MetadataService.ResolveSpartanImage(Model.ServiceRecord, "fullbody", "large")')"></div>
 				</div>
 			</div>
 		</div>

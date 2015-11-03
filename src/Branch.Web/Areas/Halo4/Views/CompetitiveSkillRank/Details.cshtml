@@ -1,0 +1,134 @@
+﻿@model CompetitiveSkillRankDetailsViewModel
+@{
+	var gamertag = Model.ServiceRecord.Gamertag;
+	var skillRank = Model.ServiceRecord.SkillRanks.First(sr => sr.PlaylistId == Model.Playlist.Id);
+	ViewBag.Title = $"{gamertag}'s Halo 4 Competitive Skill Rank for {skillRank.PlaylistName}";
+	var sidebar = new SidebarViewModel(gamertag, SidebarOption.CompetitiveSkillRanking);
+}
+
+@await Html.PartialAsync("_Header", Model)
+
+@await Html.PartialAsync("/Areas/Shared/Views/_AreaSwitcher", new AreaSwitcherViewModel("2A2D53", "halo4", "", gamertag, Area.Halo4))
+
+<main class="halo4-competitive-skill-rank">
+	<div class="container">
+		<div class="col-md-9 csr-details">
+			<div class="page-header">
+				<h3>@gamertag's @skillRank.PlaylistName Competitive Skill Ranking</h3>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12 playlist-image" style="background-image: url('@await MetadataService.ResolveAssetContainerAsync(skillRank.PlaylistImageUrl, "large")')">
+					<div class="csr" style="background-image: url('@MetadataService.ResolveCsrImage(skillRank, "medium")')"></div>
+				</div>
+			</div>
+
+
+			<div class="col-md-12">
+				<hr />
+			</div>
+
+
+			<div class="col-md-12 playlist-data">
+				<span class="description">@skillRank.PlaylistDescription</span>
+
+
+				<div class="meta">
+					<span>
+						Max Party Size:
+						<strong>@Model.Playlist.MaxPartySize</strong>
+					</span>
+					<br />
+					<span>
+						Max Local Party Size:
+						<strong>@Model.Playlist.MaxLocalPlayers</strong>
+					</span>
+					<br />
+					<span>
+						Player Grouping:
+						<strong>
+							@(Model.Playlist.IsFreeForAll ? "Free for All" : "Team vs Team")
+						</strong>
+					</span>
+				</div>
+			</div>
+
+			<div class="col-md-12 hidden-xs">
+				<hr />
+			</div>
+			<div class="col-md-12 hidden-xs playlist-advanced-data">
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a href="#gvar" data-toggle="tab">Game Variants</a>
+					</li>
+					<li>
+						<a href="#mvar" data-toggle="tab">Map Variants</a>
+					</li>
+				</ul>
+				<div id="myTabContent" class="tab-content">
+					<div class="tab-pane fade in active" id="gvar">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>*</th>
+									<th>Game Variant Name</th>
+									<th>Game Variant Description</th>
+									<th>Variant Based off of</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var gameVariant in Model.Playlist.RelatedGameVariants)
+								{
+									<tr class="entry">
+										<td>
+											<div class="icon-frame" style="background-image: url('@await MetadataService.ResolveAssetContainerAsync(gameVariant.GameBaseVariantImageUrl, "medium")');"></div>
+										</td>
+										<td>@gameVariant.Name</td>
+										<td>@gameVariant.Description</td>
+										<td>@gameVariant.GameBaseVariantName</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+					<div class="tab-pane fade in" id="mvar">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>*</th>
+									<th style="width: 150px;">Map Variant Name</th>
+									<th>Map Variant Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								@{
+									var mapsTask = Model.Playlist.RelatedMapVariants.Select(async mapVariant => (await MetadataService.GetMetadataAsync()).MapsMetadata.Maps.First(m => m.Id == mapVariant.BaseMapId));
+									var maps = await Task.WhenAll(mapsTask);
+								}
+								@foreach (var map in maps)
+								{
+									<tr class="entry">
+										<td>
+											<div class="preview-frame" style="background-image: url('@await MetadataService.ResolveAssetContainerAsync(map.ImageUrl, "medium")');"></div>
+										</td>
+										<td class="name">@map.Name</td>
+										<td>@map.Description</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			@await Html.PartialAsync("_Sidebar", sidebar)
+		</div>
+	</div>
+</main>
+
+@section scripts {
+	<script>
+		var RecentGames = @Html.Raw(await Model.GameHistory?.Games.ToJavascriptArrayAsync(MetadataService));
+	</script>
+}

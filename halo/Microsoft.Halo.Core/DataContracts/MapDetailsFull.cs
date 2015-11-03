@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.Halo.Core.DataContracts
 {
-	public class MapMetadata
+	public class MapDetailsFull
 	{
 		[JsonProperty("Id")]
 		public int Id { get; set; }

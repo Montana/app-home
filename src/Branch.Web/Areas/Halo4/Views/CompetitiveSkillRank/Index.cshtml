@@ -1,0 +1,66 @@
+﻿@model CompetitiveSkillRankViewModel
+@{
+	var gamertag = @Model.ServiceRecord.Gamertag;
+	ViewBag.Title = $"{gamertag}'s Halo 4 Competitive Skill Ranks";
+	var sidebar = new SidebarViewModel(gamertag, SidebarOption.CompetitiveSkillRanking);
+}
+
+@await Html.PartialAsync("_Header", Model)
+
+@await Html.PartialAsync("/Areas/Shared/Views/_AreaSwitcher", new AreaSwitcherViewModel("2A2D53", "halo4", "", gamertag, Area.Halo4))
+
+<main class="halo4-competitive-skill-rank">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="page-header">
+					<h3>Competitive Skill Ranks</h3>
+				</div>
+
+				<div class="row csr-container">
+					<table class="table">
+						<thead>
+							<tr>
+								<th></th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Ranking</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var skillRank in Model.ServiceRecord.SkillRanks.OrderByDescending(sr => sr.CurrentSkillRank))
+							{
+								<tr>
+									<td>
+										<img alt="" src="@await MetadataService.ResolveAssetContainerAsync(skillRank.PlaylistImageUrl, "small")" />
+									</td>
+									<td>
+										<a asp-route-area="Halo4" asp-action="Details" asp-controller="CompetitiveSkillRank"
+										   asp-route-gamertag="@gamertag" asp-route-playlistslug="@skillRank.PlaylistName.ToSlug()" asp-route-playlistid="@skillRank.PlaylistId">
+											@skillRank.PlaylistName
+										</a>
+									</td>
+									<td>
+										@skillRank.PlaylistDescription
+									</td>
+									<td>
+										<csr-asset gamertag="@gamertag" height="100" skill-rank="skillRank" />
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col-md-3">
+				@await Html.PartialAsync("_Sidebar", sidebar)
+			</div>
+		</div>
+	</div>
+</main>
+
+@section scripts {
+	<script>
+		var RecentGames = @Html.Raw(await Model.GameHistory?.Games.ToJavascriptArrayAsync(MetadataService));
+	</script>
+}

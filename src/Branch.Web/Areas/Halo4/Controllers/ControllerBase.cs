@@ -10,6 +10,12 @@ namespace Branch.Web.Areas.Halo4.Controllers
 	public class ControllerBase : Controller
 	{
 		[FromServices]
+		public MetadataService MetadataService { get; set; }
+
+		[FromServices]
 		public ServiceRecordService ServiceRecordService { get; set; }
+
+		[FromServices]
+		public MatchHistoryService MatchHistoryService { get; set; }
 	}
 }

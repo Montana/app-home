@@ -80,5 +80,7 @@
 </main>
 
 @section scripts {
-	
+	<script>
+		var RecentGames = @Html.Raw(await Model.GameHistory?.Games.ToJavascriptArrayAsync(MetadataService));
+	</script>
 }

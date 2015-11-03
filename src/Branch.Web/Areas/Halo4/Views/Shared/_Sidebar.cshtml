@@ -23,7 +23,7 @@
 				</li>
 
 				<li class="@(Model.SidebarOption.Equals(SidebarOption.CompetitiveSkillRanking) ? "active" : "")">
-					<a href="#">Competitive Skill Rank</a>
+					<a asp-controller="CompetitiveSkillRank" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Competitive Skill Ranking</a>
 				</li>
 
 				<li class="@(Model.SidebarOption.Equals(SidebarOption.Commendations) ? "active" : "")">

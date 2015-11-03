@@ -6,6 +6,6 @@ namespace Microsoft.Halo.Core.DataContracts
 	public class MapsMetadata
 	{
 		[JsonProperty("Maps")]
-		public IReadOnlyCollection<MapMetadata> Maps { get; set; }
+		public IReadOnlyCollection<MapDetailsFull> Maps { get; set; }
 	}
 }

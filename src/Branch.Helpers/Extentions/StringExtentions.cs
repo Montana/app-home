@@ -36,6 +36,31 @@ namespace Branch.Helpers.Extentions
 			return $"rgba({rgbParts[0].ToDecimal()},{rgbParts[1].ToDecimal()},{rgbParts[2].ToDecimal()},{opacity})";
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="phrase"></param>
+		/// <param name="maxLength"></param>
+		/// <returns></returns>
+		public static string ToSlug(this string phrase, int maxLength = 50)
+		{
+			var str = phrase.ToLower();
+
+			// invalid chars, make into spaces
+			str = Regex.Replace(str, @"[^a-z0-9\s-]", "");
+
+			// convert multiple spaces/hyphens into one space
+			str = Regex.Replace(str, @"[\s-]+", " ").Trim();
+
+			// cut and trim it
+			str = str.Substring(0, str.Length <= maxLength ? str.Length : maxLength).Trim();
+
+			// hyphens
+			str = Regex.Replace(str, @"\s", "-");
+
+			return str;
+		}
+
 		public static bool TryParseToEnum<T>(this string value, bool ignoreCase, out T output)
 			where T : struct
 		{
@@ -44,6 +69,35 @@ namespace Branch.Helpers.Extentions
 
 			// conventional TryParse
 			return Enum.TryParse<T>(value, ignoreCase, out output);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		public static string MakeCamelCaseFriendly(this string value)
+		{
+			return Regex.Replace(value, @"(\B[A-Z]+?(?=[A-Z][^A-Z])|\B[A-Z]+?(?=[^A-Z]))", " $1");
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="value"></param>
+		/// <remarks>This is only valid in Halo: Reach.</remarks>
+		public static bool MadeByBungie(this string value)
+		{
+			return (value == "??" || value == "¦");
+		}
+
+		/// <summary>
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		public static string ToTitleCase(this string value)
+		{
+			return new CultureInfo("en-US", false).TextInfo.ToTitleCase(value);
 		}
 	}
 }
