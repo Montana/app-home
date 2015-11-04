@@ -105,7 +105,7 @@ namespace Microsoft.Halo.Core.DataContracts
 		public IReadOnlyCollection<MedalDetailsFull> TopMedals { get; set; }
 
 		[JsonProperty("Specializations")]
-		public IReadOnlyCollection<SpecializationDetailsFull> Specializations { get; set; }
+		public IReadOnlyCollection<SpecializationDetailsPartial> Specializations { get; set; }
 
 		[JsonProperty("GameModes")]
 		public IReadOnlyCollection<GameModeDetailsFull> GameModes { get; set; }
