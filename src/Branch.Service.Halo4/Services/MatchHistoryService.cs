@@ -61,8 +61,8 @@ namespace Branch.Service.Halo4.Services
 			GameHistoryDetailsFull cachedGameHistory = null;
 			if (gameHistoryMetadata != null)
 			{
-				// Return data from DocumentDb if we're taking cached version, it's expired, or the auhentication is broken
-				if (!validAuthentication || takeCached || gameHistoryMetadata.UpdatedAt + CacheRefreshTime > DateTime.UtcNow)
+				// Return data from DocumentDb if we're taking cached version, or the auhentication is broken
+				if (!validAuthentication || takeCached)
 				{
 					// Get Game History from DocumentDb
 					cachedGameHistory = Halo4DdbRepository.GetById<GameHistoryDetailsFull>(gameHistoryMetadata.DocumentId);

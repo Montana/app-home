@@ -11,21 +11,36 @@ namespace Branch.Web.Areas.Halo4.Controllers
 	public class MatchHistoryController
 		: ControllerBase
 	{
+		private const int _count = 20;
+
 		[HttpGet("match-history/{modeSlug}")]
 		public async Task<IActionResult> Index(string gamertag, string modeSlug)
 		{
-			var serviceRecord = await ServiceRecordService.GetServiceRecord(gamertag);
+			return await IndexPage(gamertag, modeSlug, 0);
+		}
+		
+		[HttpGet("match-history/{modeSlug}/page/{matchPage}")]
+		public async Task<IActionResult> IndexPage(string gamertag, string modeSlug, int matchPage = 0)
+		{
+			// Check Page is valid
+			if (matchPage < 0)
+				return RedirectToAction("Index", new { gamertag, modeSlug, page = 0 });
 
+			// Check Mode is valid
 			GameMode matchHistoryGameMode;
 			if (!modeSlug.TryParseToEnum(true, out matchHistoryGameMode)) return RedirectToAction("Index", new { gamertag, matchSlug = GameMode.WarGames.ToString().ToSlug() });
 			GameHistoryDetailsFull gameHistory;
 			GameHistoryDetailsFull gameHistoryView;
 
-			gameHistoryView = gameHistory = await MatchHistoryService.GetGameHistory(serviceRecord.Xuid, matchHistoryGameMode, count: 20);
-			if (matchHistoryGameMode != GameMode.WarGames)
-				gameHistory = await MatchHistoryService.GetGameHistory(serviceRecord.Xuid, GameMode.WarGames, count: 20);
+			// Get Service Record
+			var serviceRecord = await ServiceRecordService.GetServiceRecord(gamertag);
 			
-			return View(new MatchHistoryViewModel(serviceRecord, gameHistory, matchHistoryGameMode, gameHistoryView));
+			// Get Matches
+			gameHistoryView = gameHistory = await MatchHistoryService.GetGameHistory(serviceRecord.Xuid, matchHistoryGameMode, count: _count, startAt: (matchPage * _count));
+			if (matchHistoryGameMode != GameMode.WarGames)
+				gameHistory = await MatchHistoryService.GetGameHistory(serviceRecord.Xuid, GameMode.WarGames, count: _count);
+			
+			return View("Index", new MatchHistoryViewModel(serviceRecord, gameHistory, (uint) matchPage, _count, matchHistoryGameMode, gameHistoryView));
 		}
 	}
 }

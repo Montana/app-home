@@ -1,0 +1,38 @@
+﻿@model MatchHistoryViewModel
+<thead>
+	<tr>
+		<th>Mission</th>
+		<th>Standing</th>
+		<th>Difficulty</th>
+		<th>Type</th>
+		<th>Date</th>
+		<th>Game Length</th>
+	</tr>
+</thead>
+<tbody>
+	@foreach (CampaignGameHistory game in Model.GameHistoryView.Games)
+	{
+		<tr>
+			<td>
+				<a href="#">@game.MapName</a>
+			</td>
+
+			<td class="@game.GetGameVictoryStatus().CssFriendlyResult">
+				@game.GetGameVictoryStatus().UserFriendlyResult
+			</td>
+			<td>
+				@((await MetadataService.GetMetadataAsync()).DifficultiesMetadata.Difficulties.First(d => d.Id == game.Difficulty).Name)
+			</td>
+			<td>
+				@(game.SinglePlayer ? "Single Player" : "Co Op")
+			</td>
+			<td>
+				@game.EndDateUtc
+			</td>
+			<td>
+				@game.Duration.ToString()
+			</td>
+		</tr>
+	}
+</tbody>
+</table>

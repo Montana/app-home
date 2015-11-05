@@ -13,7 +13,7 @@ namespace Microsoft.Halo.Core.DataContracts.Enums
 		[Description("Spartan Ops")]
 		SpartanOps = 0x05,
 
-		[Description("Custom Game")]
-		CustomGame = 0x06
+		[Description("Custom Games")]
+		CustomGames = 0x06
 	}
 }

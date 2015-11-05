@@ -33,6 +33,6 @@ namespace Microsoft.Halo.Core.DataContracts
 		public Difficulty Difficulty { get; set; }
 
 		[JsonProperty("SinglePlayer")]
-		public uint SinglePlayer { get; set; }
+		public bool SinglePlayer { get; set; }
 	}
 }

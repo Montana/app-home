@@ -18,8 +18,8 @@
 						<li class="@(Model.SidebarSubOption.Equals(GameMode.WarGames) ? "active" : "")">
 							<a asp-controller="MatchHistory" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-modeSlug="@GameMode.WarGames.ToString().ToSlug(true)">@GameMode.WarGames.GetDescription()</a>
 						</li>
-						<li class="@(Model.SidebarSubOption.Equals(GameMode.CustomGame) ? "active" : "")">
-							<a asp-controller="MatchHistory" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-modeSlug="@GameMode.CustomGame.ToString().ToSlug(true)">@GameMode.CustomGame.GetDescription()</a>
+						<li class="@(Model.SidebarSubOption.Equals(GameMode.CustomGames) ? "active" : "")">
+							<a asp-controller="MatchHistory" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-modeSlug="@GameMode.CustomGames.ToString().ToSlug(true)">@GameMode.CustomGames.GetDescription()</a>
 						</li>
 						<li class="@(Model.SidebarSubOption.Equals(GameMode.Campaign) ? "active" : "")">
 							<a asp-controller="MatchHistory" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-modeSlug="@GameMode.Campaign.ToString().ToSlug(true)">@GameMode.Campaign.GetDescription()</a>

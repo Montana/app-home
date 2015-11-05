@@ -2,8 +2,9 @@
 @model MatchHistoryViewModel
 @{
 	var gamertag = @Model.ServiceRecord.Gamertag;
-	ViewBag.Title = $"{gamertag}'s Match History";
+	ViewBag.Title = $"{gamertag}'s {Model.GameMode.GetDescription()} Match History";
 	var sidebar = new SidebarViewModel(gamertag, SidebarOption.MatchHistory, Model.GameMode);
+	var count = Model.GameHistoryView.Games.Count();
 }
 
 @await Html.PartialAsync("_Header", Model)
@@ -18,10 +19,35 @@
 			<div class="col-md-9">
 				<div class="overview col-md-12">
 					<div class="page-header">
-						<h3>@gamertag's Game History</h3>
+						<h3>
+							@Model.GameMode.GetDescription() Match History
+							<small>
+								@(Model.Page * Model.Count)-@((Model.Page * 20) + count) matches of <deliminate-number Integer="@Model.ServiceRecord.GameModes.First(gm => gm.Id == Model.GameMode).TotalGamesStarted" />
+							</small>
+						</h3>
 					</div>
 
-					
+					@if (Model.GameHistoryView.Games.Any())
+					{
+						<table class="table match-history">
+							@await Html.PartialAsync($"_{Model.GameMode.ToString()}History", Model)
+						</table>
+					}
+					else
+					{
+						<h6>
+							There are no more @Model.GameMode.GetDescription() Matches in <strong>@Model.ServiceRecord.Gamertag's</strong> Match History
+						</h6>
+					}
+
+					<ul class="pager">
+						<li class="previous @(Model.Page == 0 ? "disabled" : "")">
+							<a asp-action="IndexPage" asp-route-matchPage="@(Model.Page == 0 ? 0 : - 1)">← Newer</a>
+						</li>
+						<li class="next @(((Model.Page * Model.Count) + Model.GameHistoryView.Games.Count() >= @Model.ServiceRecord.GameModes.First(gm => gm.Id == Model.GameMode).TotalGamesStarted) ? "disabled" : "")">
+							<a asp-action="IndexPage" asp-route-matchPage="@(Model.Page + 1)">Older →</a>
+						</li>
+					</ul>
 				</div>
 			</div>
 			<div class="col-md-3">

@@ -6,6 +6,9 @@ namespace Microsoft.Halo.Core.DataContracts
 	public class Metadata
 		: Response
 	{
+		[JsonProperty("DifficultiesMetadata")]
+		public DifficultiesMetadata DifficultiesMetadata { get; set; }
+
 		[JsonProperty("MapsMetadata")]
 		public MapsMetadata MapsMetadata { get; set; }
 

@@ -1,0 +1,43 @@
+﻿@model MatchHistoryViewModel
+<thead>
+	<tr>
+		<th>Game Type</th>
+		<th>Standing</th>
+		<th>Date</th>
+		<th>Score</th>
+		<th>Map</th>
+		<th>Playlist</th>
+	</tr>
+</thead>
+<tbody>
+	@foreach (WarGameHistory game in Model.GameHistoryView.Games)
+	{
+		<tr>
+			<td>
+				<a href="#">@game.VariantName</a>
+			</td>
+
+			<td class="@game.GetGameVictoryStatus().CssFriendlyResult">
+				@game.GetGameVictoryStatus().UserFriendlyResult
+				@if (game.Completed)
+				{
+					@:(@game.Standing.Ordinal())
+				}
+			</td>
+			<td>
+				@game.EndDateUtc
+			</td>
+			<td>
+				@game.PersonalScore
+			</td>
+			<td>
+				@game.MapVariantName
+			</td>
+			<td>
+				<a asp-action="Details" asp-controller="CompetitiveSkillRank" asp-route-playlistSlug="@game.PlaylistName.ToSlug()" asp-route-playlistId="@game.PlaylistId">
+					@game.PlaylistName
+				</a>
+			</td>
+		</tr>
+	}
+</tbody>
