@@ -13,8 +13,8 @@ namespace Branch.Web.Areas.Halo4.Controllers
 		[FromServices]
 		public CommendationsService CommendationsService { get; set; }
 		
-		[HttpGet("commendations/{slug?}")]
-		public async Task<IActionResult> Index(string gamertag, string slug = "weapons")
+		[HttpGet("commendations/{commendationSlug}")]
+		public async Task<IActionResult> Index(string gamertag, string commendationSlug)
 		{
 			var serviceRecord = await ServiceRecordService.GetServiceRecord(gamertag);
 
@@ -24,10 +24,10 @@ namespace Branch.Web.Areas.Halo4.Controllers
 
 			// Parse Slug to CommendationCategory
 			CommendationCategory commendationCategory = CommendationCategory.Weapons;
-			if (!slug.TryParseToEnum(true, out commendationCategory))
+			if (!commendationSlug.TryParseToEnum(true, out commendationCategory))
 			{
 				// TODO: create flash message system
-				return RedirectToAction("Index", "Commendations", new[] { gamertag, slug = CommendationCategory.Weapons.ToString() });
+				return RedirectToAction("Index", "Commendations", new[] { gamertag, commendationSlug = CommendationCategory.Weapons.ToString() });
 			}
 			
 			return View(new CommendationsViewModel(serviceRecord, gameHistoryTask.Result, commendationsTask.Result, commendationCategory));

@@ -3,7 +3,7 @@
 	public enum SidebarOption
 	{
 		ServiceRecord,
-		GameHistory,
+		MatchHistory,
 		CompetitiveSkillRanking,
 		Commendations,
 		Specializations

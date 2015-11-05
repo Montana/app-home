@@ -9,7 +9,6 @@ namespace Branch.Web.Areas.Halo4.Controllers
 	public class ServiceRecordController
 		: ControllerBase
 	{
-		[HttpGet]
 		[HttpGet("service-record")]
 		public async Task<IActionResult> Index(string gamertag)
 		{

@@ -1,0 +1,38 @@
+﻿@using Newtonsoft.Json
+@model MatchHistoryViewModel
+@{
+	var gamertag = @Model.ServiceRecord.Gamertag;
+	ViewBag.Title = $"{gamertag}'s Match History";
+	var sidebar = new SidebarViewModel(gamertag, SidebarOption.MatchHistory, Model.GameMode);
+}
+
+@await Html.PartialAsync("_Header", Model)
+
+@await Html.PartialAsync("/Areas/Shared/Views/_AreaSwitcher", new AreaSwitcherViewModel("2A2D53", "halo4", "", gamertag, Area.Halo4))
+
+@addTagHelper "*, Branch.Web"
+
+<main class="halo4-specializations">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="overview col-md-12">
+					<div class="page-header">
+						<h3>@gamertag's Game History</h3>
+					</div>
+
+					
+				</div>
+			</div>
+			<div class="col-md-3">
+				@await Html.PartialAsync("_Sidebar", sidebar)
+			</div>
+		</div>
+	</div>
+</main>
+
+@section scripts {
+	<script>
+		var RecentGames = @Html.Raw(await Model.GameHistory?.Games.ToJavascriptArrayAsync(MetadataService));
+	</script>
+}

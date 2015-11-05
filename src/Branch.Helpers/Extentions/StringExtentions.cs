@@ -40,11 +40,21 @@ namespace Branch.Helpers.Extentions
 		/// 
 		/// </summary>
 		/// <param name="phrase"></param>
+		/// <param name="convertFromUpperCamelCase"></param>
 		/// <param name="maxLength"></param>
 		/// <returns></returns>
-		public static string ToSlug(this string phrase, int maxLength = 50)
+		public static string ToSlug(this string phrase, bool convertFromUpperCamelCase = false, int maxLength = 50)
 		{
-			var str = phrase.ToLower();
+			var str = phrase;
+
+			if (convertFromUpperCamelCase)
+			{
+				// convert to upper-camel-case to hypenated-case
+				str = Regex.Replace(str, @"(\B[A-Z])", "-$1");
+			}
+
+			// make string lowercase
+			str = str.ToLowerInvariant();
 
 			// invalid chars, make into spaces
 			str = Regex.Replace(str, @"[^a-z0-9\s-]", "");
