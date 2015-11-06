@@ -417,9 +417,14 @@ header.halo4-service-record {
               margin: 15px auto 0px auto; } }
         header.halo4-service-record > .mask > .container .col-md-9 .rank-flairs > .col-md-10 > .progress {
           margin-top: 10px;
-          margin-bottom: 0; }
+          margin-bottom: 0;
+          background-color: rgba(245, 245, 245, 0.3); }
         header.halo4-service-record > .mask > .container .col-md-9 .rank-flairs > .col-md-10 > .xp {
           font-size: 14px; }
+          header.halo4-service-record > .mask > .container .col-md-9 .rank-flairs > .col-md-10 > .xp > .left {
+            float: left; }
+          header.halo4-service-record > .mask > .container .col-md-9 .rank-flairs > .col-md-10 > .xp > .right {
+            float: right; }
       header.halo4-service-record > .mask > .container .col-md-9 .recent-match {
         transition: all ease-in-out 0.6s;
         margin-top: 60px;

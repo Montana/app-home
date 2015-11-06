@@ -84,10 +84,10 @@ namespace Microsoft.Halo.Core.DataContracts
 		public AssetContainer RankImageUrl { get; set; }
 
 		[JsonProperty("RankStartXP")]
-		public uint RankStartXP { get; set; }
+		public uint RankStartXp { get; set; }
 
 		[JsonProperty("NextRankStartXP")]
-		public ulong NextRankStartXP { get; set; }
+		public ulong NextRankStartXp { get; set; }
 
 		[JsonProperty("XP")]
 		public uint Xp { get; set; }

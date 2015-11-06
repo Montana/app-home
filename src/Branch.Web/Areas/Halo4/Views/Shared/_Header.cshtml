@@ -32,17 +32,45 @@
 						<div class="col-md-10">
 							<img class="hidden-xs" height="25" alt="" src="@await MetadataService.ResolveAssetContainerAsync(Model.ServiceRecord.RankImageUrl, "large")">
 
-							<div class="progress">
-								<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-									<span class="progress-bar-indicator">100% Complete</span>
-									<span class="sr-only">100% Complete</span>
-								</div>
-							</div>
-							<div class="XP">
-								<div class="left lower-bound">338,400 Xp</div>
-								<div class="right upper-bound"></div>
-								<div class="clearfix"></div>
-							</div>
+								@{ 
+									var activeSpecialization = Model.ServiceRecord.Specializations.FirstOrDefault(s => s.IsCurrent) 
+										?? Model.ServiceRecord.Specializations.First();
+								}
+
+								@if (Model.ServiceRecord.NextRankId == 0 || Math.Abs(activeSpecialization.PercentageComplete - 1.0) < 0.09)
+								{
+									<div class="progress">
+										<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+											<span class="progress-bar-indicator">100% Complete</span>
+											<span class="sr-only">100% Complete</span>
+										</div>
+									</div>
+
+									<div class="XP">
+										<div class="left lower-bound"><deliminate-number integer="@((int)Model.ServiceRecord.NextRankStartXp)" /> Xp</div>
+										<div class="right upper-bound"></div>
+										<div class="clearfix"></div>
+									</div>
+								}
+								else
+								{
+									float a = (Model.ServiceRecord.Xp - Model.ServiceRecord.RankStartXp);
+									float b = (Model.ServiceRecord.NextRankStartXp - Model.ServiceRecord.RankStartXp);
+									var percentage = ((a / b) * 100);
+
+									<div class="progress">
+										<div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: @percentage%">
+											<span class="progress-bar-indicator">@percentage.ToString("0.00")% (<deliminate-number integer="@Model.ServiceRecord.Xp" /> Xp)</span>
+											<span class="sr-only">@percentage.ToString("0.00")% (<deliminate-number integer="@Model.ServiceRecord.Xp" /> Xp)</span>
+										</div>
+									</div>
+									<div class="xp">
+										<div class="left lower-bound"><deliminate-number integer="@Model.ServiceRecord.RankStartXp" /> Xp</div>
+										<div class="right upper-bound"><deliminate-number integer="@((int)Model.ServiceRecord.NextRankStartXp)" /> Xp</div>
+										<div class="clearfix"></div>
+									</div>
+
+								}
 						</div>
 					</div>
 
