@@ -683,15 +683,9 @@ main.halo4-competitive-skill-rank .csr-details > .row {
     main.halo4-competitive-skill-rank .csr-details > .row > .playlist-advanced-data #mvar .entry > td > .name {
       width: 130px; }
 
-main.halo4-specializations .specialization .title {
-  font-size: 16px;
-  font-weight: 600; }
-main.halo4-specializations .specialization .description {
-  font-size: 14px; }
-main.halo4-specializations .specialization .level-progression {
-  margin-top: 20px; }
-main.halo4-specializations .specialization .specialization-icon {
-  background-repeat: no-repeat;
-  height: 130px; }
-main.halo4-specializations .specialization .other-shit {
-  margin-top: 60px; }
+main.halo4-match-history table.match-history tbody > tr > td.dnf {
+  color: #727272; }
+main.halo4-match-history table.match-history tbody > tr > td.defeat {
+  color: #d5130e; }
+main.halo4-match-history table.match-history tbody > tr > td.victory {
+  color: #0a85be; }

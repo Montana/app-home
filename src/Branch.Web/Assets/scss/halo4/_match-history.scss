@@ -1,0 +1,17 @@
+﻿main.halo4-match-history {
+	table.match-history {
+		tbody > tr > td {
+			&.dnf {
+				color: #727272;
+			}
+
+			&.defeat {
+				color: #d5130e;
+			}
+
+			&.victory {
+				color: #0a85be;
+			}
+		}
+	}
+}
