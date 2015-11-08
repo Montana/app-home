@@ -33,6 +33,8 @@ namespace Branch.Service.Halo4.Database
 
 		public DbSet<GameHistory> GameHistories { get; set; }
 
+		public DbSet<Match> Matches { get; set; }
+
 		public DbSet<Commendations> Commendations { get; set; }
 
 		public DbSet<Metadata> Metadata { get; set; }

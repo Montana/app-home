@@ -23,6 +23,7 @@ namespace Microsoft.Framework.DependencyInjection
 			services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
 			services.AddScoped<IServiceRecordRepository, ServiceRecordRepository>();
 			services.AddScoped<IGameHistoryRepository, GameHistoryRepository>();
+			services.AddScoped<IMatchRepository, MatchRepository>();
 			services.AddScoped<ICommendationsRepository, CommendationsRepository>();
 			services.AddScoped<IMetadataRepository, MetadataRepository>();
 
@@ -31,6 +32,7 @@ namespace Microsoft.Framework.DependencyInjection
 			services.AddSingleton<AuthenticationService>();
 			services.AddSingleton<ServiceRecordService>();
 			services.AddSingleton<MatchHistoryService>();
+			services.AddSingleton<MatchService>();
 			services.AddSingleton<CommendationsService>();
 			services.AddSingleton<MetadataService>();
 
