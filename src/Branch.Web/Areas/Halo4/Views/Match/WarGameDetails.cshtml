@@ -1,0 +1,115 @@
+﻿@using Newtonsoft.Json
+@model MatchViewModel<WarGameDetails>
+@{
+	var gamertag = @Model.ServiceRecord.Gamertag;
+	var sidebar = new SidebarViewModel(gamertag, SidebarOption.MatchHistory, Model.GameMode);
+	var title = string.Format("{0} on {1}", Model.MatchDetails.GameVariantName, Model.MatchDetails.MapVariantName);
+	var orderedTeams = Model.MatchDetails.Teams.OrderBy(t => t.Standing);
+	var topPlayer = Model.MatchDetails.Players.OrderBy(t => t.Standing).First();
+
+	ViewBag.Title = $"{gamertag} playing {title}";
+}
+
+@await Html.PartialAsync("_Header", Model)
+
+@await Html.PartialAsync("/Areas/Shared/Views/_AreaSwitcher", new AreaSwitcherViewModel("2A2D53", "halo4", "", gamertag, Area.Halo4))
+
+@addTagHelper "*, Branch.Web"
+
+<main class="halo4-match">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="overview col-md-12">
+					<div class="page-header">
+						<h3>
+							@gamertag
+							<small>
+								playing @title
+							</small>
+						</h3>
+					</div>
+
+					<article class="cover" style="background-image: url('@await MetadataService.ResolveAssetContainerAsync(Model.MatchDetails.MapImageUrl, "large")');">
+						<div class="mask">
+							<div class="inner">
+								<div class="title">
+									<h2>@Model.MatchDetails.GameVariantName</h2>
+									<p>
+										@Model.MatchDetails.EndDateUtc | @Model.MatchDetails.Duration
+									</p>
+								</div>
+
+								<div class="game-icon" style="background-image: url('@*@GeneralHelpers.GetRawAssetUrl(gametype.ImageUrl)*@')"></div>
+
+								<div class="map">
+									on
+									<br />
+									<span class="focus">
+										@Model.MatchDetails.MapVariantName @(Model.MatchDetails.MapVariantName == Model.MatchDetails.MapName ? "" : string.Format(" - {0}", Model.MatchDetails.MapName))
+									</span>
+								</div>
+
+								<div class="seperator"></div>
+
+								<div class="victor">
+									@if (Model.MatchDetails.Teams.Any())
+									{
+										var modifier = (orderedTeams.Reverse().ToList()[orderedTeams.Count() - 1].Score / 75f);
+										if (Math.Abs(modifier) < 0.01)
+										{
+											modifier = 1;
+										}
+										var width = (50 + (5 * 2)) * Model.MatchDetails.Teams.Count();
+
+										<div class="team-score-bollards" style="width: @(width)px;">
+											@foreach (var team in orderedTeams.Reverse().ToList())
+											{
+												<div class="score-bollard">
+													<div class="height-mask" style="height: @(team.Score / modifier)px; margin-top: @(75 - (team.Score / modifier))px; background-color: @team.PrimaryRgb;"></div>
+													<div class="score">
+														@team.Score
+													</div>
+												</div>
+											}
+											<div class="clearfix"></div>
+										</div>
+									}
+									else
+									{
+										<div class="ffa-victor">
+											@if (topPlayer.IsGuest)
+											{
+												<strong>@topPlayer.Gamertag</strong>
+											}
+											else
+											{
+												@*@Html.ActionLink(topPlayer.Gamertag, "Index", "ServiceRecord", new { { "gamertag", topPlayer.Gamertag } }, new { @class = "alt" })*@
+											}
+											led the game with a personal score of @topPlayer.PersonalScore, and a K/D of {{KDA}}@*@MathHelpers.CalculateKd(topPlayer.Kills, topPlayer.Deaths)*@
+										</div>
+									}
+								</div>
+							</div>
+						</div>
+						<div class="victor-player-model hidden-xs" style="background-image: url('@MetadataService.ResolveSpartanImage(topPlayer.Gamertag, size: "medium")')"></div>
+					</article>
+
+					<div class="spacin-bro">
+
+					</div>
+
+				</div>
+			</div>
+			<div class="col-md-3">
+				@await Html.PartialAsync("_Sidebar", sidebar)
+			</div>
+		</div>
+	</div>
+</main>
+
+@section scripts {
+	<script>
+		var RecentGames = @Html.Raw(await Model.GameHistory?.Games.ToJavascriptArrayAsync(MetadataService));
+	</script>
+}

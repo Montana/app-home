@@ -15,16 +15,16 @@ namespace Microsoft.Halo.Core.DataContracts
 		public AssetContainer EmblemImageUrl { get; set; }
 
 		[JsonProperty("PrimaryRGB")]
-		public string PrimaryRGB { get; set; }
+		public string PrimaryRgb { get; set; }
 
 		[JsonProperty("PrimaryRGBA")]
-		public int PrimaryRGBA { get; set; }
+		public int PrimaryRgba { get; set; }
 
 		[JsonProperty("SecondaryRGB")]
-		public string SecondaryRGB { get; set; }
+		public string SecondaryRgb { get; set; }
 
 		[JsonProperty("SecondaryRGBA")]
-		public int SecondaryRGBA { get; set; }
+		public int SecondaryRgba { get; set; }
 
 		[JsonProperty("Standing")]
 		public int Standing { get; set; }

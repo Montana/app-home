@@ -77,9 +77,14 @@ namespace Branch.Service.Halo4.Services
 			}
 		}
 
-		public string ResolveSpartanImage(ServiceRecordDetailsFull serviceRecord, string pose, string size)
+		public string ResolveSpartanImage(ServiceRecordDetailsFull serviceRecord, string pose = "fullbody", string size = "large")
 		{
-			return string.Format(GetSpartanImageUrl, serviceRecord.Gamertag, pose, size);
+			return ResolveSpartanImage(serviceRecord.Gamertag, pose, size);
+		}
+
+		public string ResolveSpartanImage(string gamertag, string pose = "fullbody", string size = "large")
+		{
+			return string.Format(GetSpartanImageUrl, gamertag, pose, size);
 		}
 
 		public string ResolveCsrImage(SkillRankDetailsFull skillRank, string size)

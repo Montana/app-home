@@ -1,2 +1,115 @@
 ﻿main.halo4-match {
+	article.cover {
+			position: relative;
+			height: 374px;
+			width: 100%;
+			background-size: cover;
+			background-repeat: no-repeat;
+
+			> .mask {
+				background: -moz-linear-gradient(45deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%);
+				background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, rgba(0,0,0,0.65)), color-stop(100%, rgba(0,0,0,0)));
+				background: -webkit-linear-gradient(45deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%);
+				background: -o-linear-gradient(45deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%);
+				background: -ms-linear-gradient(45deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%);
+				background: linear-gradient(45deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%);
+				filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a6000000', endColorstr='#00000000',GradientType=1 );
+				height: 100%;
+
+				> .inner {
+					padding: 10px;
+					color: #c5c5c5;
+
+					> .title {
+						text-align: center;
+
+						> h2 {
+							color: white;
+						}
+					}
+
+					> .game-icon {
+						width: 128px;
+						height: 128px;
+						margin: 0 auto;
+
+						background-repeat: no-repeat;
+					}
+
+					> .map {
+						font-size: 16px;
+						text-align: center;
+
+						> span.focus {
+							color: white;
+						}
+					}
+
+					> .victor {
+						margin: 0 auto;
+						text-align: center;
+
+						> .team-score-bollards {
+							margin: 0 auto;
+							margin-bottom: -10px;
+							color: white;
+
+							> .score-bollard {
+								float: left;
+								height: 75px;
+								width: 50px;
+								margin: 0 5px;
+
+								> .height-mask {
+									width: 100%;
+								}
+								> .score {
+									position: absolute;
+									width: 50px;
+									text-align: center;
+									margin-top: -45px;
+								}
+							}
+
+							> .team-score-bollard {
+								float: left;
+
+								height: 75px;
+								width: 50px;
+								margin: 0 5px;
+
+								> div {
+									line-height: 5em;
+								}
+							}
+						}
+
+						> .ffa-victor {
+							width: 300px;
+							margin: 0 auto;
+						}
+					}
+				}
+			}
+
+			> .victor-player-model {
+				background-repeat: no-repeat;
+				background-position: 30px 20px;
+
+				height: 350px;
+				width: 255px;
+				position: absolute;
+				top: 24px;
+				left: 0;
+
+				@media (min-width: 768px) and (max-width: 992px) {
+					top: 21px;
+					height: 353px;
+				}
+			}
+		}
+
+	.spacin-bro {
+		height: 1150px;
+	}
 }

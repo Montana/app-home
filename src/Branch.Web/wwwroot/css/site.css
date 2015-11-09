@@ -688,6 +688,82 @@ main.halo4-competitive-skill-rank .csr-details > .row {
     main.halo4-competitive-skill-rank .csr-details > .row > .playlist-advanced-data #mvar .entry > td > .name {
       width: 130px; }
 
+main.halo4-match article.cover {
+  position: relative;
+  height: 374px;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat; }
+  main.halo4-match article.cover > .mask {
+    background: -moz-linear-gradient(45deg, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, rgba(0, 0, 0, 0.65)), color-stop(100%, transparent));
+    background: -webkit-linear-gradient(45deg, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    background: -o-linear-gradient(45deg, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    background: -ms-linear-gradient(45deg, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a6000000', endColorstr='#00000000',GradientType=1 );
+    height: 100%; }
+    main.halo4-match article.cover > .mask > .inner {
+      padding: 10px;
+      color: #c5c5c5; }
+      main.halo4-match article.cover > .mask > .inner > .title {
+        text-align: center; }
+        main.halo4-match article.cover > .mask > .inner > .title > h2 {
+          color: white; }
+      main.halo4-match article.cover > .mask > .inner > .game-icon {
+        width: 128px;
+        height: 128px;
+        margin: 0 auto;
+        background-repeat: no-repeat; }
+      main.halo4-match article.cover > .mask > .inner > .map {
+        font-size: 16px;
+        text-align: center; }
+        main.halo4-match article.cover > .mask > .inner > .map > span.focus {
+          color: white; }
+      main.halo4-match article.cover > .mask > .inner > .victor {
+        margin: 0 auto;
+        text-align: center; }
+        main.halo4-match article.cover > .mask > .inner > .victor > .team-score-bollards {
+          margin: 0 auto;
+          margin-bottom: -10px;
+          color: white; }
+          main.halo4-match article.cover > .mask > .inner > .victor > .team-score-bollards > .score-bollard {
+            float: left;
+            height: 75px;
+            width: 50px;
+            margin: 0 5px; }
+            main.halo4-match article.cover > .mask > .inner > .victor > .team-score-bollards > .score-bollard > .height-mask {
+              width: 100%; }
+            main.halo4-match article.cover > .mask > .inner > .victor > .team-score-bollards > .score-bollard > .score {
+              position: absolute;
+              width: 50px;
+              text-align: center;
+              margin-top: -45px; }
+          main.halo4-match article.cover > .mask > .inner > .victor > .team-score-bollards > .team-score-bollard {
+            float: left;
+            height: 75px;
+            width: 50px;
+            margin: 0 5px; }
+            main.halo4-match article.cover > .mask > .inner > .victor > .team-score-bollards > .team-score-bollard > div {
+              line-height: 5em; }
+        main.halo4-match article.cover > .mask > .inner > .victor > .ffa-victor {
+          width: 300px;
+          margin: 0 auto; }
+  main.halo4-match article.cover > .victor-player-model {
+    background-repeat: no-repeat;
+    background-position: 30px 20px;
+    height: 350px;
+    width: 255px;
+    position: absolute;
+    top: 24px;
+    left: 0; }
+    @media (min-width: 768px) and (max-width: 992px) {
+      main.halo4-match article.cover > .victor-player-model {
+        top: 21px;
+        height: 353px; } }
+main.halo4-match .spacin-bro {
+  height: 1150px; }
+
 main.halo4-match-history table.match-history tbody > tr > td.dnf {
   color: #727272; }
 main.halo4-match-history table.match-history tbody > tr > td.defeat {

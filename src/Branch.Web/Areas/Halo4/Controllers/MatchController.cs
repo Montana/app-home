@@ -3,6 +3,11 @@ using Branch.Service.Halo4.Services;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Halo.Core.DataContracts.Enums;
 using Branch.Helpers.Extentions;
+using Branch.Web.Areas.Halo4.ViewModels;
+using Microsoft.Halo.Core.DataContracts;
+using Microsoft.Halo.Core.DataContracts.Abstracts;
+using System;
+using System.Linq;
 
 namespace Branch.Web.Areas.Halo4.Controllers
 {
@@ -27,12 +32,26 @@ namespace Branch.Web.Areas.Halo4.Controllers
 			var matchHistoryTask = MatchHistoryService.GetGameHistory(serviceRecord.Xuid, matchGameMode, count: 20);
 			var matchTask = MatchService.GetMatch(serviceRecord.Xuid, matchId);
 			await Task.WhenAll(matchHistoryTask, matchTask);
-
+			
 			// Check Mode Slug is the same as the game
 			if (matchGameMode != matchTask.Result.Game.Mode)
 				return RedirectToAction("Index", new { gamertag, matchId, matchModeSlug = matchTask.Result.Game.Mode.GetDescription().ToString() });
+			
+			switch(matchGameMode)
+			{
+				case GameMode.WarGames:
+				case GameMode.CustomGames:
+					return View("WarGameDetails", new MatchViewModel<WarGameDetails>(serviceRecord, matchHistoryTask.Result, matchTask.Result.Game, matchGameMode));
 
-			return Json(matchTask.Result);
+				case GameMode.Campaign:
+					throw new NotImplementedException();
+
+				case GameMode.SpartanOps:
+					throw new NotImplementedException();
+
+				default:
+					throw new InvalidOperationException();
+			}
 		}
 	}
 }
