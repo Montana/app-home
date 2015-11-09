@@ -1,9 +1,16 @@
-﻿namespace Microsoft.Halo.Core.DataContracts.Enums
+﻿using System.ComponentModel;
+
+namespace Microsoft.Halo.Core.DataContracts.Enums
 {
 	public enum GameResult
 	{
-		Lost = 0, 
-		Draw = 1, 
+		[Description("Lost")]
+		Lost = 0,
+
+		[Description("Draw")]
+		Draw = 1,
+
+		[Description("Won")]
 		Won = 2
 	}
 }
