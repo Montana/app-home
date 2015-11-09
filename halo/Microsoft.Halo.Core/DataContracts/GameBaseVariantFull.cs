@@ -2,6 +2,6 @@
 
 namespace Microsoft.Halo.Core.DataContracts
 {
-	public class GameBaseVariantDetailsFull
+	public class GameBaseVariantFull
 		: GameVariantFull { }
 }
