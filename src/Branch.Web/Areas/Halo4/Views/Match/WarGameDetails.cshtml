@@ -6,6 +6,7 @@
 	var title = string.Format("{0} on {1}", Model.MatchDetails.GameVariantName, Model.MatchDetails.MapVariantName);
 	var orderedTeams = Model.MatchDetails.Teams.OrderBy(t => t.Standing);
 	var topPlayer = Model.MatchDetails.Players.OrderBy(t => t.Standing).First();
+	var gametype = (await MetadataService.GetMetadataAsync()).GameBaseVariantsMetadata.GameBaseVariants.First(g => g.Id == Model.MatchDetails.GameBaseVariant);
 
 	ViewBag.Title = $"{gamertag} playing {title}";
 }
@@ -36,11 +37,11 @@
 								<div class="title">
 									<h2>@Model.MatchDetails.GameVariantName</h2>
 									<p>
-										@Model.MatchDetails.EndDateUtc | @Model.MatchDetails.Duration
+										@Model.MatchDetails.EndDateUtc.ToString("d") | Match Length: @Model.MatchDetails.Duration
 									</p>
 								</div>
 
-								<div class="game-icon" style="background-image: url('@*@GeneralHelpers.GetRawAssetUrl(gametype.ImageUrl)*@')"></div>
+								<div class="game-icon" style="background-image: url('@await MetadataService.ResolveAssetContainerAsync(gametype.ImageUrl, "large")')"></div>
 
 								<div class="map">
 									on
@@ -84,7 +85,7 @@
 											}
 											else
 											{
-												@*@Html.ActionLink(topPlayer.Gamertag, "Index", "ServiceRecord", new { { "gamertag", topPlayer.Gamertag } }, new { @class = "alt" })*@
+												<a asp-action="Index" asp-controller="ServiceRecord" asp-route-gamertag="@topPlayer.Gamertag" alt="Top Player">@topPlayer.Gamertag</a>
 											}
 											led the game with a personal score of @topPlayer.PersonalScore, and a K/D of {{KDA}}@*@MathHelpers.CalculateKd(topPlayer.Kills, topPlayer.Deaths)*@
 										</div>

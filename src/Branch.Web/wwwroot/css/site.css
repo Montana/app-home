@@ -45,7 +45,10 @@ main {
   border-radius: 0; }
 
 .seperator {
-  margin: 10px 0px 10px 20px; }
+  margin: 10px;
+  height: 1px;
+  border: 1px solid #aaa;
+  opacity: 0.6; }
 
 @media (min-width: 768px) {
   .navbar-default {

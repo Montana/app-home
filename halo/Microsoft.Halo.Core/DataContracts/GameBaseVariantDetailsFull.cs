@@ -1,11 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Halo.Core.DataContracts.Enums;
+using Newtonsoft.Json;
 
 namespace Microsoft.Halo.Core.DataContracts
 {
 	public class GameBaseVariantDetailsFull
 	{
 		[JsonProperty("Id")]
-		public int Id { get; set; }
+		public GameBaseVariant Id { get; set; }
 
 		[JsonProperty("KDRelevant")]
 		public bool KillDeathRatioRelevant { get; set; }
