@@ -50,7 +50,6 @@ namespace Branch.Service.Halo4.Database.Repositories
 			{
 				item.DocumentId = delta.DocumentId;
 				item.GameMode = delta.GameMode;
-				item.ServiceRecordId = delta.ServiceRecordId;
 
 				item.UpdatedAt = DateTime.UtcNow;
 			}

@@ -8,9 +8,10 @@ using Branch.Service.Halo4.Database;
 namespace Branch.Service.Halo4.Migrations
 {
     [DbContext(typeof(Halo4DbContext))]
-    partial class Halo4DbContextModelSnapshot : ModelSnapshot
+    [Migration("20151109150727_AddedMatchModel")]
+    partial class AddedMatchModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .Annotation("ProductVersion", "7.0.0-beta8-15964")
@@ -87,6 +88,8 @@ namespace Branch.Service.Halo4.Migrations
 
                     b.Property<string>("MatchId");
 
+                    b.Property<int?>("ServiceRecordId");
+
                     b.Property<DateTime>("UpdatedAt");
 
                     b.HasKey("Id");
@@ -117,6 +120,8 @@ namespace Branch.Service.Halo4.Migrations
 
                     b.Property<string>("DocumentId");
 
+                    b.Property<int?>("MatchId");
+
                     b.Property<string>("ServiceTag");
 
                     b.Property<DateTime>("UpdatedAt");
@@ -126,16 +131,14 @@ namespace Branch.Service.Halo4.Migrations
                     b.HasKey("Id");
                 });
 
-            modelBuilder.Entity("Branch.Service.Halo4.Database.Models.ServiceRecordMatch", b =>
+            modelBuilder.Entity("Branch.Service.Halo4.Database.Models.GameHistory", b =>
                 {
-                    b.Property<int>("ServiceRecordId");
-
-                    b.Property<int>("MatchId");
-
-                    b.HasKey("ServiceRecordId", "MatchId");
+                    b.HasOne("Branch.Service.Halo4.Database.Models.ServiceRecord")
+                        .WithMany()
+                        .ForeignKey("ServiceRecordId");
                 });
 
-            modelBuilder.Entity("Branch.Service.Halo4.Database.Models.GameHistory", b =>
+            modelBuilder.Entity("Branch.Service.Halo4.Database.Models.Match", b =>
                 {
                     b.HasOne("Branch.Service.Halo4.Database.Models.ServiceRecord")
                         .WithMany()
@@ -147,17 +150,10 @@ namespace Branch.Service.Halo4.Migrations
                     b.HasOne("Branch.Service.Halo4.Database.Models.Commendations")
                         .WithOne()
                         .ForeignKey("Branch.Service.Halo4.Database.Models.ServiceRecord", "CommendationsId");
-                });
 
-            modelBuilder.Entity("Branch.Service.Halo4.Database.Models.ServiceRecordMatch", b =>
-                {
                     b.HasOne("Branch.Service.Halo4.Database.Models.Match")
                         .WithMany()
                         .ForeignKey("MatchId");
-
-                    b.HasOne("Branch.Service.Halo4.Database.Models.ServiceRecord")
-                        .WithMany()
-                        .ForeignKey("ServiceRecordId");
                 });
         }
     }

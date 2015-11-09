@@ -39,7 +39,7 @@ namespace Branch.Service.Halo4.Services
 		public async Task<CommendationsDetailsFull> GetCommendations(Int64 xuid)
 		{
 			return await GetCommendations(xuid, false);
-        }
+		}
 
 		public async Task<CommendationsDetailsFull> GetCommendations(Int64 xuid, bool takeCached)
 		{
@@ -89,8 +89,8 @@ namespace Branch.Service.Halo4.Services
 				case StatusCode.NoData:
 					throw new PlayerHasntPlayedHalo4Exception();
 
-				case StatusCode.PlayerDoesntExist:
-					throw new PlayerDoesntExistException();
+				case StatusCode.ContentNotFound:
+					throw new ContentNotFoundException(commendationsResponse.StatusReason);
 			}
 
 			// Update documentdb and return data if it exists in the DocumentDb
@@ -112,7 +112,7 @@ namespace Branch.Service.Halo4.Services
 
 			// Query (or, on fallback, create) Commendations
 			var commendations = _commendationsRepository
-				.Where(gh => gh.ServiceRecordId == serviceRecordMetadata.Id)
+				.Where(c => c.ServiceRecordId == serviceRecordMetadata.Id)
 				.FirstOrDefault();
 			if (commendations == null)
 				_commendationsRepository.Add(new Commendations

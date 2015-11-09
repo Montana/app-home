@@ -25,11 +25,15 @@ namespace Branch.Service.Halo4.Database
 				.HasOne(sr => sr.Commendations)
 				.WithOne(c => c.ServiceRecord)
 				.ForeignKey<ServiceRecord>(sr => sr.CommendationsId);
+
+			modelBuilder.Entity<ServiceRecordMatch>().HasKey(x => new { x.ServiceRecordId, x.MatchId });
 		}
 
 		public DbSet<Authentication> Authentications { get; set; }
 
 		public DbSet<ServiceRecord> ServiceRecords { get; set; }
+
+		public DbSet<ServiceRecordMatch> ServiceRecordMatches { get; set; }
 
 		public DbSet<GameHistory> GameHistories { get; set; }
 

@@ -8,9 +8,10 @@ using Branch.Service.Halo4.Database;
 namespace Branch.Service.Halo4.Migrations
 {
     [DbContext(typeof(Halo4DbContext))]
-    partial class Halo4DbContextModelSnapshot : ModelSnapshot
+    [Migration("20151109155325_ServiceRecordMatchesModelUpdate")]
+    partial class ServiceRecordMatchesModelUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .Annotation("ProductVersion", "7.0.0-beta8-15964")
@@ -126,7 +127,7 @@ namespace Branch.Service.Halo4.Migrations
                     b.HasKey("Id");
                 });
 
-            modelBuilder.Entity("Branch.Service.Halo4.Database.Models.ServiceRecordMatch", b =>
+            modelBuilder.Entity("Branch.Service.Halo4.Database.Models.ServiceRecordMatches", b =>
                 {
                     b.Property<int>("ServiceRecordId");
 
@@ -149,7 +150,7 @@ namespace Branch.Service.Halo4.Migrations
                         .ForeignKey("Branch.Service.Halo4.Database.Models.ServiceRecord", "CommendationsId");
                 });
 
-            modelBuilder.Entity("Branch.Service.Halo4.Database.Models.ServiceRecordMatch", b =>
+            modelBuilder.Entity("Branch.Service.Halo4.Database.Models.ServiceRecordMatches", b =>
                 {
                     b.HasOne("Branch.Service.Halo4.Database.Models.Match")
                         .WithMany()

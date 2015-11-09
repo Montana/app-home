@@ -11,8 +11,8 @@ using System.Collections.Generic;
 using Microsoft.Halo.Core.DataContracts.Enums;
 using Branch.Service.Halo4.Database.Repositories.Interfaces;
 using Branch.Service.Halo4.Exceptions;
-using Branch.Service.Xuid.Exceptions;
 using Branch.Service.Xuid.Services;
+using System.Collections.ObjectModel;
 
 namespace Branch.Service.Halo4.Services
 {
@@ -34,28 +34,33 @@ namespace Branch.Service.Halo4.Services
 
 		private readonly TimeSpan CacheRefreshTime = new TimeSpan(10, 0, 0, 0, 0);
 		
-		public async Task<GameHistoryDetailsFull> GetGameHistory(Int64 xuid, string gameId)
+		public async Task<GameDetailsFull> GetMatch(Int64 xuid, string matchId)
+		{
+			return await GetMatch(xuid, matchId, false);
+		}
+		
+		public async Task<GameDetailsFull> GetMatch(Int64 xuid, string matchId, bool takeCached)
 		{
 			var playerGamertag = await XuidLookupService.LookupGamertagAsync(xuid);
 
 			var spartanToken = await AuthenticationService.GetSpartanTokenAsync();
 			var validAuthentication = spartanToken != null;
-			var gameHistoryUri = new Uri(string.Format(GetMatchUrl, gameId));
+			var matchUri = new Uri(string.Format(GetMatchUrl, matchId));
 
-			// Get Game History metadata from Database
-			var gameHistoryMetadata = _gameHistoryRepository.Where(gh => gh.GameMode == gameMode && gh.Count == count && gh.StartAt == startAt).Where(gh => gh?.ServiceRecord?.Xuid == xuid).FirstOrDefault();
-			GameHistoryDetailsFull cachedGameHistory = null;
-			if (gameHistoryMetadata != null)
+			// Get Match metadata from Database
+			var matchMetadata = _matchRepository.Where(m => m.MatchId == matchId).FirstOrDefault();
+			GameDetailsFull cachedmatch = null;
+			if (matchMetadata != null)
 			{
 				// Return data from DocumentDb if we're taking cached version, or the auhentication is broken
 				if (!validAuthentication || takeCached)
 				{
-					// Get Game History from DocumentDb
-					cachedGameHistory = Halo4DdbRepository.GetById<GameHistoryDetailsFull>(gameHistoryMetadata.DocumentId);
+					// Get Match from DocumentDb
+					cachedmatch = Halo4DdbRepository.GetById<GameDetailsFull>(matchMetadata.DocumentId);
 
-					// If the cached Game History exists, return it
-					if (cachedGameHistory != null)
-						return cachedGameHistory;
+					// If the cached Match exists, return it
+					if (cachedmatch != null)
+						return cachedmatch;
 				}
 			}
 
@@ -63,33 +68,33 @@ namespace Branch.Service.Halo4.Services
 			if (!validAuthentication)
 				throw new Halo4AuthenticationDownException();
 
-			// Get Game History from 343's Halo Service
-			var gameHistoryResponse = await HttpManagerService.ExecuteRequestAsync<GameHistoryDetailsFull>(HttpMethod.GET, gameHistoryUri, headers:
+			// Get Match from 343's Halo Service
+			var matchResponse = await HttpManagerService.ExecuteRequestAsync<GameDetailsFull>(HttpMethod.GET, matchUri, headers:
 				new Dictionary<string, string>
 				{
 					{ "X-343-Authorization-Spartan", spartanToken }
 				});
 
 			// Check if something went wrong with the request or parsing
-			if (gameHistoryResponse == null)
+			if (matchResponse == null)
 				return null; // TODO: find a way to acess this data and throw the relevant exception
 
 			// Check response
-			switch (gameHistoryResponse.StatusCode)
+			switch (matchResponse.StatusCode)
 			{
 				case StatusCode.NoData:
 					throw new PlayerHasntPlayedHalo4Exception();
 
-				case StatusCode.PlayerDoesntExist:
-					throw new PlayerDoesntExistException();
+				case StatusCode.ContentNotFound:
+					throw new ContentNotFoundException(matchResponse.StatusReason);
 			}
 
 			// Update documentdb and return data if it exists in the DocumentDb
-			if (gameHistoryMetadata != null)
-				cachedGameHistory =
-					await Halo4DdbRepository.UpdateAsync<GameHistoryDetailsFull>(gameHistoryMetadata.DocumentId, gameHistoryResponse);
+			if (matchMetadata != null)
+				cachedmatch =
+					await Halo4DdbRepository.UpdateAsync<GameDetailsFull>(matchMetadata.DocumentId, matchResponse);
 			else
-				cachedGameHistory = await Halo4DdbRepository.CreateAsync<GameHistoryDetailsFull>(gameHistoryResponse);
+				cachedmatch = await Halo4DdbRepository.CreateAsync<GameDetailsFull>(matchResponse);
 
 			// Query (or, on fallback, create) Service Record
 			var serviceRecord = _serviceRecordRepository.Where(sr => sr.Xuid == xuid).FirstOrDefault();
@@ -102,25 +107,31 @@ namespace Branch.Service.Halo4.Services
 				});
 
 			// Query (or, on fallback, create) Game History
-			var gameHistory = _gameHistoryRepository
-				.Where(gh => gh.ServiceRecord.Xuid == xuid && gh.GameMode == gameMode && gh.Count == gh.Count && gh.StartAt == startAt)
-				.FirstOrDefault();
-			if (gameHistory == null)
-				_gameHistoryRepository.Add(new GameHistory
+			var match = _matchRepository.Where(m => m.MatchId == matchId).FirstOrDefault();
+			if (match == null)
+				_matchRepository.Add(new Match
 				{
-					DocumentId = cachedGameHistory.Id,
-					Count = count,
-					GameMode = gameMode,
-					ServiceRecordId = serviceRecord.Id
+					DocumentId = cachedmatch.Id,
+					MatchId = matchResponse.Game.Id,
+					GameMode = matchResponse.Game.Mode
 				});
 			else
 			{
-				gameHistory.DocumentId = cachedGameHistory.Id;
-				_gameHistoryRepository.Update(gameHistory);
+				match.DocumentId = cachedmatch.Id;
+				_matchRepository.Update(match);
 			}
 
-			// Return Game History to user
-			return cachedGameHistory;
+			if (serviceRecord.ServiceRecordMatches == null || serviceRecord.ServiceRecordMatches.Any(m => m.MatchId == match.Id) == false)
+			{
+				if (serviceRecord.ServiceRecordMatches == null)
+					serviceRecord.ServiceRecordMatches = new Collection<ServiceRecordMatch>();
+
+				serviceRecord.ServiceRecordMatches.Add(new ServiceRecordMatch { Match = match, ServiceRecord = serviceRecord });
+				_serviceRecordRepository.Update(serviceRecord);
+			}
+
+			// Return Match to user
+			return cachedmatch;
 		}
 	}
 }

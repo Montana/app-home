@@ -1,5 +1,4 @@
 ﻿using Branch.Helpers.Database;
-using System;
 
 namespace Branch.Service.Halo4.Database.Models
 {

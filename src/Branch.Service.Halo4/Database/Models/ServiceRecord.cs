@@ -15,6 +15,8 @@ namespace Branch.Service.Halo4.Database.Models
 
 		public ICollection<GameHistory> GameHistories { get; set; }
 
+		public ICollection<ServiceRecordMatch> ServiceRecordMatches { get; set; }
+
 		#region [ Commendations ]
 
 		public Nullable<int> CommendationsId { get; set; }

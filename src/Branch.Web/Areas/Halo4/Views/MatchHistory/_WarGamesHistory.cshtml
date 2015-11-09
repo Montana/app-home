@@ -14,7 +14,9 @@
 	{
 		<tr>
 			<td>
-				<a href="#">@game.VariantName</a>
+				<a asp-action="Index" asp-controller="Match" asp-route-gamertag="@Model.ServiceRecord.Gamertag" asp-route-matchModeSlug="@game.Mode.GetDescription().ToSlug()" asp-route-matchId="@game.Id">
+					@game.VariantName
+				</a>
 			</td>
 
 			<td class="@game.GetGameVictoryStatus().CssFriendlyResult">

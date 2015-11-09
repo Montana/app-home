@@ -94,8 +94,8 @@ namespace Branch.Service.Halo4.Services
 				case StatusCode.NoData:
 					throw new PlayerHasntPlayedHalo4Exception();
 
-				case StatusCode.PlayerDoesntExist:
-					throw new PlayerDoesntExistException();
+				case StatusCode.ContentNotFound:
+					throw new ContentNotFoundException(gameHistoryResponse.StatusReason);
 			}
 
 			// Update documentdb and return data if it exists in the DocumentDb

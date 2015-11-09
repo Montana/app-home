@@ -4,6 +4,7 @@ using System.Linq;
 using Branch.Service.Halo4.Database.Models;
 using System.Linq.Expressions;
 using Branch.Service.Halo4.Database.Repositories.Interfaces;
+using Microsoft.Data.Entity;
 
 namespace Branch.Service.Halo4.Database.Repositories
 {
@@ -19,17 +20,24 @@ namespace Branch.Service.Halo4.Database.Repositories
 
 		public  IEnumerable<ServiceRecord> GetAll(int startAt = 0, int count = int.MaxValue)
 		{
-			return _halo4Context.ServiceRecords/*.Skip(startAt).Take(count).OrderBy(a => a.Id)*/.ToList();
+			return _halo4Context.ServiceRecords
+				.Include(sr => sr.ServiceRecordMatches)
+				/*.Skip(startAt).Take(count).OrderBy(a => a.Id)*/
+				.ToList();
 		}
 
 		public IEnumerable<ServiceRecord> Where(Expression<Func<ServiceRecord,bool>> predicate)
 		{
-			return _halo4Context.ServiceRecords.Where(predicate).AsEnumerable();
+			return _halo4Context.ServiceRecords
+				.Include(sr => sr.ServiceRecordMatches)
+				.Where(predicate).AsEnumerable();
 		}
 
 		public  ServiceRecord GetById(int id)
 		{
-			return _halo4Context.ServiceRecords.FirstOrDefault(a => a.Id == id);
+			return _halo4Context.ServiceRecords
+				.Include(sr => sr.ServiceRecordMatches)
+				.FirstOrDefault(a => a.Id == id);
 		}
 
 		public  ServiceRecord Add(ServiceRecord item)
@@ -51,7 +59,7 @@ namespace Branch.Service.Halo4.Database.Repositories
 				item.Xuid = delta.Xuid;
 				item.ServiceTag = delta.ServiceTag;
 				item.DocumentId = delta.DocumentId;
-
+				item.ServiceRecordMatches = delta.ServiceRecordMatches;
 				item.UpdatedAt = DateTime.UtcNow;
 			}
 
