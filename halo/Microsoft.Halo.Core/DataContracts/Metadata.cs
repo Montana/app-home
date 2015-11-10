@@ -17,7 +17,10 @@ namespace Microsoft.Halo.Core.DataContracts
 
 		[JsonProperty("MapsMetadata")]
 		public MapsMetadata MapsMetadata { get; set; }
-		
+
+		[JsonProperty("MedalsMetadata")]
+		public MedalsMetadata MedalsMetadata { get; set; }
+
 		[JsonProperty("PlaylistsMetadata")]
 		public PlaylistsMetadata PlaylistsMetadata { get; set; }
 

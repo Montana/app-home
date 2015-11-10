@@ -1,11 +1,21 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Halo.Core.DataContracts.Enums;
+using Newtonsoft.Json;
 
 namespace Microsoft.Halo.Core.DataContracts
-{
+{
 	public class MedalDetailsFull
 	{
 		[JsonProperty("Id")]
-		public uint Id { get; set; }
+		public int Id { get; set; }
+
+		[JsonProperty("TierId")]
+		public MedalTier Tier { get; set; }
+
+		[JsonProperty("ClassId")]
+		public MedalClass Class { get; set; }
+
+		[JsonProperty("GameBaseVariantId")]
+		public GameBaseVariant GameBaseVariant { get; set; }
 
 		[JsonProperty("Name")]
 		public string Name { get; set; }
@@ -15,8 +25,5 @@ namespace Microsoft.Halo.Core.DataContracts
 
 		[JsonProperty("ImageUrl")]
 		public AssetContainer ImageUrl { get; set; }
-
-		[JsonProperty("TotalMedals")]
-		public uint TotalMedals { get; set; }
 	}
 }

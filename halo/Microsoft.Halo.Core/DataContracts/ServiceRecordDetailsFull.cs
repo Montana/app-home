@@ -4,7 +4,8 @@ using Microsoft.Halo.Core.DataContracts.Abstracts;
 using Newtonsoft.Json;
 
 namespace Microsoft.Halo.Core.DataContracts
-{
+{
+
 	public class ServiceRecordDetailsFull
 		: Response
 	{
@@ -102,7 +103,7 @@ namespace Microsoft.Halo.Core.DataContracts
 		public AssetContainer NextRankImageUrl { get; set; }
 
 		[JsonProperty("TopMedals")]
-		public IReadOnlyCollection<MedalDetailsFull> TopMedals { get; set; }
+		public IReadOnlyCollection<MedalDetails> TopMedals { get; set; }
 
 		[JsonProperty("Specializations")]
 		public IReadOnlyCollection<SpecializationDetailsPartial> Specializations { get; set; }
