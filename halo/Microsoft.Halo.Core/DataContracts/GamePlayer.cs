@@ -26,7 +26,7 @@ namespace Microsoft.Halo.Core.DataContracts
 		public IReadOnlyCollection<EnemyStatistic> EnemyStats { get; set; }
 
 		[JsonProperty("SkillRank")]
-		public object SkillRank { get; set; }
+		public SkillRankDetailsFull SkillRank { get; set; }
 
 		[JsonProperty("TeamId")]
 		public int TeamId { get; set; }
@@ -35,7 +35,7 @@ namespace Microsoft.Halo.Core.DataContracts
 		public bool IsCompleted { get; set; }
 
 		[JsonProperty("Servicetag")]
-		public string Servicetag { get; set; }
+		public string ServiceTag { get; set; }
 
 		[JsonProperty("IsGuest")]
 		public bool IsGuest { get; set; }

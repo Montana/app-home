@@ -1,0 +1,143 @@
+﻿@using Branch.Helpers.Cryptography
+@model PlayerListViewModel
+@{
+	var team = Model.Team ?? new GameTeam
+	{
+		Name = "Players",
+		PrimaryRgb = "#3d3d7c"
+	};
+	var players = Model.GamePlayers;
+}
+
+<div class="team col-md-12" style="border-color: @team.PrimaryRgb;">
+	<div class="col-md-12 header">
+		<div class="row">
+			@if (team.EmblemImageUrl == null)
+			{
+				<div class="col-md-5 team-indicator">
+					@(team.Name)
+				</div>
+			}
+			else
+			{
+				<div class="col-md-5 team-indicator" style="background-image: url('@await MetadataService.ResolveAssetContainerAsync(team.EmblemImageUrl, "medium")');">
+					@(team.Name)
+				</div>
+			}
+			<div class="col-md-1 score-indicator check-dat-paddin hidden-xs hidden-sm">Score</div>
+			<div class="col-md-1 kills-indicator check-dat-paddin hidden-xs hidden-sm">Kills</div>
+			<div class="col-md-1 deaths-indicator check-dat-paddin hidden-xs hidden-sm">Deaths</div>
+			<div class="col-md-2 kd-indicator check-dat-paddin hidden-xs hidden-sm">K/D Ratio</div>
+			<div class="col-md-1 assists-indicator check-dat-paddin hidden-xs hidden-sm">Assists</div>
+			<div class="col-md-1 csr-indicator check-dat-paddin hidden-xs hidden-sm">CSR</div>
+		</div>
+	</div>
+
+	<div class="team-players">
+		@foreach (var player in players)
+		{
+			var ident = Sha1Cryptography.ComputeHashToString(player.Gamertag).Remove(8);
+			<div class="col-md-12" id="@ident" style="border-color: @team.PrimaryRgb;">
+				<div class="desktop-view hidden-xs hidden-sm row">
+					<div class="col-md-1 expander-indicator">
+						<div class="expander-positioner">
+							<a href="#" class="player-details-expander btn btn-default btn-large glyphicon glyphicon-chevron-down" data-ref="@ident"></a>
+						</div>
+					</div>
+					@if (player.IsGuest)
+					{
+						<div class="col-md-1 visual-flair" style="background-color: @team.PrimaryRgb; background-image: url('https://emblems.svc.halowaypoint.com/Stats/emblem.ashx?s=48&0=0&1=21&2=2&3=2&amp;fi=48&amp;bi=0&amp;fl=1&amp;m=3');"></div>
+					}
+					else
+					{
+						<div class="col-md-1 visual-flair" style="background-color: @team.PrimaryRgb; background-image: url(@await MetadataService.ResolveAssetContainerAsync(player.EmblemImageUrl, "48"));"></div>
+					}
+
+					<div class="col-md-3 alphabetical-flair">
+						@if (player.IsGuest)
+						{
+							@player.Gamertag
+							<br /><strong>GEST</strong>
+						}
+						else
+						{
+							<a asp-action="Index" asp-controller="ServiceRecord" asp-route-gamertag="@player.Gamertag">
+								@player.Gamertag
+							</a>
+							<br />
+							<strong>@player.ServiceTag</strong>
+						}
+					</div>
+					<div class="col-md-1 score-indicator check-dat-paddin">
+						@player.PersonalScore
+					</div>
+					<div class="col-md-1 kills-indicator check-dat-paddin">
+						@player.Kills
+					</div>
+					<div class="col-md-1 deaths-indicator check-dat-paddin">
+						@player.Deaths
+					</div>
+					<div class="col-md-2 kd-indicator check-dat-paddin">
+						{{KDA}}
+					</div>
+					<div class="col-md-1 assists-indicator check-dat-paddin">
+						@player.Assists
+					</div>
+					<div class="col-md-1 csr-indicator check-dat-paddin" style="background-image: url(@MetadataService.ResolveCsrImage(player.SkillRank, "large"));"></div>
+				</div>
+				<div class="mobile-view visible-xs visible-sm row">
+					<div class="expander-indicator">
+						<div class="player-details-expander" data-ref="@ident">
+							<div class="player-indicator">
+								@if (player.IsGuest)
+								{
+								<div class="col-md-1 visual-flair" style="background-color: @team.PrimaryRgb; background-image: url('https://emblems.svc.halowaypoint.com/Stats/emblem.ashx?s=48&0=0&1=21&2=2&3=2&amp;fi=48&amp;bi=0&amp;fl=1&amp;m=3');">
+									@player.Gamertag
+									<br />
+									<strong>GEST</strong>
+								</div>
+								}
+								else
+								{
+								<div class="col-md-1 visual-flair" style="background-color: @team.PrimaryRgb; background-image: url(@await MetadataService.ResolveAssetContainerAsync(player.EmblemImageUrl, "48"));">
+									@player.Gamertag
+									<br />
+									<strong>@player.ServiceTag</strong>
+								</div>
+								}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="player-data collapsed" style="display: none;">
+					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+						<li class="active">
+							<a id="tab-summary" href="#@ident-summary" data-toggle="tab">Summary</a>
+						</li>
+						<li>
+							<a id="tab-weapons" href="#@ident-weapons" data-toggle="tab">Weapons</a>
+						</li>
+						@if (player.MedalStats.Any())
+						{
+							<li>
+								<a id="tab-medals" href="#@ident-medals" data-toggle="tab">Medals</a>
+							</li>
+						}
+						@if (player.EnemyStats.Any())
+						{
+							<li>
+								<a id="tab-enemy" href="#@ident-enemys" data-toggle="tab">Enemies</a>
+							</li>
+						}
+					</ul>
+
+					<div class="player-stats tab-content">
+						@await Html.PartialAsync("Partials/_SummaryStats", player)
+						@await Html.PartialAsync("Partials/_WeaponStats", player)
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+</div>

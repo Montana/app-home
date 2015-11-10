@@ -89,7 +89,7 @@ namespace Branch.Service.Halo4.Services
 
 		public string ResolveCsrImage(SkillRankDetailsFull skillRank, string size)
 		{
-			return string.Format(GetCsrImageUrl, size, skillRank.CurrentSkillRank ?? 0);
+			return string.Format(GetCsrImageUrl, size, skillRank?.CurrentSkillRank ?? 0);
 		}
 	}
 }

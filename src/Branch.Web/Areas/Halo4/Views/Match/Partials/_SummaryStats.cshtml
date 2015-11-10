@@ -1,0 +1,196 @@
+﻿@using Branch.Helpers.Cryptography
+@model GamePlayer
+@{ 
+	var ident = Sha1Cryptography.ComputeHashToString(Model.Gamertag).Remove(8);
+}
+
+<div class="tab-pane fade in active summary" id="@ident-summary">
+	<div class="row">
+		<div class="col-md-6 hidden-sm hidden-xs player-model" style="background-image: url('@MetadataService.ResolveSpartanImage(Model.Gamertag)')"></div>
+		<div class="col-md-6">
+			@if (Model.IsGuest)
+			{
+				<h2>@Model.Gamertag</h2>
+				<h3 class="player-servicetag">GEST</h3>
+			}
+			else
+			{
+				<h2>
+					<a asp-action="Index" asp-controller="ServiceRecord" asp-route-gamertag="@Model.Gamertag">
+						@Model.Gamertag
+					</a>
+				</h2>
+				<h3 class="player-servicetag">@Model.ServiceTag</h3>
+			}
+			<hr />
+
+			<h2>
+				Score
+			</h2>
+			<ul class="list-group">
+				<li class="list-group-item">
+					<span class="badge">@Model.PersonalScore</span>
+					Personal Score
+				</li>
+				<li class="list-group-item">
+					<span class="badge">@Model.Kills</span>
+					Kills
+				</li>
+				<li class="list-group-item">
+					<span class="badge">@Model.Deaths</span>
+					Deaths
+				</li>
+				<li class="list-group-item">
+					<span class="badge">{{KDA}}</span>
+					K/D Ratio
+				</li>
+				<li class="list-group-item">
+					<span class="badge">@Model.Assists</span>
+					Assists
+				</li>
+				<li class="list-group-item">
+					<span class="badge">@Model.TotalMedals</span>
+					Medals
+				</li>
+				<li class="list-group-item">
+					<span class="badge">@(Model.Betrayals + Model.Suicides)</span>
+					Penalities (Betrayals, Suicides, etc)
+				</li>
+				@if (!string.IsNullOrEmpty(Model.FeaturedStatName))
+				{
+					<li class="list-group-item">
+						<span class="badge">@Model.FeaturedStatValue</span>
+						@Model.FeaturedStatName
+					</li>
+				}
+			</ul>
+			<hr />
+
+			<h2>
+				Meta
+			</h2>
+			<ul class="list-group">
+				@if (Model.KilledMostGamertag != null)
+				{
+					<li class="list-group-item">
+						<span class="badge">
+							@if (Model.KilledMostGamertag == Model.KilledMostGamertag.RemoveHaloGuestIdentifier())
+							{
+								<a asp-action="Index" asp-controller="ServiceRecord" asp-route-gamertag="@Model.KilledMostGamertag">
+									@Model.KilledMostGamertag
+								</a>
+							}
+							else
+							{
+								@Model.KilledMostGamertag
+							}
+							(@Model.KilledMostCount)
+						</span>
+						Most Killed
+					</li>
+				}
+				else
+				{
+					<li class="list-group-item">
+						<span class="badge">Nobody</span>
+						Most Killed
+					</li>
+				}
+				@if (Model.KilledByMostGamertag != null)
+				{
+					<li class="list-group-item">
+						<span class="badge">
+							@if (Model.KilledByMostGamertag == Model.KilledByMostGamertag.RemoveHaloGuestIdentifier())
+							{
+								<a asp-action="Index" asp-controller="ServiceRecord" asp-route-gamertag="@Model.KilledByMostGamertag">
+									@Model.KilledByMostGamertag
+								</a>
+							}
+							else
+							{
+								@Model.KilledByMostGamertag
+							}
+							(@Model.KilledByMostCount)
+						</span>
+						Most Killed By
+					</li>
+				}
+				else
+				{
+					<li class="list-group-item">
+						<span class="badge">Nobody</span>
+						Most Killed By
+					</li>
+				}
+				<li class="list-group-item">
+					<span class="badge">@Model.AverageKillDistance Meters</span>
+					Average Kill Distance
+				</li>
+				<li class="list-group-item">
+					<span class="badge">@Model.AverageDeathDistance Meters</span>
+					Average Death Distance
+				</li>
+			</ul>
+			<hr />
+		</div>
+
+		<div class="col-md-6">
+			<h2>
+				Medals
+			</h2>
+			<ul class="list-group">
+				<li class="list-group-item">
+					<span class="badge">@Model.TotalKillMedals</span>
+					Kill Medals Earned
+				</li>
+				<li class="list-group-item">
+					<span class="badge">@Model.TotalBonusMedals</span>
+					Bonus Medals Earned
+				</li>
+				<li class="list-group-item">
+					<span class="badge">@Model.TotalAssistMedals</span>
+					Assist Medals Earned
+				</li>
+				<li class="list-group-item">
+					<span class="badge">@Model.TotalSpreeMedals</span>
+					Spree Medals Earned
+				</li>
+				<li class="list-group-item">
+					<span class="badge">@Model.TotalModeMedals</span>
+					Mode Medals Earned
+				</li>
+			</ul>
+		</div>
+		<div class="col-md-6">
+			<h2>
+				Player
+			</h2>
+			<ul class="list-group">
+				<li class="list-group-item">
+					<span class="badge">@(Model.SkillRank?.CurrentSkillRank ?? 0)</span>
+					CSR
+				</li>
+				<li class="list-group-item">
+					<span class="badge">@(Model.RankName ?? "0")</span>
+					Rank
+				</li>
+				<li class="list-group-item">
+					<span class="badge">
+						@(Model.IsCompleted ? "Finished the Fight" : "Did not Finish")
+					</span>
+					Match Completion
+				</li>
+				<li class="list-group-item">
+					<span class="badge">
+						@(Model.JoinedInProgress ? "Joined in Progress" : "Played from the Start")
+					</span>
+					Match Deployment
+				</li>
+				<li class="list-group-item">
+					<span class="badge">@Model.Standing</span>
+					Standing
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

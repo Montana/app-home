@@ -99,7 +99,7 @@ namespace Branch.Service.Halo4.Services
 			// Query (or, on fallback, create) Service Record
 			var serviceRecord = _serviceRecordRepository.Where(sr => sr.Xuid == xuid).FirstOrDefault();
 			if (serviceRecord == null)
-				_serviceRecordRepository.Add(new ServiceRecord
+				serviceRecord = _serviceRecordRepository.Add(new ServiceRecord
 				{
 					DocumentId = null,
 					Xuid = xuid,
@@ -109,7 +109,7 @@ namespace Branch.Service.Halo4.Services
 			// Query (or, on fallback, create) Game History
 			var match = _matchRepository.Where(m => m.MatchId == matchId).FirstOrDefault();
 			if (match == null)
-				_matchRepository.Add(new Match
+				match = _matchRepository.Add(new Match
 				{
 					DocumentId = cachedmatch.Id,
 					MatchId = matchResponse.Game.Id,

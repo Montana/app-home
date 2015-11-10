@@ -36,6 +36,11 @@ namespace Branch.Helpers.Extentions
 			return $"rgba({rgbParts[0].ToDecimal()},{rgbParts[1].ToDecimal()},{rgbParts[2].ToDecimal()},{opacity})";
 		}
 
+		public static string RemoveHaloGuestIdentifier(this string gamertag)
+		{
+			return Regex.Replace(gamertag, @"\((\d)\)", "", RegexOptions.None);
+		}
+
 		/// <summary>
 		/// 
 		/// </summary>
