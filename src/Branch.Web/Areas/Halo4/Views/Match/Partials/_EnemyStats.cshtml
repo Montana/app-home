@@ -2,60 +2,106 @@
 @model GamePlayer
 @{ 
 	var ident = Sha1Cryptography.ComputeHashToString(Model.Gamertag).Remove(8);
+	var enemyGraphIdent = string.Format("player-enemy-{0}", ident);
 }
 
-<div class="tab-pane fade in weapons" id="@ident-weapons">
-	@{
-		var weaponGraphIdent = string.Format("player-weapons-{0}", ident);
-	}
+<div class="tab-pane fade in enemies" id="@ident-enemys">
 	<div class="graph-container hidden-xs">
 		<!-- Graphs Will Return! - maybe.. -->
-		<div id="@weaponGraphIdent" style="height: 250px; width: 700px; display: none;">
-		</div>
+		<div id="@enemyGraphIdent" style="height: 250px; width: 700px; display: none;"></div>
 	</div>
 
-	<h2>All Weapons</h2>
+	<h2>All Enemies</h2>
 	<hr />
-	<table class="table weapons">
-		<thead>
-			<tr>
-				<th>Weapon</th>
-				<th>Kills</th>
-				<th>Headshots</th>
-				<th>Deaths</th>
-				<th>Penalties</th>
-				<th>Spread</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var weaponStat in Model.DamageTypeStats.OrderByDescending(w => MathHelper.CalculateSpread(w.Kills, w.Deaths, new[] { w.Betrayals, w.Suicides })))
-			{
-				<tr>
-					<td>
-						<a href="#" role="tooltip" title="@weaponStat.Name">
-							<img alt="@weaponStat.Name"
-								 src="@await MetadataService.ResolveAssetContainerAsync(weaponStat.ImageUrl, "medium")" />
-						</a>
-					</td>
-					<td>
-						@weaponStat.Kills
-					</td>
-					<td>
-						@weaponStat.Headshots
-					</td>
-					<td>
-						@weaponStat.Deaths
-					</td>
-					<td>
-						@(weaponStat.Betrayals + weaponStat.Suicides)
-					</td>
-					<td>
-						@MathHelper.CalculateSpread(weaponStat.Kills, weaponStat.Deaths, new[] { weaponStat.Betrayals, weaponStat.Suicides })
-					</td>
-				</tr>
-			}
-		</tbody>
-	</table>
+
+	<div class="row">
+		@foreach (var enemyStat in Model.EnemyStats.OrderByDescending(e => e.Kills))
+		{
+			var enemyUuid = string.Format("{0}-{1:X}", ident, enemyStat.EnemyId);
+			var enemy = (await MetadataService.GetMetadataAsync()).EnemiesMetadata.Enemies.First(e => e.Id == enemyStat.EnemyId);
+			var enemyClass = (await MetadataService.GetMetadataAsync()).EnemiesMetadata.EnemyClasses.First(ec => ec.Id == enemy.Class);
+			var enemyType = (await MetadataService.GetMetadataAsync()).EnemiesMetadata.EnemyTypes.First(et => et.Id == enemy.Type);
+			var enemyFaction = (await MetadataService.GetMetadataAsync()).FactionsMetadata.Factions.First(f => f.Id == enemy.Faction);
+
+			<div class="col-md-12 enemy-entry row">
+				<div class="enemy-image col-md-1" style="background-image: url('@await MetadataService.ResolveAssetContainerAsync(enemy.ImageUrl, "large")')"></div>
+				<div class="enemy-content col-md-8">
+					<span class="name">@enemy.Name</span>
+					<ul class="nav nav-tabs" style="margin-top: 15px;">
+						<li class="active">
+							<a id="tab-stats" href="#@enemyUuid-stats" data-toggle="tab">Stats</a>
+						</li>
+						<li>
+							<a id="tab-info" href="#@enemyUuid-info" data-toggle="tab">Information</a>
+						</li>
+						<li>
+							<a id="tab-desc" href="#@enemyUuid-desc" data-toggle="tab">Descirption</a>
+						</li>
+					</ul>
+					<div class="enemy-stats tab-content">
+						<div class="tab-pane fade in active statistics" id="@enemyUuid-stats">
+							<span>
+								<strong>
+									Kills:
+								</strong>
+								@enemyStat.Kills
+							</span>
+							<br />
+							<span>
+								<strong>
+									Deaths:
+								</strong>
+								@enemyStat.Deaths
+							</span>
+							<br />
+							<span>
+								<strong>
+									Average Kill Distance:
+								</strong>
+								@enemyStat.AverageKillDistance Meters
+							</span>
+							<br />
+							<span>
+								<strong>
+									Average Death Distance:
+								</strong>
+								@enemyStat.AverageDeathDistance Meters
+							</span>
+						</div>
+						<div class="tab-pane fade in information" id="@enemyUuid-info">
+							<span>
+								<strong>
+									Class:
+								</strong>
+								@enemyClass.Name
+							</span>
+							<br />
+							<span>
+								<strong>
+									Type:
+								</strong>
+								@enemyType.Name
+							</span>
+							<br />
+							<span>
+								<strong>
+									Faction:
+								</strong>
+								@enemyFaction.Name
+							</span>
+						</div>
+						<div class="tab-pane fade in description" id="@enemyUuid-desc">
+							@enemy.Description
+						</div>
+					</div>
+				</div>
+				<div class="count hidden-xs hidden-sm col-md-2">
+					<span class="integer">@enemyStat.Kills</span>
+					<br />
+					<span class="in-dick-ator">killed</span>
+				</div>
+			</div>
+			<hr />
+		}
+	</div>
 </div>
-
-
