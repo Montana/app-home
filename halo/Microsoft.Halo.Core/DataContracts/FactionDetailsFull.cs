@@ -3,19 +3,10 @@ using Newtonsoft.Json;
 
 namespace Microsoft.Halo.Core.DataContracts
 {
-	public class EnemyDetailsFull
+	public class FactionDetailsFull
 	{
 		[JsonProperty("Id")]
-		public int Id { get; set; }
-
-		[JsonProperty("ClassId")]
-		public EnemyClass Class { get; set; }
-
-		[JsonProperty("TypeId")]
-		public EnemyType Type { get; set; }
-
-		[JsonProperty("FactionId")]
-		public Faction Faction { get; set; }
+		public Faction Id { get; set; }
 
 		[JsonProperty("Name")]
 		public string Name { get; set; }
@@ -25,5 +16,6 @@ namespace Microsoft.Halo.Core.DataContracts
 
 		[JsonProperty("ImageUrl")]
 		public AssetContainer ImageUrl { get; set; }
+
 	}
 }

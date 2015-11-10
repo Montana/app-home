@@ -15,6 +15,9 @@ namespace Microsoft.Halo.Core.DataContracts
 		[JsonProperty("EnemiesMetadata")]
 		public EnemiesMetadata EnemiesMetadata { get; set; }
 
+		[JsonProperty("FactionsMetadata")]
+		public FactionsMetadata FactionsMetadata { get; set; }
+
 		[JsonProperty("GameBaseVariantsMetadata")]
 		public GameBaseVariantsMetadata GameBaseVariantsMetadata { get; set; }
 
