@@ -1,0 +1,127 @@
+﻿@using Branch.Helpers.Cryptography
+@model GamePlayer
+@{ 
+	var ident = Sha1Cryptography.ComputeHashToString(Model.Gamertag).Remove(8);
+	var medalGraphIdent = string.Format("player-medals-{0}", ident);
+}
+
+<div class="tab-pane fade in medals" id="@ident-medals">
+	<div class="graph-container hidden-xs">
+		<!-- Graphs Will Return! - maybe... -->
+		<div id="@medalGraphIdent" style="height: 250px; width: 700px; display: none;"></div>
+	</div>
+
+
+	<!-- Medal View Data Processing -->
+	@{
+		var sortedMedals = Model.MedalStats.OrderByDescending(m => m.TotalMedals);
+		var topMedals = new Dictionary<MedalStatistic, MedalDetailsFull>();
+		var allMedals = new Dictionary<MedalClassDetailsFull, Dictionary<MedalStatistic, MedalDetailsFull>>();
+
+		// woah, alot of medal calculation
+		foreach (var medalClass in (await MetadataService.GetMetadataAsync()).MedalsMetadata.MedalClasses)
+		{
+			if (medalClass == null)
+			{
+				continue;
+			}
+
+			var medalContainer =
+				new Dictionary<MedalStatistic, MedalDetailsFull>
+					(new Dictionary<MedalStatistic, MedalDetailsFull>());
+
+			foreach (var sortedMedal in sortedMedals.Where(m => m.Class == (MedalClass)medalClass.Id))
+			{
+				var medal = (await MetadataService.GetMetadataAsync()).MedalsMetadata.Medals.First(m => m.Id == sortedMedal.Id);
+				medalContainer.Add(sortedMedal, medal);
+				foreach (var topMedalId in Model.TopMedalIds.Where(topMedalId => topMedalId == sortedMedal.Id))
+				{
+					topMedals.Add(sortedMedal, medal);
+				}
+			}
+
+			allMedals.Add(medalClass, medalContainer);
+		}
+	}
+
+	@if (topMedals.Any())
+	{
+		<h2>Top Medals</h2>
+		<hr />
+		<div class="row" id="top-medals" style="width: @(topMedals.Count() * (100 + 20 + 20))px;">
+			@foreach (var medal in topMedals)
+			{
+				<div class="entry">
+					<div class="medal" role="tooltip" title="@medal.Value.Name" style="background-image: url(@await MetadataService.ResolveAssetContainerAsync(medal.Value.ImageUrl, "large"))"></div>
+					<div class="count">
+						@medal.Key.TotalMedals
+					</div>
+					<div class="earned">Earned</div>
+				</div>
+			}
+			<div class="clearfix"></div>
+		</div>
+	}
+
+	@{
+		var userHasFuckallMedals = true;
+		foreach (var medal in allMedals.Where(medal => medal.Value.Any()))
+		{
+			userHasFuckallMedals = false;
+		}
+	}
+
+	@if (!userHasFuckallMedals)
+	{
+		<h2>All Medals</h2>
+		<hr />
+		<div class="row" id="all-medals">
+			<ul class="nav nav-tabs">
+				@{
+					var firstEntry = true;
+				}
+
+				@foreach (var medalClassGroup in allMedals.Where(medalClassGroup => medalClassGroup.Value.Any()))
+				{
+					<li class="@(firstEntry ? "active" : "")">
+						<a href="#medal-tier-@medalClassGroup.Key.Name.ToSlug()-@ident" data-toggle="tab">
+							@medalClassGroup.Key.Name
+						</a>
+					</li>
+
+					firstEntry = false;
+				}
+			</ul>
+
+
+			<div id='player-medals' class="tab-content">
+				@{
+					firstEntry = true;
+				}
+				@foreach (var medalClassGroup in allMedals.Where(medalClassGroup => medalClassGroup.Value.Any()))
+				{
+					<div class="tab-pane fade in @(firstEntry ? "active" : "")" id="medal-tier-@medalClassGroup.Key.Name.ToSlug()-@ident">
+						@foreach (var medal in medalClassGroup.Value)
+						{
+							<div class="col-md-12 medal-entry row">
+								<div class="medal" style="background-image: url('@await MetadataService.ResolveAssetContainerAsync(medal.Key.ImageUrl, "medium")')"></div>
+								<div class="description">
+									<span class="name">@medal.Value.Name</span>
+									<br />
+									@medal.Value.Description
+								</div>
+								<div class="count">
+									<span class="integer">@medal.Key.TotalMedals</span>
+									<br />
+									<span class="in-dick-ator">earned</span>
+								</div>
+							</div>
+							<hr />
+						}
+					</div>
+					firstEntry = false;
+				}
+			</div>
+		</div>
+	}
+</div>

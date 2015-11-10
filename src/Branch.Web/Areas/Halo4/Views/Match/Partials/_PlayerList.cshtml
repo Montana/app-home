@@ -135,6 +135,10 @@
 					<div class="player-stats tab-content">
 						@await Html.PartialAsync("Partials/_SummaryStats", player)
 						@await Html.PartialAsync("Partials/_WeaponStats", player)
+						@if (player.MedalStats.Any())
+						{
+							@await Html.PartialAsync("Partials/_MedalStats", player)
+						}
 					</div>
 				</div>
 			</div>
