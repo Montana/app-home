@@ -78,7 +78,7 @@
 						@player.Deaths
 					</div>
 					<div class="col-md-2 kd-indicator check-dat-paddin">
-						{{KDA}}
+						@MathHelper.CalculateKd(player.Kills, player.Deaths)
 					</div>
 					<div class="col-md-1 assists-indicator check-dat-paddin">
 						@player.Assists
