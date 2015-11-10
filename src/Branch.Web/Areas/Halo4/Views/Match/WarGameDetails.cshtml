@@ -88,7 +88,9 @@
 											}
 											else
 											{
-												<a asp-action="Index" asp-controller="ServiceRecord" asp-route-gamertag="@topPlayer.Gamertag" alt="Top Player">@topPlayer.Gamertag</a>
+												<a asp-action="Index" asp-controller="ServiceRecord" asp-route-gamertag="@topPlayer.Gamertag" alt="Top Player">
+													@topPlayer.Gamertag
+												</a>
 											}
 											led the game with a personal score of @topPlayer.PersonalScore, and a K/D of @MathHelper.CalculateKd(topPlayer.Kills, topPlayer.Deaths)
 										</div>

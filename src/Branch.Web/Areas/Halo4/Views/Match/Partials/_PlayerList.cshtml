@@ -139,6 +139,10 @@
 						{
 							@await Html.PartialAsync("Partials/_MedalStats", player)
 						}
+						@if (player.EnemyStats.Any())
+						{
+							@await Html.PartialAsync("Partials/_EnemyStats", player)
+						}
 					</div>
 				</div>
 			</div>
