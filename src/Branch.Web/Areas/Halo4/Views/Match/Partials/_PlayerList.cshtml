@@ -68,19 +68,19 @@
 							<strong>@player.ServiceTag</strong>
 						}
 					</div>
-					<div class="col-md-1 score-indicator check-dat-paddin">
+					<div class="col-md-1 score-indicator check-dat-paddin stat">
 						@player.PersonalScore
 					</div>
-					<div class="col-md-1 kills-indicator check-dat-paddin">
+					<div class="col-md-1 kills-indicator check-dat-paddin stat">
 						@player.Kills
 					</div>
-					<div class="col-md-1 deaths-indicator check-dat-paddin">
+					<div class="col-md-1 deaths-indicator check-dat-paddin stat">
 						@player.Deaths
 					</div>
-					<div class="col-md-2 kd-indicator check-dat-paddin">
+					<div class="col-md-2 kd-indicator check-dat-paddin stat">
 						@MathHelper.CalculateKd(player.Kills, player.Deaths)
 					</div>
-					<div class="col-md-1 assists-indicator check-dat-paddin">
+					<div class="col-md-1 assists-indicator check-dat-paddin stat">
 						@player.Assists
 					</div>
 					<div class="col-md-1 csr-indicator check-dat-paddin" style="background-image: url(@MetadataService.ResolveCsrImage(player.SkillRank, "large"));"></div>

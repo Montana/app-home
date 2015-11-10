@@ -123,6 +123,10 @@
 
 				.check-dat-paddin {
 					padding-left: 0px;
+
+					&.stat {
+						line-height: 70px;
+					}
 				}
 
 				> .header {
@@ -178,11 +182,11 @@
 							}
 
 							> .alphabetical-flair {
-								margin-top: 10px;
+								margin-top: 15px;
 							}
 
 							> .csr-indicator {
-								background-position: center;
+								background-position: left top;
 								background-repeat: no-repeat;
 								height: 60px;
 								background-size: contain;

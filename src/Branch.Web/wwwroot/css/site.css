@@ -773,6 +773,8 @@ main.halo4-match article.players > .player-listing {
     padding: 15px 0 0 10px; }
     main.halo4-match article.players > .player-listing > .team .check-dat-paddin {
       padding-left: 0px; }
+      main.halo4-match article.players > .player-listing > .team .check-dat-paddin.stat {
+        line-height: 70px; }
     main.halo4-match article.players > .player-listing > .team > .header {
       margin-left: -13px;
       margin-top: -78px;
@@ -805,9 +807,9 @@ main.halo4-match article.players > .player-listing {
           background-position: center;
           background-repeat: no-repeat; }
         main.halo4-match article.players > .player-listing > .team > .team-players > div > .desktop-view > .alphabetical-flair {
-          margin-top: 10px; }
+          margin-top: 15px; }
         main.halo4-match article.players > .player-listing > .team > .team-players > div > .desktop-view > .csr-indicator {
-          background-position: center;
+          background-position: left top;
           background-repeat: no-repeat;
           height: 60px;
           background-size: contain; }
