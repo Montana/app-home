@@ -29,7 +29,7 @@ namespace Branch.Web.Areas.Halo4.Controllers
 			var serviceRecord = await ServiceRecordService.GetServiceRecord(gamertag);
 
 			// Get Match and Match History
-			var matchHistoryTask = MatchHistoryService.GetGameHistory(serviceRecord.Xuid, matchGameMode, count: 20);
+			var matchHistoryTask = MatchHistoryService.GetGameHistory(serviceRecord.Xuid, GameMode.WarGames, count: 20);
 			var matchTask = MatchService.GetMatch(serviceRecord.Xuid, matchId);
 			await Task.WhenAll(matchHistoryTask, matchTask);
 			
