@@ -487,6 +487,16 @@ header.halo4-service-record {
         top: -30px;
         right: 190px; }
 
+main.halo4-service-record .canvas-holder {
+  margin-bottom: 20px; }
+@media (min-width: 992px) and (max-width: 1200px) {
+  main.halo4-service-record .summary-stats-list > .list-group-item {
+    padding: 10px 15px 30px 15px; }
+    main.halo4-service-record .summary-stats-list > .list-group-item > .badge {
+      float: none;
+      position: absolute;
+      bottom: 10px;
+      left: 15px; } }
 main.halo4-service-record .game-history .game-history-entry {
   margin: 20px 0;
   padding: 0 10px;

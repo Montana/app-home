@@ -22,10 +22,10 @@
 					</div>
 
 					<div class="col-md-6 canvas-holder">
-						<canvas id="game-spread-chart" width="400" height="400"></canvas>
+						<canvas id="game-spread-chart" width="380" height="380"></canvas>
 					</div>
 					<div class="col-md-5 col-md-offset-1">
-						<ul class="list-group">
+						<ul class="summary-stats-list list-group">
 							<li class="list-group-item">
 								Loadout Purchase Completion
 								<span class="badge">@Model.ServiceRecord.TotalLoadoutItemsPurchased%</span>
@@ -36,16 +36,16 @@
 							</li>
 							<li class="list-group-item">
 								@{
-								var spartanPoints = Model.ServiceRecord.SpartanPoints.ToString(CultureInfo.InvariantCulture);
-								if (spartanPoints == "52") { spartanPoints += " ;)"; }
+									var spartanPoints = Model.ServiceRecord.SpartanPoints.ToString(CultureInfo.InvariantCulture);
+									if (spartanPoints == "52") { spartanPoints += " ;)"; }
 								}
 								Spartan Points
 								<span class="badge">@spartanPoints</span>
 							</li>
 							<li class="list-group-item">
 								@{
-								var kills = Model.ServiceRecord.GameModes.First(gm => gm.Id == GameMode.WarGames).TotalKills;
-								var kdRatio = (Model.ServiceRecord.GameModes.First(gm => gm.Id == GameMode.WarGames) as WarGamesDetailsFull).KillDeathRatio;
+									var kills = Model.ServiceRecord.GameModes.First(gm => gm.Id == GameMode.WarGames).TotalKills;
+									var kdRatio = (Model.ServiceRecord.GameModes.First(gm => gm.Id == GameMode.WarGames) as WarGamesDetailsFull).KillDeathRatio;
 								}
 								War Games Kills
 								<span class="badge">
@@ -115,7 +115,7 @@
 		var ctx = document.getElementById("game-spread-chart").getContext("2d");
 		var data = @Html.Raw(Model.ServiceRecord.GameModes.ToJavascriptArray(new[] { "#F7464A", "#5880A0", "#3d3d7c", "#949FB1" }));
 		var options = {
-
+			responsive: true
 		};
 
 		var x = new Chart(ctx).Doughnut(data, options);

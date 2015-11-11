@@ -150,6 +150,26 @@
 }
 
 main.halo4-service-record {
+
+	.canvas-holder {
+		margin-bottom: 20px;
+	}
+
+	.summary-stats-list {
+		@media(min-width:$medium-devices-width) and (max-width: $large-devices-width) {
+			> .list-group-item {
+				padding: 10px 15px 30px 15px;
+
+				> .badge {
+					float: none;
+					position: absolute;
+					bottom: 10px;
+					left: 15px;
+				}
+			}
+		}
+	}
+
 	.game-history {
 		.game-history-entry {
 			margin: 20px 0;
