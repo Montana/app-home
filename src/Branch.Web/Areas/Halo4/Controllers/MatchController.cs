@@ -47,7 +47,7 @@ namespace Branch.Web.Areas.Halo4.Controllers
 					return View("CampaignGameDetails", new MatchViewModel<CampaignGameDetails>(serviceRecord, matchHistoryTask.Result, matchTask.Result.Game, matchGameMode));
 
 				case GameMode.SpartanOps:
-					throw new NotImplementedException();
+					return View("SpartanOpsGameDetails", new MatchViewModel<SpartanGameDetails>(serviceRecord, matchHistoryTask.Result, matchTask.Result.Game, matchGameMode));
 
 				default:
 					throw new InvalidOperationException();

@@ -1,0 +1,138 @@
+﻿@using Newtonsoft.Json
+@model MatchViewModel<SpartanGameDetails>
+@{
+	var gamertag = @Model.ServiceRecord.Gamertag;
+	var sidebar = new SidebarViewModel(gamertag, SidebarOption.MatchHistory, Model.GameMode);
+	var title = string.Format("{0} on {1}", Model.MatchDetails.MapName, Model.MatchDetails.Difficulty);
+	
+	var orderedPlayers = Model.MatchDetails.Players.OrderBy(p => p.Standing);
+	var topPlayer = Model.MatchDetails.Players.OrderBy(t => t.Standing).First();
+	var difficulty = (await MetadataService.GetMetadataAsync()).DifficultiesMetadata.Difficulties.First(d => d.Id == Model.MatchDetails.Difficulty);
+	var chapter = (from s in (await MetadataService.GetMetadataAsync()).SpartanOpsMetadata.Seasons from e in s.Episodes from c in e.Chapters select c).First();
+
+	ViewBag.Title = $"{gamertag} playing {title}";
+}
+
+@await Html.PartialAsync("_Header", Model)
+
+@await Html.PartialAsync("/Areas/Shared/Views/_AreaSwitcher", new AreaSwitcherViewModel("2A2D53", "halo4", "", gamertag, Area.Halo4))
+
+@addTagHelper "*, Branch.Web"
+
+<main class="halo4-match">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="overview col-md-12">
+					<div class="page-header">
+						<h3>
+							@gamertag
+							<small>
+								playing @title
+							</small>
+						</h3>
+					</div>
+
+					<article class="cover" style="background-image: url('@await MetadataService.ResolveAssetContainerAsync(chapter.ImageUrl, "large")')">
+						<div class="mask">
+							<div class="inner">
+								<div class="title">
+									<h2>@Model.MatchDetails.MapName</h2>
+									<p>
+										@Model.MatchDetails.EndDateUtc.ToString("d") | @Model.MatchDetails.Duration
+									</p>
+								</div>
+
+								<div class="game-icon" style="background-image: url('@await MetadataService.ResolveAssetContainerAsync(difficulty.ImageUrl, "large")')"></div>
+
+								<div class="map">
+									on
+									<br />
+									<span class="focus">@difficulty.Name</span>
+								</div>
+
+								<div class="seperator"></div>
+
+								<div class="victor">
+									<div class="ffa-victor">
+										@if (topPlayer.IsGuest)
+										{
+											<strong>topPlayer.Gamertag</strong>
+										}
+										else
+										{
+											<a asp-action="Index" asp-controller="ServiceRecord" asp-route-gamertag="@topPlayer.Gamertag" alt="Top Player">
+												@topPlayer.Gamertag
+											</a>
+										}
+										led the game with @topPlayer.Kills @(topPlayer.Kills == 1 ? "kill" : "kills"),
+										and a K/D of @MathHelper.CalculateKd(topPlayer.Kills, topPlayer.Deaths)
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="victor-player-model hidden-xs" style="background-image: url('@MetadataService.ResolveSpartanImage(topPlayer.Gamertag, size: "medium")')"></div>
+					</article>
+
+
+					<hr style="margin: 10px 0 30px 0;" />
+
+					<article class="players">
+						<div class="page-header">
+							<h3>
+								Player Details
+							</h3>
+						</div>
+
+						<div class="player-listing">
+							@await Html.PartialAsync("Partials/_PlayerList", new PlayerListViewModel(Model.ServiceRecord, null, orderedPlayers));
+						</div>
+					</article>
+				</div>
+			</div>
+			<div class="col-md-3">
+				@await Html.PartialAsync("_Sidebar", sidebar)
+			</div>
+		</div>
+	</div>
+</main>
+
+@section scripts {
+	<script>
+		var RecentGames = @Html.Raw(await Model.GameHistory?.Games.ToJavascriptArrayAsync(MetadataService));
+
+		$('.player-details-expander').click(function (e) {
+			e.preventDefault();
+
+			var identifier = $(this).attr('data-ref');
+			var entry = $('#' + identifier);
+			var expander = $('#' + identifier + ' > div > .expander-indicator > div > .player-details-expander');
+			var detailsView = $('#' + identifier + ' > .player-data');
+
+			if (detailsView.hasClass('collapsed')) {
+				detailsView.removeClass('collapsed');
+				detailsView.addClass('expanded');
+
+				entry.removeClass('collapsed');
+				entry.addClass('expanded');
+
+				detailsView.show(400, function () { });
+
+				expander.removeClass('glyphicon-chevron-down');
+				expander.addClass('glyphicon-chevron-up');
+			} else {
+				detailsView.removeClass('expanded');
+				detailsView.addClass('collapsed');
+
+				entry.removeClass('expanded');
+				entry.addClass('collapsed');
+
+				detailsView.hide(400, function () { });
+
+				expander.removeClass('glyphicon-chevron-up');
+				expander.addClass('glyphicon-chevron-down');
+			}
+		});
+
+	</script>
+}
