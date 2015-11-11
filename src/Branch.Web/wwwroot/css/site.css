@@ -713,6 +713,8 @@ main.halo4-competitive-skill-rank .csr-details > .row {
     main.halo4-competitive-skill-rank .csr-details > .row > .playlist-advanced-data #mvar .entry > td > .name {
       width: 130px; }
 
+main.halo4-specializations #current-specialization {
+  margin-bottom: 25px; }
 main.halo4-specializations .specialization .title {
   font-size: 16px;
   font-weight: 600; }

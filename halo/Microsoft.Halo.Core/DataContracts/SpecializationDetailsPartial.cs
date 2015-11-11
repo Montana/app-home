@@ -20,8 +20,8 @@ namespace Microsoft.Halo.Core.DataContracts
 		[JsonProperty("LevelName")]
 		public string LevelName { get; set; }
 
-		[JsonProperty("PercentageComplete")]
-		public uint PercentageComplete { get; set; }
+		[JsonProperty("PercentComplete")]
+		public double PercentageComplete { get; set; }
 
 		[JsonProperty("IsCurrent")]
 		public bool IsCurrent { get; set; }
