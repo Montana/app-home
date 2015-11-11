@@ -76,7 +76,7 @@
 						<span class="badge">
 							@if (Model.KilledMostGamertag == Model.KilledMostGamertag.RemoveHaloGuestIdentifier())
 							{
-								<a asp-action="Index" asp-controller="ServiceRecord" asp-route-gamertag="@Model.KilledMostGamertag">
+								<a class="alt" asp-action="Index" asp-controller="ServiceRecord" asp-route-gamertag="@Model.KilledMostGamertag">
 									@Model.KilledMostGamertag
 								</a>
 							}
@@ -102,7 +102,7 @@
 						<span class="badge">
 							@if (Model.KilledByMostGamertag == Model.KilledByMostGamertag.RemoveHaloGuestIdentifier())
 							{
-								<a asp-action="Index" asp-controller="ServiceRecord" asp-route-gamertag="@Model.KilledByMostGamertag">
+								<a class="alt" asp-action="Index" asp-controller="ServiceRecord" asp-route-gamertag="@Model.KilledByMostGamertag">
 									@Model.KilledByMostGamertag
 								</a>
 							}

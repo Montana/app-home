@@ -217,6 +217,28 @@ main {
 	}
 }
 
+// ---- Custom Anchors ----
+// --------------------------------------------
+a {
+	color: #3d3d7c;
+}
+
+a.alt {
+	color: #ffa210;
+}
+
+a.plain {
+	color: white;
+	text-decoration: none;
+
+	&:hover,
+	&:visited,
+	&:active {
+		color: white;
+		text-decoration: none;
+	}
+}
+
 @import "partials/_sidebar.scss";
 @import "partials/_area-switcher.scss";
 

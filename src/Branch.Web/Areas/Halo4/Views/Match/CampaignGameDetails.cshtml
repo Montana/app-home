@@ -60,9 +60,9 @@
 										}
 										else
 										{
-											<a asp-action="Index" asp-controller="ServiceRecord" asp-route-gamertag="@topPlayer.Gamertag" alt="Top Player">
+											<a class="alt"  asp-action="Index" asp-controller="ServiceRecord" asp-route-gamertag="@topPlayer.Gamertag" alt="Top Player">
 												@topPlayer.Gamertag
-											</a>
+											</aclass="alt">
 										}
 										led the game with @topPlayer.Kills @(topPlayer.Kills == 1 ? "kill" : "kills"),
 										and a K/D of @MathHelper.CalculateKd(topPlayer.Kills, topPlayer.Deaths)
