@@ -191,3 +191,4 @@ ModelManifest.xml
 /src/Branch.Web/wwwroot/lib
 .vs/
 *.lock.json
+src/Branch.Web/Assets/typescript/halo4/header.js

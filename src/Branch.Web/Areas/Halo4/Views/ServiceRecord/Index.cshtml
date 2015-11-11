@@ -110,7 +110,7 @@
 
 @section scripts {
 	<script>
-		var RecentGames = @Html.Raw(await Model.GameHistory?.Games.ToJavascriptArrayAsync(MetadataService));
+		var RecentGames = @Html.Raw(await Model.GameHistory?.Games.ToJavascriptArrayAsync(MetadataService, Model.ServiceRecord.Gamertag));
 
 		var ctx = document.getElementById("game-spread-chart").getContext("2d");
 		var data = @Html.Raw(Model.ServiceRecord.GameModes.ToJavascriptArray(new[] { "#F7464A", "#5880A0", "#3d3d7c", "#949FB1" }));

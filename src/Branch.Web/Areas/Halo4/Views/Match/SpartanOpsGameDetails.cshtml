@@ -99,7 +99,7 @@
 
 @section scripts {
 	<script>
-		var RecentGames = @Html.Raw(await Model.GameHistory?.Games.ToJavascriptArrayAsync(MetadataService));
+		var RecentGames = @Html.Raw(await Model.GameHistory?.Games.ToJavascriptArrayAsync(MetadataService, Model.ServiceRecord.Gamertag));
 
 		$('.player-details-expander').click(function (e) {
 			e.preventDefault();

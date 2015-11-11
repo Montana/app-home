@@ -1,4 +1,5 @@
 ﻿/// <autosync enabled="true" />
+/// <reference path="../assets/typescript/halo4/header.js" />
 /// <reference path="../bower_components/bootstrap/dist/js/bootstrap.js" />
 /// <reference path="../bower_components/chartjs/Chart.js" />
 /// <reference path="../bower_components/jquery/dist/jquery.js" />

@@ -1,4 +1,5 @@
-﻿using Branch.Service.Halo4.Services;
+﻿using Branch.Helpers.Extentions;
+using Branch.Service.Halo4.Services;
 using Microsoft.Halo.Core.DataContracts;
 using Microsoft.Halo.Core.DataContracts.Abstracts;
 using Microsoft.Halo.Core.DataContracts.Enums;
@@ -11,7 +12,7 @@ namespace Branch.Web.Areas.Halo4.Extentions
 {
 	public static class GameHistoryExtentions
 	{
-		public static async Task<string> ToJavascriptArrayAsync(this IReadOnlyCollection<GameHistory> gameHistory, MetadataService metadataService)
+		public static async Task<string> ToJavascriptArrayAsync(this IReadOnlyCollection<GameHistory> gameHistory, MetadataService metadataService, string gamertag)
 		{
 			var javascriptObjectArray = new List<object>();
 
@@ -41,9 +42,12 @@ namespace Branch.Web.Areas.Halo4.Extentions
 
 				javascriptObjectArray.Add(new
 				{
+					Id = game.Id,
 					Result = result,
 					ResultClass = resultClass,
 					GameMode = game.VariantName,
+					GameModeSlug = game.Mode.GetDescription().ToSlug(),
+					Gamertag = gamertag,
 					FeaturedStatValue = game.FeaturedStatValue,
 					FeaturedStatName = game.FeaturedStatName,
 					Map = game.MapVariantName,

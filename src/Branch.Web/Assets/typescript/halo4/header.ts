@@ -1,9 +1,12 @@
 ﻿/// <refrence path="../definitions/jquery.d.ts" />
 
 interface RecentGame {
+    Id: string;
 	Result: string;
 	ResultClass: string;
-	GameMode: string;
+    GameMode: string;
+    GameModeSlug: string;
+    Gamertag: string;
 	FeaturedStatValue: string;
 	FeaturedStatName: string;
 	Map: string;
@@ -20,12 +23,14 @@ window.onload = function() {
 	function cycleRecentGame() {
 		if (window.innerWidth > 768) {
 			var recentGame = RecentGames[recentMatchIndex];
-			var newContent = '\
+            var newContent = '\
 <strong class="' + recentGame.ResultClass + '">' + recentGame.Result + '</strong> \
 playing <strong>' + recentGame.GameMode + '</strong> \
 on <strong>' + recentGame.Map + '</strong>, <br /> \
 with <strong>' + recentGame.FeaturedStatValue + '</strong> ' + recentGame.FeaturedStatName + ' <br /> \
-<span class="date">&raquo; on ' + recentGame.EndDate + '</span> \
+<a class="alt date" href="/xbox/' + recentGame.Gamertag + '/halo-4/match/' + recentGame.GameModeSlug + '/' + recentGame.Id + '/"> \
+    &raquo; on ' + recentGame.EndDate + ' \
+</a> \
 					';
 
 			var elem = $("#recent-match-details");
