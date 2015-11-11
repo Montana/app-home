@@ -30,6 +30,9 @@ namespace Microsoft.Halo.Core.DataContracts
 		[JsonProperty("PlaylistsMetadata")]
 		public PlaylistsMetadata PlaylistsMetadata { get; set; }
 
+		[JsonProperty("SpartanOpsMetadata")]
+		public SpartanOpsMetadata SpartanOpsMetadata { get; set; }
+
 		[JsonProperty("SpecializationsMetadata")]
 		public SpecializationsMetadata SpecializationsMetadata { get; set; }
 	}

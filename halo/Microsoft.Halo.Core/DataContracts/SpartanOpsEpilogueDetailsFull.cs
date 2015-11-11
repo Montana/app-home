@@ -1,0 +1,23 @@
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+
+namespace Microsoft.Halo.Core.DataContracts
+{
+	public class SpartanOpsEpilogueDetailsFull
+	{
+		[JsonProperty("Id")]
+		public int Id { get; set; }
+
+		[JsonProperty("Title")]
+		public string Title { get; set; }
+
+		[JsonProperty("Description")]
+		public string Description { get; set; }
+
+		[JsonProperty("Videos")]
+		public IReadOnlyCollection<SpartanOpsVideoDetailsFull> Videos { get; set; }
+
+		[JsonProperty("ImageUrl")]
+		public AssetContainer ImageUrl { get; set; }
+	}
+}
