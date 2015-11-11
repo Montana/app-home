@@ -982,8 +982,6 @@ main.halo4-match #overview {
         main.halo4-match #overview .graph-container .morris-hover > .graph-hover-legend > .key, main.halo4-match #overview .graph-container .morris-default-style > .graph-hover-legend > .key {
           font-weight: 600;
           font-size: 14px; }
-main.halo4-match .spacin-bro {
-  height: 1150px; }
 
 main.halo4-match-history table.match-history tbody > tr > td.dnf {
   color: #727272; }
