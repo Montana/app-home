@@ -8,6 +8,9 @@ using Newtonsoft.Json;
 
 namespace Branch.Helpers.Services
 {
+	/// <summary>
+	/// Http Method Types
+	/// </summary>
 	public enum HttpMethod
 	{
 		POST,
@@ -19,6 +22,17 @@ namespace Branch.Helpers.Services
 
 	public class HttpManagerService
 	{
+		/// <summary>
+		/// Executes a web request to an external server asynchronously
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="httpMethod"></param>
+		/// <param name="requestUri"></param>
+		/// <param name="userAgent"></param>
+		/// <param name="userAgentVersion"></param>
+		/// <param name="accept"></param>
+		/// <param name="headers"></param>
+		/// <param name="payload"></param>
 		public async Task<T> ExecuteRequestAsync<T>(HttpMethod httpMethod, Uri requestUri,
 			string userAgent = "Branch-vNext", string userAgentVersion = "1.0", string accept = "application/json", 
 			Dictionary<string, string> headers = null, object payload = null)
@@ -45,9 +59,8 @@ namespace Branch.Helpers.Services
 			if (headers == null)
 				headers = new Dictionary<string, string>();
 
-			using (var httpClient = new HttpClient(/*new ManagedHandler()*/))
+			using (var httpClient = new HttpClient())
 			{
-				// TODO: this properly
 				httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(accept));
 				httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(
 					new ProductHeaderValue(userAgent, userAgentVersion)));
