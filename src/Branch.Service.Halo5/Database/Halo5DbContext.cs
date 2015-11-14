@@ -20,5 +20,7 @@ namespace Branch.Service.Halo5.Database
 		}
 
 		public DbSet<Authentication> Authentications { get; set; }
+
+		public DbSet<ServiceRecord> ServiceRecords { get; set; }
 	}
 }

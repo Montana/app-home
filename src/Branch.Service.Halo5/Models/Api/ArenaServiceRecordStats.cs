@@ -3,13 +3,13 @@ using Newtonsoft.Json;
 
 namespace Branch.Service.Halo5.Models.Api
 {
-	public class ArenaServiceRecordDetailsFull
+	public class ArenaServiceRecordStats
 	{
 		[JsonProperty("ArenaPlaylistStats")]
 		public IReadOnlyCollection<ArenaPlaylistStat> ArenaPlaylistStats { get; set; }
 
 		[JsonProperty("HighestCsrAttained")]
-		public HighestCsrAttained HighestCsrAttained { get; set; }
+		public CsrStatistic HighestCsrAttained { get; set; }
 
 		[JsonProperty("ArenaGameBaseVariantStats")]
 		public IReadOnlyCollection<ArenaGameBaseVariantStat> ArenaGameBaseVariantStats { get; set; }

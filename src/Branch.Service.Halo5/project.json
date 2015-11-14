@@ -17,7 +17,6 @@
 		"Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta8",
 		"Microsoft.Framework.Logging": "1.0.0-beta8",
 		"Microsoft.Framework.Logging.Console": "1.0.0-beta8",
-		"Microsoft.Halo.Core": "1.0.0-*",
 		"Microsoft.Xbox.Core": "1.0.0-*"
 	},
 

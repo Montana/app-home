@@ -4,11 +4,10 @@ using Microsoft.Framework.Logging;
 using Branch.Service.Halo5.Database;
 using Branch.Service.Halo5.DocumentDb;
 using System;
-using Microsoft.Halo.Core.DataContracts;
 using Branch.Service.Halo5.Database.Repositories.Interfaces;
 using System.Linq;
-using Microsoft.Halo.Core.DataContracts.Enums;
-using Branch.Service.Xuid.Exceptions;
+using Branch.Service.Halo5.Models.Api;
+using Branch.Service.Halo5.Models.Api.Abstracts;
 using Branch.Service.Xuid.Services;
 
 namespace Branch.Service.Halo5.Services
@@ -22,32 +21,32 @@ namespace Branch.Service.Halo5.Services
 			_serviceRecordRepository = serviceRecordRepository;
 		}
 
-		private IServiceRecordRepository _serviceRecordRepository;
+		private readonly IServiceRecordRepository _serviceRecordRepository;
 
 		private const string GetArenaServiceRecordUrl = "https://www.haloapi.com/stats/h5/servicerecords/arena?players={0}";
 
-		private readonly TimeSpan CacheRefreshTime = new TimeSpan(0, 5, 0);
+		private readonly TimeSpan _cacheRefreshTime = new TimeSpan(0, 5, 0);
 
-		public async Task<ServiceRecordDetailsFull> GetArenaServiceRecord(string gamertag)
+		public async Task<Response<ServiceRecordResult>> GetArenaServiceRecord(string gamertag)
 		{
 			return await GetArenaServiceRecord(gamertag, false);
 		}
 
-		public async Task<ServiceRecordDetailsFull> GetArenaServiceRecord(string gamertag, bool takeCached)
+		public async Task<Response<ServiceRecordResult>> GetArenaServiceRecord(string gamertag, bool takeCached)
 		{
 			// Get Player XUID
 			var playerXuid = await XuidLookupService.LookupXuidAsync(gamertag);
 
 			// Get Service Record metadata from Database
 			var serviceRecordMetadata = _serviceRecordRepository.Where(sr => sr.Xuid == playerXuid).FirstOrDefault();
-			ServiceRecordDetailsFull cachedServiceRecord = null;
+			Response<ServiceRecordResult> cachedServiceRecord;
 			if (serviceRecordMetadata != null)
 			{
 				// Return data from DocumentDb if we're taking cached version, or it's expired
-				if (takeCached || serviceRecordMetadata.UpdatedAt + CacheRefreshTime > DateTime.UtcNow)
+				if (takeCached || serviceRecordMetadata.UpdatedAt + _cacheRefreshTime > DateTime.UtcNow)
 				{
 					// Get Service Record from DocumentDb
-					cachedServiceRecord = Halo5DdbRepository.GetById<ServiceRecordDetailsFull>(serviceRecordMetadata.DocumentId);
+					cachedServiceRecord = Halo5DdbRepository.GetById<Response<ServiceRecordResult>>(serviceRecordMetadata.DocumentId);
 
 					// If the cached Service Record exist, return it
 					if (cachedServiceRecord != null)
@@ -59,14 +58,14 @@ namespace Branch.Service.Halo5.Services
 			var getServiceRecordUri = new Uri(string.Format(GetArenaServiceRecordUrl, gamertag));
 
 			// Get Service Record from 343's Halo Service
-			var serviceRecordResponse = await HttpManagerService.ExecuteRequestAsync<ServiceRecordDetailsFull>(HttpMethod.GET, getServiceRecordUri);
+			var serviceRecordResponse = await HttpManagerService.ExecuteRequestAsync<Response<ServiceRecordResult>>(HttpMethod.GET, getServiceRecordUri);
 
 			// Check if something went wrong with the request or parsing
 			if (serviceRecordResponse == null)
 				return null; // TODO: find a way to access this data and throw the relevant exception
-			
-			// Set the XUID in the service record
-			serviceRecordResponse.Xuid = playerXuid;
+
+			// Set XUID value in the response
+			serviceRecordResponse.Results.First().Result.PlayerId.Xuid = playerXuid;
 
 			// Update documentdb and return data if it exists in the DocumentDb
 			if (serviceRecordMetadata != null)
@@ -80,13 +79,11 @@ namespace Branch.Service.Halo5.Services
 				_serviceRecordRepository.Add(new Database.Models.ServiceRecord
 				{
 					DocumentId = cachedServiceRecord.Id,
-					Xuid = cachedServiceRecord.Xuid,
-					ServiceTag = cachedServiceRecord.ServiceTag
+					Xuid = cachedServiceRecord.Results.First().Result.PlayerId.Xuid,
 				});
 			else
 			{
 				serviceRecord.DocumentId = cachedServiceRecord.Id;
-				serviceRecord.ServiceTag = cachedServiceRecord.ServiceTag;
 				_serviceRecordRepository.Update(serviceRecord);
 			}
 
