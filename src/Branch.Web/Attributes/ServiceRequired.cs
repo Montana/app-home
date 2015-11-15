@@ -9,10 +9,11 @@ namespace Branch.Web.Attributes
 		public enum Service
 		{
 			Halo4,
+			Halo5,
 			XboxLive
 		}
 
-		private Service _service;
+		private readonly Service _service;
 
 		public ServiceRequired(Service service)
 		{
@@ -27,6 +28,14 @@ namespace Branch.Web.Attributes
 				{
 					case Service.XboxLive:
 						Startup.AppicationBuilder.GetService<Branch.Service.XboxLive.Services.UserService>();
+						break;
+
+					case Service.Halo4:
+						Startup.AppicationBuilder.GetService<Branch.Service.Halo4.Services.ServiceRecordService>();
+						break;
+
+					case Service.Halo5:
+						Startup.AppicationBuilder.GetService<Branch.Service.Halo5.Services.ServiceRecordService>();
 						break;
 
 					default:

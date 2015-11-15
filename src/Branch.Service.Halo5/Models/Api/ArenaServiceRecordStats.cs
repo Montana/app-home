@@ -99,19 +99,19 @@ namespace Branch.Service.Halo5.Models.Api
 		public int TotalGrenadeKills { get; set; }
 
 		[JsonProperty("MedalAwards")]
-		public IReadOnlyCollection<MedalCountStatistic> MedalAwards { get; set; }
+		public IReadOnlyCollection<MedalStatistic> MedalAwards { get; set; }
 
 		[JsonProperty("DestroyedEnemyVehicles")]
-		public IReadOnlyCollection<object> DestroyedEnemyVehicles { get; set; }
+		public IReadOnlyCollection<EnemyKillsStatistic> DestroyedEnemyVehicles { get; set; }
 
 		[JsonProperty("EnemyKills")]
-		public IReadOnlyCollection<object> EnemyKills { get; set; }
+		public IReadOnlyCollection<EnemyKillsStatistic> EnemyKills { get; set; }
 
 		[JsonProperty("WeaponStats")]
 		public IReadOnlyCollection<WeaponStatistic> WeaponStats { get; set; }
 
 		[JsonProperty("Impulses")]
-		public IReadOnlyCollection<ImpulseCountStatistic> Impulses { get; set; }
+		public IReadOnlyCollection<ImpulseStatistic> Impulses { get; set; }
 
 		[JsonProperty("TotalSpartanKills")]
 		public int TotalSpartanKills { get; set; }

@@ -6,7 +6,7 @@ namespace Branch.Service.Halo5.Models.Api
 	public class ImpulseTimelapsStatistic
 	{
 		[JsonProperty("Id")]
-		public Int64 Id { get; set; }
+		public Guid Id { get; set; }
 
 		[JsonProperty("Timelapse")]
 		public string Timelapse { get; set; }

@@ -3,7 +3,7 @@
 	public enum ServiceRecordType
 	{
 		Arena,
-		Wargames,
+		Warzone,
 		Customs,
 		Campaign
 	}

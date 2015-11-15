@@ -3,10 +3,16 @@ using Newtonsoft.Json;
 
 namespace Branch.Service.Halo5.Models.Api
 {
-	public class ArenaGameBaseVariantStatistics
-	{
+    public class ScenarioStatistic
+    {
+		[JsonProperty("TotalPiesEarned")]
+		public int TotalPiesEarned { get; set; }
+
 		[JsonProperty("FlexibleStats")]
 		public FlexibleStatistics FlexibleStats { get; set; }
+
+		[JsonProperty("MapId")]
+		public string MapId { get; set; }
 
 		[JsonProperty("GameBaseVariantId")]
 		public string GameBaseVariantId { get; set; }
@@ -106,5 +112,6 @@ namespace Branch.Service.Halo5.Models.Api
 
 		[JsonProperty("TotalSpartanKills")]
 		public int TotalSpartanKills { get; set; }
+
 	}
 }

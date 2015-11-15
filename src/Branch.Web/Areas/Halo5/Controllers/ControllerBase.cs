@@ -6,10 +6,13 @@ namespace Branch.Web.Areas.Halo5.Controllers
 {
 	[Area("Halo5")]
 	[Route("xbox/{gamertag}/halo-5/")]
-	[ServiceRequired(ServiceRequired.Service.XboxLive)]
+	[ServiceRequired(ServiceRequired.Service.Halo5)]
 	public class ControllerBase : Controller
 	{
 		[FromServices]
 		public ServiceRecordService ServiceRecordService { get; set; }
+
+		[FromServices]
+		public ProfileService ProfileService { get; set; }
 	}
 }

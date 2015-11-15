@@ -5,7 +5,10 @@ namespace Branch.Service.Halo5.Models.Api
 	public class ServiceRecordStats
 	{
 		[JsonProperty("ArenaStats")]
-		public ArenaServiceRecordStats ArenaServiceRecordStats { get; set; }
+		public ArenaServiceRecordStats ArenaStats { get; set; }
+
+		[JsonProperty("WarzoneStat")]
+		public WarzoneServiceRecordStats WarzoneStats { get; set; }
 
 		[JsonProperty("PlayerId")]
 		public PlayerId PlayerId { get; set; }

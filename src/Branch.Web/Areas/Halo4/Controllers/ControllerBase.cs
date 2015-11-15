@@ -6,7 +6,7 @@ namespace Branch.Web.Areas.Halo4.Controllers
 {
 	[Area("Halo4")]
 	[Route("xbox/{gamertag}/halo-4/")]
-	[ServiceRequired(ServiceRequired.Service.XboxLive)]
+	[ServiceRequired(ServiceRequired.Service.Halo4)]
 	public class ControllerBase : Controller
 	{
 		[FromServices]

@@ -9,6 +9,6 @@ namespace Branch.Service.Halo5.Models.Api
 		public long StockId { get; set; }
 
 		[JsonProperty("Attachments")]
-		public IReadOnlyCollection<object> Attachments { get; set; }
+		public IReadOnlyCollection<long> Attachments { get; set; }
 	}
 }

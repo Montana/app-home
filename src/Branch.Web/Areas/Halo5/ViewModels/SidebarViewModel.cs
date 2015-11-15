@@ -2,7 +2,8 @@
 {
 	public enum SidebarOption
 	{
-		ServiceRecord
+		ServiceRecord,
+		MatchHistory
 	}
 
 	public class SidebarViewModel

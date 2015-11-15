@@ -1,12 +1,11 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Branch.Service.Halo5.Models.Api
 {
-	public class MedalCountStatistic
+	public class ImpulseStatistic
 	{
 		[JsonProperty("Id")]
-		public Guid Id { get; set; }
+		public long Id { get; set; }
 
 		[JsonProperty("Count")]
 		public int Count { get; set; }

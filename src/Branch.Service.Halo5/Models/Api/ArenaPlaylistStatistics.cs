@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Branch.Service.Halo5.Models.Api
@@ -99,19 +96,19 @@ namespace Branch.Service.Halo5.Models.Api
 		public int TotalGrenadeKills { get; set; }
 
 		[JsonProperty("MedalAwards")]
-		public IList<MedalCountStatistic> MedalAwards { get; set; }
+		public IList<MedalStatistic> MedalAwards { get; set; }
 
 		[JsonProperty("DestroyedEnemyVehicles")]
-		public IList<object> DestroyedEnemyVehicles { get; set; }
+		public IList<EnemyKillsStatistic> DestroyedEnemyVehicles { get; set; }
 
 		[JsonProperty("EnemyKills")]
-		public IList<object> EnemyKills { get; set; }
+		public IList<EnemyKillsStatistic> EnemyKills { get; set; }
 
 		[JsonProperty("WeaponStats")]
 		public IList<WeaponStatistic> WeaponStats { get; set; }
 
 		[JsonProperty("Impulses")]
-		public IList<ImpulseCountStatistic> Impulses { get; set; }
+		public IList<ImpulseStatistic> Impulses { get; set; }
 
 		[JsonProperty("TotalSpartanKills")]
 		public int TotalSpartanKills { get; set; }
