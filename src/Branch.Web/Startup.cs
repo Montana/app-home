@@ -52,6 +52,9 @@ namespace Branch.Web
 			// Add Halo 4 services to the services container.
 			services.AddHalo4();
 
+			// Add Halo 5 services to the services container.
+			services.AddHalo5();
+
 			// Add Mvc services to the services container.
 			services.AddMvc();
 
@@ -94,6 +97,9 @@ namespace Branch.Web
 			// Add Halo 4
 			app.UseHalo4();
 
+			// Add Halo 5
+			app.UseHalo5();
+
 			// Add static files to the request pipeline.
 			app.UseStaticFiles();
 
@@ -102,7 +108,7 @@ namespace Branch.Web
 			{
 				routes.MapRoute(
 					name: "GameRoute",
-					template: "Xbox/{gamertag}/{area:exists}/{controller=Home}/{action=Index}/{id?}");
+					template: "xbox/{gamertag}/{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 				routes.MapRoute(
 					name: "default",

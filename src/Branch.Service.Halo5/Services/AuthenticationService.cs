@@ -35,7 +35,7 @@ namespace Branch.Service.Halo5.Services
 		
 		private ILogger Logger { get; }
 
-		public string GetAuthenticationAsync()
+		public string GetAuthentication()
 		{
 			Logger.LogVerbose($"Entered GetAuthenticationAsync");
 			

@@ -4,6 +4,7 @@ using Microsoft.Framework.Logging;
 using Branch.Service.Halo5.Database;
 using Branch.Service.Halo5.DocumentDb;
 using System;
+using System.Collections.Generic;
 using Branch.Service.Halo5.Database.Repositories.Interfaces;
 using System.Linq;
 using Branch.Service.Halo5.Models.Api;
@@ -58,7 +59,11 @@ namespace Branch.Service.Halo5.Services
 			var getServiceRecordUri = new Uri(string.Format(GetArenaServiceRecordUrl, gamertag));
 
 			// Get Service Record from 343's Halo Service
-			var serviceRecordResponse = await HttpManagerService.ExecuteRequestAsync<Response<ServiceRecordResult>>(HttpMethod.GET, getServiceRecordUri);
+			var serviceRecordResponse = await HttpManagerService.ExecuteRequestAsync<Response<ServiceRecordResult>>(HttpMethod.GET, getServiceRecordUri,
+				headers: new Dictionary<string, string>
+				{
+					{ "Ocp-Apim-Subscription-Key", AuthenticationService.GetAuthentication() }
+				});
 
 			// Check if something went wrong with the request or parsing
 			if (serviceRecordResponse == null)
@@ -79,7 +84,7 @@ namespace Branch.Service.Halo5.Services
 				_serviceRecordRepository.Add(new Database.Models.ServiceRecord
 				{
 					DocumentId = cachedServiceRecord.Id,
-					Xuid = cachedServiceRecord.Results.First().Result.PlayerId.Xuid,
+					Xuid = (Int64) cachedServiceRecord.Results.First().Result.PlayerId.Xuid,
 				});
 			else
 			{

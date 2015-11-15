@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Branch.Service.Halo5.Models.Api.Abstracts;
 using Microsoft.Azure.Documents;
 using Newtonsoft.Json;
 
-namespace Branch.Service.Halo5.Models.Api.Abstracts
+namespace Branch.Service.Halo5.Models.Api
 {
-	public abstract class Response<T>
+	public class Response<T>
 		: Document
 		where T : Result
 	{

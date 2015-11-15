@@ -1,24 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace Branch.Service.Halo5.Models.Api
 {
-	public class ArenaServiceRecordStats
+	public class ArenaPlaylistStatistics
 	{
-		[JsonProperty("ArenaPlaylistStats")]
-		public IReadOnlyCollection<ArenaPlaylistStatistics> ArenaPlaylistStats { get; set; }
+		[JsonProperty("PlaylistId")]
+		public string PlaylistId { get; set; }
 
-		[JsonProperty("HighestCsrAttained")]
-		public CsrStatistic HighestCsrAttained { get; set; }
+		[JsonProperty("MeasurementMatchesLeft")]
+		public int MeasurementMatchesLeft { get; set; }
 
-		[JsonProperty("ArenaGameBaseVariantStats")]
-		public IReadOnlyCollection<ArenaGameBaseVariantStatistics> ArenaGameBaseVariantStats { get; set; }
+		[JsonProperty("HighestCsr")]
+		public CsrStatistic HighestCsr { get; set; }
 
-		[JsonProperty("TopGameBaseVariants")]
-		public IReadOnlyCollection<GameBaseVariantStatistics> TopGameBaseVariants { get; set; }
-
-		[JsonProperty("HighestCsrPlaylistId")]
-		public string HighestCsrPlaylistId { get; set; }
+		[JsonProperty("Csr")]
+		public CsrStatistic Csr { get; set; }
 
 		[JsonProperty("TotalKills")]
 		public int TotalKills { get; set; }
@@ -99,21 +99,22 @@ namespace Branch.Service.Halo5.Models.Api
 		public int TotalGrenadeKills { get; set; }
 
 		[JsonProperty("MedalAwards")]
-		public IReadOnlyCollection<MedalCountStatistic> MedalAwards { get; set; }
+		public IList<MedalCountStatistic> MedalAwards { get; set; }
 
 		[JsonProperty("DestroyedEnemyVehicles")]
-		public IReadOnlyCollection<object> DestroyedEnemyVehicles { get; set; }
+		public IList<object> DestroyedEnemyVehicles { get; set; }
 
 		[JsonProperty("EnemyKills")]
-		public IReadOnlyCollection<object> EnemyKills { get; set; }
+		public IList<object> EnemyKills { get; set; }
 
 		[JsonProperty("WeaponStats")]
-		public IReadOnlyCollection<WeaponStatistic> WeaponStats { get; set; }
+		public IList<WeaponStatistic> WeaponStats { get; set; }
 
 		[JsonProperty("Impulses")]
-		public IReadOnlyCollection<ImpulseCountStatistic> Impulses { get; set; }
+		public IList<ImpulseCountStatistic> Impulses { get; set; }
 
 		[JsonProperty("TotalSpartanKills")]
 		public int TotalSpartanKills { get; set; }
+
 	}
 }

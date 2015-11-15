@@ -1,0 +1,123 @@
+﻿@using Newtonsoft.Json
+@model ServiceRecordViewModel
+@{
+	var gamertag = @Model.ServiceRecord.Gamertag;
+	ViewBag.Title = $"{gamertag}'s Service Record";
+	var sidebar = new SidebarViewModel(gamertag, SidebarOption.ServiceRecord);
+}
+
+@await Html.PartialAsync("_Header", Model)
+
+@await Html.PartialAsync("/Areas/Shared/Views/_AreaSwitcher", new AreaSwitcherViewModel("2A2D53", "halo4", "", gamertag, Area.Halo4))
+
+@addTagHelper "*, Branch.Web"
+
+<main class="halo4-service-record">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="overview col-md-12">
+					<div class="page-header">
+						<h3>Service Record</h3>
+					</div>
+
+					<div class="col-md-6 canvas-holder">
+						<canvas id="game-spread-chart" width="380" height="380"></canvas>
+					</div>
+					<div class="col-md-5 col-md-offset-1">
+						<ul class="summary-stats-list list-group">
+							<li class="list-group-item">
+								Loadout Purchase Completion
+								<span class="badge">@Model.ServiceRecord.TotalLoadoutItemsPurchased%</span>
+							</li>
+							<li class="list-group-item">
+								Challenges Completed
+								<span class="badge">@Model.ServiceRecord.TotalChallengesCompleted</span>
+							</li>
+							<li class="list-group-item">
+								@{
+									var spartanPoints = Model.ServiceRecord.SpartanPoints.ToString(CultureInfo.InvariantCulture);
+									if (spartanPoints == "52") { spartanPoints += " ;)"; }
+								}
+								Spartan Points
+								<span class="badge">@spartanPoints</span>
+							</li>
+							<li class="list-group-item">
+								@{
+									var kills = Model.ServiceRecord.GameModes.First(gm => gm.Id == GameMode.WarGames).TotalKills;
+									var kdRatio = (Model.ServiceRecord.GameModes.First(gm => gm.Id == GameMode.WarGames) as WarGamesDetailsFull).KillDeathRatio;
+								}
+								War Games Kills
+								<span class="badge">
+									<deliminate-number integer="kills.ToInt64()" /> (@kdRatio K/D)
+								</span>
+							</li>
+							<li class="list-group-item">
+								War Games Medals
+								<deliminate-number class="badge" integer="(Model.ServiceRecord.GameModes.First(gm => gm.Id == GameMode.WarGames) as WarGamesDetailsFull).TotalMedals.ToInt64()" />
+							</li>
+							<li class="list-group-item">
+								Covenant/Promethean Kills
+								<deliminate-number class="badge" integer="Model.ServiceRecord.GameModes.Where(gm => gm.Id == GameMode.Campaign || gm.Id == GameMode.SpartanOps).Sum(gm => gm.TotalKills)" />
+							</li>
+							<li class="list-group-item">
+								Games Started
+								<deliminate-number class="badge" integer="Model.ServiceRecord.TotalGamesStarted.ToInt64()" />
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="game-history col-md-12">
+					@if (Model.GameHistory?.Games.Any() == true)
+					{
+						<div class="page-header">
+							<h3>Recent War Games History <small>@Model.GameHistory.Games.Count() out of a total of <deliminate-number integer="Model.ServiceRecord.GameModes.First(gm => gm.Id == GameMode.WarGames).TotalGamesStarted" /></small></h3>
+						</div>
+
+						@foreach(WarGameHistory game in Model.GameHistory.Games)
+						{
+							<div id="game-history-@game.Id" class="game-history-entry col-lg-6 col-sm-12">
+								<a asp-action="Index" asp-controller="Match" asp-route-gamertag="@Model.ServiceRecord.Gamertag" asp-route-matchModeSlug="@game.Mode.GetDescription().ToSlug()" asp-route-matchId="@game.Id">
+									<div class="game-history-container" style="background-image: url('@await MetadataService.ResolveAssetContainerAsync(game.MapImageUrl)')">
+										<div class="mask @game.GetGameVictoryStatus().CssFriendlyResult"></div>
+										<div class="gametype-icon" style="background-image: url('@await MetadataService.ResolveAssetContainerAsync(game.BaseVariantImageUrl, "medium")')"></div>
+										<div class="inner">
+											<span class="gametype">@game.VariantName</span>
+											<br class="visible-lg visible-xs" />
+											<span class="selector">on</span>
+											<span class="map-name">@game.MapVariantName</span>
+
+											<div class="stats">
+												<span class="type">@game.FeaturedStatName</span>
+												<span class="stat">@game.FeaturedStatValue</span>
+											</div>
+
+											<div class="windicator hidden-xs">@game.GetGameVictoryStatus().UserFriendlyResult</div>
+										</div>
+									</div>
+								</a>
+							</div>
+						}
+					}
+				</div>
+			</div>
+			<div class="col-md-3">
+				@await Html.PartialAsync("_Sidebar", sidebar)
+			</div>
+		</div>
+	</div>
+</main>
+
+@section scripts {
+	<script>
+		var RecentGames = @Html.Raw(await Model.GameHistory?.Games.ToJavascriptArrayAsync(MetadataService, Model.ServiceRecord.Gamertag));
+
+		var ctx = document.getElementById("game-spread-chart").getContext("2d");
+		var data = @Html.Raw(Model.ServiceRecord.GameModes.ToJavascriptArray(new[] { "#F7464A", "#5880A0", "#3d3d7c", "#949FB1" }));
+		var options = {
+			responsive: true
+		};
+
+		var x = new Chart(ctx).Doughnut(data, options);
+	</script>
+}

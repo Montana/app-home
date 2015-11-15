@@ -47,7 +47,6 @@ namespace Branch.Service.Halo5.Database.Repositories
 				return Add(delta);
 
 			item.DocumentId = delta.DocumentId;
-			item.ServiceTag = delta.ServiceTag;
 			item.Xuid = delta.Xuid;
 			item.Type = delta.Type;
 
