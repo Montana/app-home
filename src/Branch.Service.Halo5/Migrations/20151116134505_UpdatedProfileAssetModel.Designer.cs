@@ -8,9 +8,10 @@ using Branch.Service.Halo5.Database;
 namespace Branch.Service.Halo5.Migrations
 {
     [DbContext(typeof(Halo5DbContext))]
-    partial class Halo5DbContextModelSnapshot : ModelSnapshot
+    [Migration("20151116134505_UpdatedProfileAssetModel")]
+    partial class UpdatedProfileAssetModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .Annotation("ProductVersion", "7.0.0-beta8-15964")
