@@ -85,7 +85,7 @@ namespace Branch.Service.Xuid.Services
 				new Dictionary<string, string>
 				{
 					{ "x-xbl-contract-version", "2" },
-					{ "Authorization", string.Format("XBL3.0 x={0};{1}", authentication.UserHash, authentication.Token) }
+					{ "Authorization", $"XBL3.0 x={authentication.UserHash};{authentication.Token}"}
 				});
 
 			switch (profileDetails.StatusCode)

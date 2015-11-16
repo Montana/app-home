@@ -28,9 +28,10 @@ namespace Branch.Service.Halo5.Services
 			_profileAssetRepository = profileAssetRepository;
 		}
 
-		private IProfileAssetRepository _profileAssetRepository;
+		private readonly IProfileAssetRepository _profileAssetRepository;
 
 		private const string GetEmblemUrl = "https://www.haloapi.com/profile/h5/profiles/{0}/emblem?size={1}";
+		private const string GetSpartanModelUrl = "https://www.haloapi.com/profile/h5/profiles/{0}/spartan?size={1}&crop={2}";
 
 		private readonly TimeSpan _cacheRefreshTime = new TimeSpan(0, 5, 0);
 
@@ -45,8 +46,14 @@ namespace Branch.Service.Halo5.Services
 			var playerXuid = await XuidLookupService.LookupXuidAsync(gamertag);
 			
 			// Get Emblem metadata from repository
-			var emblemMetadata = _profileAssetRepository.Where(pa => pa.Xuid == playerXuid && pa.Type == ProfileAssetType.Emblem).FirstOrDefault();
-			if (emblemMetadata != null && (emblemMetadata.UpdatedAt + _cacheRefreshTime > DateTime.UtcNow))
+			var emblemMetadata = _profileAssetRepository
+				.Where(sr =>
+					sr.Xuid == playerXuid &&
+					sr.Type == ProfileAssetType.Emblem &&
+					sr.Size == size &&
+					sr.Crop == null).FirstOrDefault();
+
+			if (emblemMetadata != null && (takeCached || (emblemMetadata.UpdatedAt + _cacheRefreshTime > DateTime.UtcNow)))
 			{
 				return emblemMetadata.ImagePath;
 			}
@@ -69,13 +76,85 @@ namespace Branch.Service.Halo5.Services
 					throw new ArgumentOutOfRangeException(nameof(size));
 			}
 
-			var profileAsset = _profileAssetRepository.Where(sr => sr.Xuid == playerXuid && sr.Type == ProfileAssetType.Emblem).FirstOrDefault();
+			var profileAsset = _profileAssetRepository
+				.Where(sr =>
+					sr.Xuid == playerXuid &&
+					sr.Type == ProfileAssetType.Emblem &&
+					sr.Size == size &&
+					sr.Crop == null).FirstOrDefault();
+
 			if (profileAsset == null)
 				_profileAssetRepository.Add(new ProfileAsset
 				{
 					ImagePath = emblemResponse.RequestMessage.RequestUri.ToString(),
 					Type = ProfileAssetType.Emblem,
-					Xuid = playerXuid,
+					Size = size,
+					Crop = null,
+					Xuid = playerXuid
+				});
+			else
+			{
+				profileAsset.ImagePath = emblemResponse.RequestMessage.RequestUri.ToString();
+				_profileAssetRepository.Update(profileAsset);
+			}
+
+			return emblemResponse.RequestMessage.RequestUri.ToString();
+		}
+
+		public async Task<string> GetProfileSpartanModelAsync(string gamertag, int size = 128, string crop = "full")
+		{
+			return await GetProfileSpartanModelAsync(gamertag, false, size, crop);
+		}
+
+		public async Task<string> GetProfileSpartanModelAsync(string gamertag, bool takeCached, int size = 128, string crop = "full")
+		{
+			// Get Player XUID
+			var playerXuid = await XuidLookupService.LookupXuidAsync(gamertag);
+
+			// Get Emblem metadata from repository
+			var spartanMetadata = _profileAssetRepository
+				.Where(sr =>
+					sr.Xuid == playerXuid &&
+					sr.Type == ProfileAssetType.SpartanModel &&
+					sr.Size == size &&
+					sr.Crop == crop).FirstOrDefault();
+
+			if (spartanMetadata != null && (takeCached || (spartanMetadata.UpdatedAt + _cacheRefreshTime > DateTime.UtcNow)))
+				return spartanMetadata.ImagePath;
+
+			// Populate template emblem url
+			var getSpartanModelUri = new Uri(string.Format(GetSpartanModelUrl, gamertag, size, crop));
+
+			// Get Emblem from 343's Halo Service
+			var emblemResponse = await HttpManagerService.ExecuteRequestAsync(HttpMethod.GET, getSpartanModelUri,
+				headers: new Dictionary<string, string>
+				{
+					{ "Ocp-Apim-Subscription-Key", AuthenticationService.GetAuthentication() }
+				});
+
+			switch (emblemResponse.StatusCode)
+			{
+				case HttpStatusCode.NotFound:
+					throw new PlayerDoesntExistException();
+				case HttpStatusCode.BadRequest:
+					throw new ArgumentOutOfRangeException(nameof(size));
+			}
+
+			var profileAsset = _profileAssetRepository
+				.Where(sr => 
+					sr.Xuid == playerXuid && 
+					sr.Type == ProfileAssetType.SpartanModel &&
+					sr.Size == size &&
+					sr.Crop == crop).FirstOrDefault();
+
+			if (profileAsset == null)
+				_profileAssetRepository.Add(new ProfileAsset
+				{
+					ImagePath = emblemResponse.RequestMessage.RequestUri.ToString(),
+					Type = ProfileAssetType.SpartanModel,
+					Size = size,
+					Crop = crop,
+					Xuid = playerXuid
 				});
 			else
 			{

@@ -12,5 +12,9 @@ namespace Branch.Service.Halo5.Database.Models
 		public string ImagePath { get; set; }
 
 		public ProfileAssetType Type { get; set; }
+
+		public int Size { get; set; }
+
+		public string Crop { get; set; }
 	}
 }
