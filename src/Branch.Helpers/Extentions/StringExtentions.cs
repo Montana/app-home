@@ -76,10 +76,15 @@ namespace Branch.Helpers.Extentions
 			return str;
 		}
 
+		public static string FromSlug(this string phrase)
+		{
+			return phrase.Replace("-", " ");
+		}
+
 		public static bool TryParseToEnum<T>(this string value, bool ignoreCase, out T output)
 			where T : struct
 		{
-			// strip and sanitise non-legal enum name chars
+			// strip and sanitize non-legal enum name chars
 			value = Regex.Replace(value, @"[^a-z]+[^a-zA-Z0-9]*", "");
 
 			// conventional TryParse
