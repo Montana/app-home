@@ -35,8 +35,18 @@
 						text-align: center;
 					}
 
-					.spartan-csr {
+					.spartan-rank {
 						margin-top: 15px;
+						font-size: 56px; 
+						font-weight: 300; 
+						margin-right: 10px; 
+						opacity: 0.6;
+
+						&.responsive {
+							font-size: 45px; 
+							margin-top: 0px;
+							margin-bottom: -50px;
+						}
 					}
 
 					h2 {
