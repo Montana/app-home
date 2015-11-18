@@ -54,7 +54,7 @@ namespace Branch.Helpers.Extentions
 
 			if (convertFromUpperCamelCase)
 			{
-				// convert to upper-camel-case to hypenated-case
+				// convert to upper-camel-case to hyphenated-case
 				str = Regex.Replace(str, @"(\B[A-Z])", "-$1");
 			}
 
