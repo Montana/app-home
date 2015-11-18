@@ -28,7 +28,7 @@ namespace Branch.Service.Xuid.Services
 			var cachedLookup = XuidCacheRepository.GetByGamertag(gamertag);
 
 			// Check if cached xuid exists, and is valid
-			if (cachedLookup != null && cachedLookup.ExpiresAt < DateTime.UtcNow)
+			if (cachedLookup != null && cachedLookup.ExpiresAt > DateTime.UtcNow)
 				return cachedLookup.Xuid;
 
 			var authentication = await AuthenticationService.GetAuthenticationAsync();
@@ -71,7 +71,7 @@ namespace Branch.Service.Xuid.Services
 			var cachedLookup = XuidCacheRepository.GetByXuid(xuid);
 
 			// Check if cached gamertag exists, and is valid
-			if (cachedLookup != null && cachedLookup.ExpiresAt < DateTime.UtcNow)
+			if (cachedLookup != null && cachedLookup.ExpiresAt > DateTime.UtcNow)
 				return cachedLookup.Gamertag;
 
 			var authentication = await AuthenticationService.GetAuthenticationAsync();
