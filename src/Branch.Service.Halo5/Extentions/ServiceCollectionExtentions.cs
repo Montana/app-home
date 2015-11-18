@@ -28,6 +28,7 @@ namespace Microsoft.Framework.DependencyInjection
 			services.AddSingleton<AuthenticationService>();
 			services.AddSingleton<ServiceRecordService>();
 			services.AddSingleton<ProfileService>();
+			services.AddSingleton<MetadataService>();
 
 			return services;
 		}
