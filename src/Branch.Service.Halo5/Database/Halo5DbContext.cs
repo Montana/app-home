@@ -26,5 +26,9 @@ namespace Branch.Service.Halo5.Database
 		public DbSet<MatchHistory> MatchHistories { get; set; }
 
 		public DbSet<ProfileAsset> ProfileAssets { get; set; }
+
+		public DbSet<MapVariant> MapVariants { get; set; }
+
+		public DbSet<GameVariant> GameVariants { get; set; }
 	}
 }

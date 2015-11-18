@@ -24,6 +24,8 @@ namespace Microsoft.Framework.DependencyInjection
 			services.AddScoped<IServiceRecordRepository, ServiceRecordRepository>();
 			services.AddScoped<IMatchHistoryRepository, MatchHistoryRepository>();
 			services.AddScoped<IProfileAssetRepository, ProfileAssetRepository>();
+			services.AddScoped<IMapVariantRepository, MapVariantRepository>();
+			services.AddScoped<IGameVariantRepository, GameVariantRepository>();
 
 			// Add Halo 5 Services
 			services.AddSingleton<AuthenticationService>();
