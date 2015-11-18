@@ -10,7 +10,6 @@ using System.Net;
 using Branch.Service.Halo5.Database.Enums;
 using Branch.Service.Halo5.Database.Models;
 using Branch.Service.Halo5.Database.Repositories.Interfaces;
-using Branch.Service.Halo5.Models.Api;
 using Branch.Service.Xuid.Exceptions;
 using Branch.Service.Xuid.Services;
 
@@ -33,7 +32,7 @@ namespace Branch.Service.Halo5.Services
 		private const string GetEmblemUrl = "https://www.haloapi.com/profile/h5/profiles/{0}/emblem?size={1}";
 		private const string GetSpartanModelUrl = "https://www.haloapi.com/profile/h5/profiles/{0}/spartan?size={1}&crop={2}";
 
-		private readonly TimeSpan _cacheRefreshTime = new TimeSpan(0, 5, 0);
+		private readonly TimeSpan _cacheRefreshTime = new TimeSpan(0, 30, 0);
 
 		public async Task<string> GetProfileEmblemAsync(string gamertag, int size = 128)
 		{
@@ -101,17 +100,17 @@ namespace Branch.Service.Halo5.Services
 			return emblemResponse.RequestMessage.RequestUri.ToString();
 		}
 
-		public async Task<string> GetProfileSpartanModelAsync(string gamertag, int size = 128, string crop = "full")
+		public async Task<string> GetProfileSpartanModelAsync(string gamertag, int size = 512, string crop = "full")
 		{
 			return await GetProfileSpartanModelAsync(gamertag, false, size, crop);
 		}
 
-		public async Task<string> GetProfileSpartanModelAsync(string gamertag, bool takeCached, int size = 128, string crop = "full")
+		public async Task<string> GetProfileSpartanModelAsync(string gamertag, bool takeCached, int size = 512, string crop = "full")
 		{
 			// Get Player XUID
 			var playerXuid = await XuidLookupService.LookupXuidAsync(gamertag);
 
-			// Get Emblem metadata from repository
+			// Get Spartan Model metadata from repository
 			var spartanMetadata = _profileAssetRepository
 				.Where(sr =>
 					sr.Xuid == playerXuid &&
@@ -122,10 +121,10 @@ namespace Branch.Service.Halo5.Services
 			if (spartanMetadata != null && (takeCached || (spartanMetadata.UpdatedAt + _cacheRefreshTime > DateTime.UtcNow)))
 				return spartanMetadata.ImagePath;
 
-			// Populate template emblem url
+			// Populate template spartan model url
 			var getSpartanModelUri = new Uri(string.Format(GetSpartanModelUrl, gamertag, size, crop));
 
-			// Get Emblem from 343's Halo Service
+			// Get Spartan Model from 343's Halo Service
 			var emblemResponse = await HttpManagerService.ExecuteRequestAsync(HttpMethod.GET, getSpartanModelUri,
 				headers: new Dictionary<string, string>
 				{

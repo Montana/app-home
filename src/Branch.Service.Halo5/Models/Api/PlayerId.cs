@@ -10,5 +10,11 @@ namespace Branch.Service.Halo5.Models.Api
 
 		[JsonProperty("Xuid")]
 		public Nullable<Int64> Xuid { get; set; }
+		
+		[JsonIgnore]
+		public string Emblem { get; set; }
+
+		[JsonIgnore]
+		public string SpartanModel { get; set; }
 	}
 }

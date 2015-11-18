@@ -1085,25 +1085,20 @@ header.halo5-service-record {
             line-height: 20px;
             font-size: 18px; }
       header.halo5-service-record > .mask > .container .col-md-3 .spartan-image {
-        height: 630px;
-        width: 320px;
+        pointer-events: none;
+        height: 484px;
+        width: 336px;
         background-repeat: no-repeat;
-        -moz-transform: scaleX(-1);
-        -ms-transform: scaleX(-1);
-        -o-transform: scaleX(-1);
-        -webkit-transform: scaleX(-1);
-        transform: scaleX(-1);
-        -ms-filter: "FlipH";
-        filter: FlipH;
+        background-size: 368px;
         position: absolute;
-        top: -90px;
-        right: -20px;
-        margin-bottom: -40px; }
+        top: 89px;
+        right: -15px; }
       header.halo5-service-record > .mask > .container .col-md-3 .spartan-insignia {
-        height: 100px;
-        width: 100px;
+        pointer-events: none;
+        height: 128px;
+        width: 128px;
         background-repeat: no-repeat;
         background-position: top left;
         position: absolute;
-        top: -30px;
-        right: 190px; }
+        top: 74px;
+        right: 205px; }

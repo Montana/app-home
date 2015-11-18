@@ -1,6 +1,6 @@
 ﻿@using Branch.Helpers.Extentions
-@model Branch.Web.Areas.Halo5.ViewModels.ViewModelBase
-<header class="halo5-service-record" style="background-image: url('')">
+@model ViewModelBase
+<header class="halo5-service-record" style="background-image: url('https://content.halocdn.com/media/Default/games/halo-5-guardians/map-images/arena/plaza-f08327b5d1de449f89ec17050ce0cb9f.jpg')">
 	<div class="mask">
 		<div class="container">
 			<div class="row">
@@ -47,8 +47,8 @@
 					</div>
 				</div>
 				<div class="col-md-3">
-					<div class="spartan-insignia hidden-sm hidden-xs" style="background-image: url('')"></div>
-					<div class="spartan-image hidden-sm hidden-xs" style="background-image: url('')"></div>
+					<div class="spartan-insignia hidden-sm hidden-xs" style="background-image: url('@Model.ServiceRecord.PlayerId.Emblem')"></div>
+					<div class="spartan-image hidden-sm hidden-xs" style="background-image: url('@Model.ServiceRecord.PlayerId.SpartanModel')"></div>
 				</div>
 			</div>
 		</div>

@@ -7,7 +7,6 @@ namespace Branch.Web.Areas.Halo5.ViewModels
 		protected ViewModelBase(ServiceRecordStats arenaServiceRecord, ServiceRecordStats warzoneServiceRecord)
 		{
 			arenaServiceRecord.WarzoneStats = warzoneServiceRecord.WarzoneStats;
-
 			ServiceRecord = arenaServiceRecord;
 		}
 

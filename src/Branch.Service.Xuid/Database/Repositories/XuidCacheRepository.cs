@@ -15,7 +15,7 @@ namespace Branch.Service.Xuid.Database.Repositories
 			_xuidContext = xuidContext;
 		}
 
-		private readonly TimeSpan ExpireBuffer = new TimeSpan(0, 0, 8, 0);
+		private readonly TimeSpan ExpireBuffer = new TimeSpan(0, 1, 0, 0);
 
 		private XuidDbContext _xuidContext { get; set; }
 
@@ -52,10 +52,10 @@ namespace Branch.Service.Xuid.Database.Repositories
 				item.Id = existingMaybe.Id;
 				return Update(item);
 			}
-			else
-				item.ExpiresAt = DateTime.UtcNow + ExpireBuffer;
 
+			item.ExpiresAt = DateTime.UtcNow + ExpireBuffer;
 			_xuidContext.XuidCaches.Add(item);
+
 			if (_xuidContext.SaveChanges() <= 0)
 				return null;
 
@@ -67,14 +67,11 @@ namespace Branch.Service.Xuid.Database.Repositories
 			var item = GetById(delta.Id);
 			if (item == null)
 				return Add(delta);
-			else
-			{
-				item.ExpiresAt = DateTime.UtcNow + ExpireBuffer;
-				item.Gamertag = delta.Gamertag;
-				item.Xuid = delta.Xuid;
 
-				item.UpdatedAt = DateTime.UtcNow;
-			}
+			item.ExpiresAt = DateTime.UtcNow + ExpireBuffer;
+			item.Gamertag = delta.Gamertag;
+			item.Xuid = delta.Xuid;
+			item.UpdatedAt = DateTime.UtcNow;
 
 			if (_xuidContext.SaveChanges() <= 0)
 				return null;
