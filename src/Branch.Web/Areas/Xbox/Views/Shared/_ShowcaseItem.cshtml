@@ -7,7 +7,7 @@
 }
 @if (Model != null)
 {
-	<a href="/Xbox/@Model.AuthorInfo.Name/Activity/@Model.FeedItemId">
+	<a href="/xbox/@Model.AuthorInfo.Name.ToSlug()/activity/@Model.FeedItemId">
 		<img src="@Model.ItemImage" />
 		<div class="data">
 			<div class="metadata">

@@ -16,8 +16,10 @@ namespace Branch.Web.Areas.Halo4.Controllers
 		[HttpGet("commendations/{commendationSlug}")]
 		public async Task<IActionResult> Index(string gamertag, string commendationSlug)
 		{
+			gamertag = gamertag.FromSlug();
+
 			// Parse Slug to CommendationCategory
-			CommendationCategory commendationCategory = CommendationCategory.Weapons;
+			CommendationCategory commendationCategory;
 			if (!commendationSlug.TryParseToEnum(true, out commendationCategory))
 			{
 				// TODO: create flash message system
@@ -26,7 +28,7 @@ namespace Branch.Web.Areas.Halo4.Controllers
 
 			var serviceRecord = await ServiceRecordService.GetServiceRecord(gamertag);
 
-			var gameHistoryTask = MatchHistoryService.GetGameHistory(serviceRecord.Xuid, GameMode.WarGames, count: 20);
+			var gameHistoryTask = MatchHistoryService.GetGameHistory(serviceRecord.Xuid, GameMode.WarGames, 20);
 			var commendationsTask = CommendationsService.GetCommendations(serviceRecord.Xuid);
 			await Task.WhenAll(gameHistoryTask, commendationsTask);
 			

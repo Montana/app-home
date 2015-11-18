@@ -10,23 +10,23 @@
 
 			<ul class="nav">
 				<li class="@(Model.SidebarOption.Equals(SidebarOption.Showcase) ? "active" : "")">
-					<a asp-controller="Showcase" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Showcase</a>
+					<a asp-controller="Showcase" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()">Showcase</a>
 				</li>
 
 				<li class="@(Model.SidebarOption.Equals(SidebarOption.Activity) ? "active" : "")">
-					<a asp-controller="Activity" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Activity</a>
+					<a asp-controller="Activity" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()">Activity</a>
 				</li>
 
 				<li class="@(Model.SidebarOption.Equals(SidebarOption.Achievements) ? "active" : "")">
-					<a asp-controller="Achievements" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Achievements</a>
+					<a asp-controller="Achievements" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()">Achievements</a>
 				</li>
 
 				<li class="@(Model.SidebarOption.Equals(SidebarOption.Following) ? "active" : "")">
-					<a asp-controller="Following" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Following</a>
+					<a asp-controller="Following" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()">Following</a>
 				</li>
 
 				<li class="@(Model.SidebarOption.Equals(SidebarOption.GameClips) ? "active" : "")">
-					<a asp-controller="GameClips" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Game Clips</a>
+					<a asp-controller="GameClips" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()">Game Clips</a>
 				</li>
 			</ul>
 		</li>

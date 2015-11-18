@@ -103,7 +103,7 @@
 							<span id="recent-match-details" class="details">
 								<strong class="@resultClass">@result</strong> playing <strong>@game.ModeName</strong> on <strong>@game.MapVariantName</strong>,<br />
 								with <strong>@game.FeaturedStatValue</strong> @game.FeaturedStatName <br />
-								<a class="alt date" asp-action="Index" asp-controller="Match" asp-route-gamertag="@Model.ServiceRecord.Gamertag" asp-route-matchModeSlug="@game.Mode.GetDescription().ToSlug()" asp-route-matchId="@game.Id">
+								<a class="alt date" asp-action="Index" asp-controller="Match" asp-route-gamertag="@Model.ServiceRecord.Gamertag.ToSlug()" asp-route-matchModeSlug="@game.Mode.GetDescription().ToSlug()" asp-route-matchId="@game.Id">
 									&raquo; on @game.EndDateUtc.ToString("dddd, MMMM dd yyyy")
 								</a>
 							</span>

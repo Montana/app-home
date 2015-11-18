@@ -40,14 +40,14 @@
 						@if (Model.Page > 0)
 						{
 							<li class="previous">
-								<a href="@Url.Action("Get", "Achievements", new { gamertag = gamertag, page = Model.Page - 1 })"><span aria-hidden="true">&larr;</span> Last</a>
+								<a href="@Url.Action("Get", "Achievements", new { gamertag = gamertag.ToSlug(), page = Model.Page - 1 })"><span aria-hidden="true">&larr;</span> Last</a>
 							</li>
 						}
 
 						@if (Model.HasMoreUserTitles)
 						{
 							<li class="next">
-								<a href="@Url.Action("Get", "Achievements", new { gamertag = gamertag, page = Model.Page + 1 })">Next <span aria-hidden="true">&rarr;</span></a>
+								<a href="@Url.Action("Get", "Achievements", new { gamertag = gamertag.ToSlug(), page = Model.Page + 1 })">Next <span aria-hidden="true">&rarr;</span></a>
 							</li>
 						}
 					</ul>

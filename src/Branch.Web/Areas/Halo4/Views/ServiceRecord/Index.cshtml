@@ -77,7 +77,7 @@
 						@foreach(WarGameHistory game in Model.GameHistory.Games)
 						{
 							<div id="game-history-@game.Id" class="game-history-entry col-lg-6 col-sm-12">
-								<a asp-action="Index" asp-controller="Match" asp-route-gamertag="@Model.ServiceRecord.Gamertag" asp-route-matchModeSlug="@game.Mode.GetDescription().ToSlug()" asp-route-matchId="@game.Id">
+								<a asp-action="Index" asp-controller="Match" asp-route-gamertag="@Model.ServiceRecord.Gamertag.ToSlug()" asp-route-matchModeSlug="@game.Mode.GetDescription().ToSlug()" asp-route-matchId="@game.Id">
 									<div class="game-history-container" style="background-image: url('@await MetadataService.ResolveAssetContainerAsync(game.MapImageUrl)')">
 										<div class="mask @game.GetGameVictoryStatus().CssFriendlyResult"></div>
 										<div class="gametype-icon" style="background-image: url('@await MetadataService.ResolveAssetContainerAsync(game.BaseVariantImageUrl, "medium")')"></div>

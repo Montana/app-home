@@ -36,7 +36,7 @@
 									</td>
 									<td>
 										<a asp-route-area="Halo4" asp-action="Details" asp-controller="CompetitiveSkillRank"
-										   asp-route-gamertag="@gamertag" asp-route-playlistslug="@skillRank.PlaylistName.ToSlug()" asp-route-playlistid="@skillRank.PlaylistId">
+										   asp-route-gamertag="@gamertag.ToSlug()" asp-route-playlistslug="@skillRank.PlaylistName.ToSlug()" asp-route-playlistid="@skillRank.PlaylistId">
 											@skillRank.PlaylistName
 										</a>
 									</td>

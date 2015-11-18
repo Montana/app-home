@@ -61,7 +61,7 @@
 						}
 						else
 						{
-							<a asp-action="Index" asp-controller="ServiceRecord" asp-route-gamertag="@player.Gamertag">
+							<a asp-action="Index" asp-controller="ServiceRecord" asp-route-gamertag="@player.Gamertag.ToSlug()">
 								@player.Gamertag
 							</a>
 							<br />
@@ -91,19 +91,19 @@
 							<div class="player-indicator">
 								@if (player.IsGuest)
 								{
-								<div class="col-md-1 visual-flair" style="background-color: @team.PrimaryRgb; background-image: url('https://emblems.svc.halowaypoint.com/Stats/emblem.ashx?s=48&0=0&1=21&2=2&3=2&amp;fi=48&amp;bi=0&amp;fl=1&amp;m=3');">
-									@player.Gamertag
-									<br />
-									<strong>GEST</strong>
-								</div>
+									<div class="col-md-1 visual-flair" style="background-color: @team.PrimaryRgb; background-image: url('https://emblems.svc.halowaypoint.com/Stats/emblem.ashx?s=48&0=0&1=21&2=2&3=2&amp;fi=48&amp;bi=0&amp;fl=1&amp;m=3');">
+										@player.Gamertag
+										<br />
+										<strong>GEST</strong>
+									</div>
 								}
 								else
 								{
-								<div class="col-md-1 visual-flair" style="background-color: @team.PrimaryRgb; background-image: url(@await MetadataService.ResolveAssetContainerAsync(player.EmblemImageUrl, "48"));">
-									@player.Gamertag
-									<br />
-									<strong>@player.ServiceTag</strong>
-								</div>
+									<div class="col-md-1 visual-flair" style="background-color: @team.PrimaryRgb; background-image: url(@await MetadataService.ResolveAssetContainerAsync(player.EmblemImageUrl, "48"));">
+										@player.Gamertag
+										<br />
+										<strong>@player.ServiceTag</strong>
+									</div>
 								}
 							</div>
 						</div>

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Branch.Helpers.Extentions;
 
 namespace Branch.Web.Areas.XboxLive.Controllers
 {
@@ -24,6 +25,8 @@ namespace Branch.Web.Areas.XboxLive.Controllers
 		[HttpGet("achievements/{page?}")]
 		public async Task<IActionResult> Index(string gamertag, uint page = 0)
 		{
+			gamertag = gamertag.FromSlug();
+
 			var profileSettings = (await UserService.GetProfileDetails(gamertag)).Users.First();
 			var playerXuid = profileSettings.Xuid;
 
@@ -49,6 +52,8 @@ namespace Branch.Web.Areas.XboxLive.Controllers
 		[HttpGet("achievements/{titleId}-{slug}")]
 		public async Task<IActionResult> GetXboxOneAchievementDetails(string gamertag, string titleId, string slug)
 		{
+			gamertag = gamertag.FromSlug();
+
 			var profileSettings = (await UserService.GetProfileDetails(gamertag)).Users.First();
 
 			// try parse game id

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Branch.Web.Areas.XboxLive.ViewModels;
 using Microsoft.AspNet.Mvc;
+using Branch.Helpers.Extentions;
 
 namespace Branch.Web.Areas.XboxLive.Controllers
 {
@@ -12,6 +13,8 @@ namespace Branch.Web.Areas.XboxLive.Controllers
 		[HttpGet("showcase")]
 		public async Task<IActionResult> Index(string gamertag)
 		{
+			gamertag = gamertag.FromSlug();
+
 			var profileSettings = await UserService.GetProfileDetails(gamertag);
 
 			var profileShowcaseTask = UserService.GetProfileShowcase(profileSettings.Users.First().Xuid);

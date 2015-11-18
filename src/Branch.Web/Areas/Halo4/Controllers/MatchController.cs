@@ -5,9 +5,7 @@ using Microsoft.Halo.Core.DataContracts.Enums;
 using Branch.Helpers.Extentions;
 using Branch.Web.Areas.Halo4.ViewModels;
 using Microsoft.Halo.Core.DataContracts;
-using Microsoft.Halo.Core.DataContracts.Abstracts;
 using System;
-using System.Linq;
 
 namespace Branch.Web.Areas.Halo4.Controllers
 {
@@ -20,6 +18,8 @@ namespace Branch.Web.Areas.Halo4.Controllers
 		[HttpGet("match/{matchModeSlug}/{matchId}")]
 		public async Task<IActionResult> Index(string gamertag, string matchModeSlug, string matchId)
 		{
+			gamertag = gamertag.FromSlug();
+
 			// Check Mode is valid
 			GameMode matchGameMode;
 			if (!matchModeSlug.TryParseToEnum(true, out matchGameMode))

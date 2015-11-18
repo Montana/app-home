@@ -9,54 +9,54 @@
 
 			<ul class="nav">
 				<li class="@(Model.SidebarOption.Equals(SidebarOption.ServiceRecord) ? "active" : "")">
-					<a asp-controller="ServiceRecord" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Service Record</a>
+					<a asp-controller="ServiceRecord" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()">Service Record</a>
 				</li>
 
 				<li class="@(Model.SidebarOption.Equals(SidebarOption.MatchHistory) ? "active" : "")">
-					<a asp-controller="MatchHistory" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-modeSlug="@GameMode.WarGames.ToString().ToSlug(true)">Match History</a>
+					<a asp-controller="MatchHistory" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()" asp-route-modeSlug="@GameMode.WarGames.ToString().ToSlug(true)">Match History</a>
 					<ul class="nav">
 						<li class="@(Model.SidebarSubOption.Equals(GameMode.WarGames) ? "active" : "")">
-							<a asp-controller="MatchHistory" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-modeSlug="@GameMode.WarGames.ToString().ToSlug(true)">@GameMode.WarGames.GetDescription()</a>
+							<a asp-controller="MatchHistory" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()" asp-route-modeSlug="@GameMode.WarGames.ToString().ToSlug(true)">@GameMode.WarGames.GetDescription()</a>
 						</li>
 						<li class="@(Model.SidebarSubOption.Equals(GameMode.CustomGames) ? "active" : "")">
-							<a asp-controller="MatchHistory" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-modeSlug="@GameMode.CustomGames.ToString().ToSlug(true)">@GameMode.CustomGames.GetDescription()</a>
+							<a asp-controller="MatchHistory" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()" asp-route-modeSlug="@GameMode.CustomGames.ToString().ToSlug(true)">@GameMode.CustomGames.GetDescription()</a>
 						</li>
 						<li class="@(Model.SidebarSubOption.Equals(GameMode.Campaign) ? "active" : "")">
-							<a asp-controller="MatchHistory" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-modeSlug="@GameMode.Campaign.ToString().ToSlug(true)">@GameMode.Campaign.GetDescription()</a>
+							<a asp-controller="MatchHistory" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()" asp-route-modeSlug="@GameMode.Campaign.ToString().ToSlug(true)">@GameMode.Campaign.GetDescription()</a>
 						</li>
 						<li class="@(Model.SidebarSubOption.Equals(GameMode.SpartanOps) ? "active" : "")">
-							<a asp-controller="MatchHistory" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-modeSlug="@GameMode.SpartanOps.ToString().ToSlug(true)">@GameMode.SpartanOps.GetDescription()</a>
+							<a asp-controller="MatchHistory" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()" asp-route-modeSlug="@GameMode.SpartanOps.ToString().ToSlug(true)">@GameMode.SpartanOps.GetDescription()</a>
 						</li>
 					</ul>
 				</li>
 
 				<li class="@(Model.SidebarOption.Equals(SidebarOption.CompetitiveSkillRanking) ? "active" : "")">
-					<a asp-controller="CompetitiveSkillRank" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Competitive Skill Ranking</a>
+					<a asp-controller="CompetitiveSkillRank" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()">Competitive Skill Ranking</a>
 				</li>
 
 				<li class="@(Model.SidebarOption.Equals(SidebarOption.Commendations) ? "active" : "")">
-					<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-commendationSlug="@CommendationCategory.Weapons.ToString().ToSlug(true)">Commendations</a>
+					<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()" asp-route-commendationSlug="@CommendationCategory.Weapons.ToString().ToSlug(true)">Commendations</a>
 					<ul class="nav">
 						<li class="@(Model.SidebarSubOption.Equals(CommendationCategory.Weapons) ? "active" : "")">
-							<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-commendationSlug="@CommendationCategory.Weapons.ToString().ToSlug(true)">@CommendationCategory.Weapons.GetDescription()</a>
+							<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()" asp-route-commendationSlug="@CommendationCategory.Weapons.ToString().ToSlug(true)">@CommendationCategory.Weapons.GetDescription()</a>
 						</li>
 						<li class="@(Model.SidebarSubOption.Equals(CommendationCategory.Enemies) ? "active" : "")">
-							<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-commendationSlug="@CommendationCategory.Enemies.ToString().ToSlug(true)">@CommendationCategory.Enemies.GetDescription()</a>
+							<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()" asp-route-commendationSlug="@CommendationCategory.Enemies.ToString().ToSlug(true)">@CommendationCategory.Enemies.GetDescription()</a>
 						</li>
 						<li class="@(Model.SidebarSubOption.Equals(CommendationCategory.Vehicles) ? "active" : "")">
-							<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-commendationSlug="@CommendationCategory.Vehicles.ToString().ToSlug(true)">@CommendationCategory.Vehicles.GetDescription()</a>
+							<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()" asp-route-commendationSlug="@CommendationCategory.Vehicles.ToString().ToSlug(true)">@CommendationCategory.Vehicles.GetDescription()</a>
 						</li>
 						<li class="@(Model.SidebarSubOption.Equals(CommendationCategory.Player) ? "active" : "")">
-							<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-commendationSlug="@CommendationCategory.Player.ToString().ToSlug(true)">@CommendationCategory.Player.GetDescription()</a>
+							<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()" asp-route-commendationSlug="@CommendationCategory.Player.ToString().ToSlug(true)">@CommendationCategory.Player.GetDescription()</a>
 						</li>
 						<li class="@(Model.SidebarSubOption.Equals(CommendationCategory.GameTypes) ? "active" : "")">
-							<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag" asp-route-commendationSlug="@CommendationCategory.GameTypes.ToString().ToSlug(true)">@CommendationCategory.GameTypes.GetDescription()</a>
+							<a asp-controller="Commendations" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()" asp-route-commendationSlug="@CommendationCategory.GameTypes.ToString().ToSlug(true)">@CommendationCategory.GameTypes.GetDescription()</a>
 						</li>
 					</ul>
 				</li>
 
 				<li class="@(Model.SidebarOption.Equals(SidebarOption.Specializations) ? "active" : "")">
-					<a asp-controller="Specializations" asp-action="Index" asp-route-gamertag="@Model.Gamertag">Specializations</a>
+					<a asp-controller="Specializations" asp-action="Index" asp-route-gamertag="@Model.Gamertag.ToSlug()">Specializations</a>
 				</li>
 			</ul>
 		</li>
