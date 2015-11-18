@@ -4,7 +4,7 @@ using System;
 
 namespace Branch.Service.Halo5.Models.Api
 {
-	public class GameVariant
+	public class MatchMapVariant
 	{
 		[JsonProperty("ResourceType")]
 		public ResourceType ResourceType { get; set; }

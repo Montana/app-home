@@ -1,9 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using Branch.Service.Halo5.Models.Api.Abstracts;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace Branch.Service.Halo5.Models.Api
 {
-	public class MapVariant
+	public class Map
+		: Result
 	{
 		[JsonProperty("name")]
 		public string Name { get; set; }
@@ -11,11 +14,11 @@ namespace Branch.Service.Halo5.Models.Api
 		[JsonProperty("description")]
 		public string Description { get; set; }
 
-		[JsonProperty("mapImageUrl")]
-		public string MapImageUrl { get; set; }
+		[JsonProperty("supportedGameModes")]
+		public IReadOnlyCollection<string> SupportedGameModes { get; set; }
 
-		[JsonProperty("mapId")]
-		public Guid MapId { get; set; }
+		[JsonProperty("imageUrl")]
+		public string ImageUrl { get; set; }
 
 		[JsonProperty("id")]
 		public Guid Id { get; set; }
