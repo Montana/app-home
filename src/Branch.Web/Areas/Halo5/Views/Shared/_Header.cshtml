@@ -1,6 +1,18 @@
 ﻿@using Branch.Helpers.Extentions
 @model ViewModelBase
-<header class="halo5-service-record" style="background-image: url('https://content.halocdn.com/media/Default/games/halo-5-guardians/map-images/arena/plaza-f08327b5d1de449f89ec17050ce0cb9f.jpg')">
+@{ 
+	MatchHistory recentMatch = Model.MatchHistory?.Results?.FirstOrDefault();
+	string recentMatchMapImage = string.Empty;
+	MapVariant recentMatchMapVariant = null;
+	GameVariant recentMatchGameVariant = null;
+	if (recentMatch != null)
+	{
+		recentMatchMapVariant = await MetadataService.GetMapVariantMetadataAsync(recentMatch.MapVariant.ResourceId);
+		recentMatchGameVariant = await MetadataService.GetGameVariantMetadataAsync(recentMatch.GameVariant.ResourceId);
+		recentMatchMapImage = recentMatchMapVariant.MapImageUrl;
+	}
+}
+<header class="halo5-service-record" style="background-image: url('@(recentMatchMapImage)')">
 	<div class="mask">
 		<div class="container">
 			<div class="row">
@@ -20,8 +32,8 @@
 
 					<div class="row rank-flairs">
 						@{ 
-							var currentRank = (await MetadataService.GetSpartanRanksMetadata()).Results.FirstOrDefault(sr => sr.Id == Model.ServiceRecord.SpartanRank);
-							var nextRank = (await MetadataService.GetSpartanRanksMetadata()).Results.FirstOrDefault(sr => sr.Id == Model.ServiceRecord.SpartanRank + 1);
+							var currentRank = (await MetadataService.GetSpartanRanksMetadataAsync()).Results.FirstOrDefault(sr => sr.Id == Model.ServiceRecord.SpartanRank);
+							var nextRank = (await MetadataService.GetSpartanRanksMetadataAsync()).Results.FirstOrDefault(sr => sr.Id == Model.ServiceRecord.SpartanRank + 1);
 						}
 						<div class="col-md-10">
 							<img class="hidden-xs" height="25" alt="" src=""/>
@@ -52,15 +64,20 @@
 						</div>
 					</div>
 
-					<div class="row recent-match">
-						Recent Matches:
-						<br />
-						<span id="recent-match-details" class="details">
-							<strong class="win">Victory</strong> playing <strong>Slayer</strong> on <strong>Plaza</strong>,<br />
-							with <strong>12</strong> Kills <br />
-							&raquo; on swagtime
-						</span>
-					</div>
+					@if (recentMatch != null)
+					{
+						<div class="row recent-match">
+							Recent Matches:
+							<br />
+							<span id="recent-match-details" class="details">
+								<strong class="win">@recentMatch.Players.First().Result.GetDescription()</strong> playing <strong>@recentMatchGameVariant.Name</strong> on <strong>@recentMatchMapVariant.Name</strong>,<br />
+								with <strong>@recentMatch.Players.First().TotalKills</strong> Kills<br />
+								<a class="alt date" href="#">
+									&raquo; on @recentMatch.MatchCompletedDate.ISO8601Date.ToString("dddd, MMMM dd yyyy")
+								</a>
+							</span>
+						</div>
+					}
 				</div>
 				<div class="col-md-3">
 					<div class="spartan-insignia hidden-sm hidden-xs" style="background-image: url('@Model.ServiceRecord.PlayerId.Emblem')"></div>
