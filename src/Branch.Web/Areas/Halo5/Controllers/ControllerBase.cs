@@ -1,5 +1,4 @@
 ﻿using Branch.Service.Halo5.Services;
-using Branch.Service.Xuid.Services;
 using Branch.Web.Attributes;
 using Microsoft.AspNet.Mvc;
 
@@ -17,6 +16,6 @@ namespace Branch.Web.Areas.Halo5.Controllers
 		public ProfileService ProfileService { get; set; }
 
 		[FromServices]
-		public XuidLookupService XuidLookupService { get; set; }
+		public MatchHistoryService MatchHistoryService { get; set; }
 	}
 }

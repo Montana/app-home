@@ -4,6 +4,9 @@ namespace Branch.Service.Halo5.Models.Api.Enums
 {
 	public enum GameMode
 	{
+		[Description("All")]
+		All = -0x01,
+
 		[Description("Error")]
 		Error = 0x00,
 
@@ -14,7 +17,7 @@ namespace Branch.Service.Halo5.Models.Api.Enums
 		Campaign = 0x02,
 
 		[Description("Custom Games")]
-		CustomGames = 0x03,
+		Custom = 0x03,
 
 		[Description("Warzone")]
 		Warzone = 0x04

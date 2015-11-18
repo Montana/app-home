@@ -22,11 +22,13 @@ namespace Microsoft.Framework.DependencyInjection
 			// Add Halo 5 Database Repositories
 			services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
 			services.AddScoped<IServiceRecordRepository, ServiceRecordRepository>();
+			services.AddScoped<IMatchHistoryRepository, MatchHistoryRepository>();
 			services.AddScoped<IProfileAssetRepository, ProfileAssetRepository>();
 
 			// Add Halo 5 Services
 			services.AddSingleton<AuthenticationService>();
 			services.AddSingleton<ServiceRecordService>();
+			services.AddSingleton<MatchHistoryService>();
 			services.AddSingleton<ProfileService>();
 			services.AddSingleton<MetadataService>();
 

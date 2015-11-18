@@ -5,8 +5,8 @@ namespace Branch.Web.Areas.Halo5.ViewModels
 	public class ServiceRecordViewModel
 		: ViewModelBase
 	{
-		public ServiceRecordViewModel(ServiceRecordStats arenaServiceRecord, ServiceRecordStats warzoneServiceRecord)
-			: base(arenaServiceRecord, warzoneServiceRecord)
+		public ServiceRecordViewModel(ServiceRecordStats arenaServiceRecord, ServiceRecordStats warzoneServiceRecord, Response<MatchHistory> matchHistory)
+			: base(arenaServiceRecord, warzoneServiceRecord, matchHistory)
 		{ }
 	}
 }

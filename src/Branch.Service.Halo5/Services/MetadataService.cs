@@ -30,6 +30,9 @@ namespace Branch.Service.Halo5.Services
 
 		public async Task<Response<SpartanRank>> GetSpartanRanksMetadata()
 		{
+			if (SpartanRankMetadata != null)
+				return SpartanRankMetadata;
+
 			// Populate template metadata url
 			var getSpartanRanksMetadataUri = new Uri(string.Format(GetMetadataUrl, SpartanRanksMetadataSlug));
 

@@ -33,7 +33,7 @@ namespace Branch.Service.Halo4.Services
 		private const string GetMatchesUrl = "https://stats.svc.halowaypoint.com/en-US/players/{0}/h4/matches?count={1}&startat={2}";
 		private const string GetGameModeMatchesUrl = "https://stats.svc.halowaypoint.com/en-US/players/{0}/h4/matches?count={1}&startat={2}&gamemodeid={3}";
 
-		private readonly TimeSpan CacheRefreshTime = new TimeSpan(0, 5, 0);
+		private readonly TimeSpan CacheRefreshTime = new TimeSpan(0, 1, 0);
 
 		public async Task<GameHistoryDetailsFull> GetGameHistory(Int64 xuid, int count = 5, int startAt = 0)
 		{

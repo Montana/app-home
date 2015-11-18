@@ -23,6 +23,8 @@ namespace Branch.Service.Halo5.Database
 
 		public DbSet<ServiceRecord> ServiceRecords { get; set; }
 
+		public DbSet<MatchHistory> MatchHistories { get; set; }
+
 		public DbSet<ProfileAsset> ProfileAssets { get; set; }
 	}
 }
