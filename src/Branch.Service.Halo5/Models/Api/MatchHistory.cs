@@ -18,13 +18,13 @@ namespace Branch.Service.Halo5.Models.Api
 		public Guid MapId { get; set; }
 
 		[JsonProperty("MapVariant")]
-		public MapVariant MapVariant { get; set; }
+		public MatchMapVariant MapVariant { get; set; }
 
 		[JsonProperty("GameBaseVariantId")]
 		public Guid GameBaseVariantId { get; set; }
 
 		[JsonProperty("GameVariant")]
-		public GameVariant GameVariant { get; set; }
+		public MatchGameVariant GameVariant { get; set; }
 
 		[JsonProperty("MatchDuration")]
 		public string MatchDuration { get; set; }
