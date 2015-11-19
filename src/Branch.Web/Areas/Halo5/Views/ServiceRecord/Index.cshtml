@@ -28,6 +28,24 @@
 					</div>
 
 				</div>
+				@if (Model.MatchHistory.Results.Any())
+				{
+					<div class="arena-overview col-md-12">
+						<div class="page-header">
+							<h3>
+								Recent Matches
+								<small>0-25 of @(Model.ServiceRecord.ArenaStats.TotalGamesCompleted + Model.ServiceRecord.WarzoneStats.TotalGamesCompleted)</small>
+							</h3>
+						</div>
+						@foreach(var match in Model.MatchHistory.Results)
+						{
+							var mapVariant = await MetadataService.GetMapVariantMetadataAsync(match.MapVariant.ResourceId);
+							var gameVariant = await MetadataService.GetGameVariantMetadataAsync(match.GameVariant.ResourceId);
+
+							<h1>@gameVariant.Name on @mapVariant.Name</h1>
+						}
+					</div>
+				}
 			</div>
 			<div class="col-md-3">
 				@await Html.PartialAsync("_Sidebar", sidebar)
