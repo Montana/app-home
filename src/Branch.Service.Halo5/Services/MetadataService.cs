@@ -30,43 +30,111 @@ namespace Branch.Service.Halo5.Services
 
 		private const string GetMetadataUrl = "https://www.haloapi.com/metadata/h5/metadata/{0}";
 		private const string GetMetadataExtendedUrl = "https://www.haloapi.com/metadata/h5/metadata/{0}/{1}";
-		private const string SpartanRanksMetadataSlug = "spartan-ranks";
-		private const string MapsMetadataSlug = "maps";
-		private const string MapVariantMetadataSlug = "map-variants";
+		private const string CsrDesignationsMetadataSlug = "csr-designations";
 		private const string GameBaseVariantsMetadataSlug = "game-base-variants";
 		private const string GameVariantMetadataSlug = "game-variants";
+		private const string MapsMetadataSlug = "maps";
+		private const string MapVariantMetadataSlug = "map-variants";
+		private const string PlaylistsMetadataSlug = "playlists";
+		private const string SpartanRanksMetadataSlug = "spartan-ranks";
 
 		private readonly TimeSpan _cacheRefreshTime = new TimeSpan(0, 30, 0);
 		private readonly TimeSpan _localCacheRefreshTime = TimeSpan.FromDays(100);
 
-		private Response<SpartanRank> SpartanRankMetadata;
-		private Response<Map> MapMetadata;
+		private Response<CsrDesignation> CsrDesignationMetadata;
 		private Response<GameBaseVariant> GameBaseVariantMetadata;
+		private Response<Map> MapMetadata;
+		private Response<Playlist> PlaylistMetadata;
+		private Response<SpartanRank> SpartanRankMetadata;
 
-		public async Task<Response<SpartanRank>> GetSpartanRanksMetadataAsync()
+		public async Task<Response<CsrDesignation>> GetCsrDesignationMetadataAsync()
 		{
-			if (SpartanRankMetadata != null)
-				return SpartanRankMetadata;
+			if (CsrDesignationMetadata != null)
+				return CsrDesignationMetadata;
 
 			// Populate template metadata url
-			var getSpartanRanksMetadataUri = new Uri(string.Format(GetMetadataUrl, SpartanRanksMetadataSlug));
+			var getCsrDesignationsMetadataUri = new Uri(string.Format(GetMetadataUrl, CsrDesignationsMetadataSlug));
 
-			// Get Spartan Ranks Metadata from 343's Halo Service
-			var spartanRankMetadataResponse = await HttpManagerService.ExecuteRequestAsync<IReadOnlyCollection<SpartanRank>>(HttpMethod.GET, getSpartanRanksMetadataUri,
+			// Get Csr Designations Metadata from 343's Halo Service
+			var csrDesignationsMetadataResponse = await HttpManagerService.ExecuteRequestAsync<IReadOnlyCollection<CsrDesignation>>(HttpMethod.GET, getCsrDesignationsMetadataUri,
 				headers: new Dictionary<string, string>
 				{
 					{ "Ocp-Apim-Subscription-Key", AuthenticationService.GetAuthentication() }
 				});
 
-			SpartanRankMetadata = new Response<SpartanRank>
+			CsrDesignationMetadata = new Response<CsrDesignation>
 			{
-				Results = spartanRankMetadataResponse,
-				Count = spartanRankMetadataResponse.Count(),
-				ResultCount = spartanRankMetadataResponse.Count(),
+				Results = csrDesignationsMetadataResponse,
+				Count = csrDesignationsMetadataResponse.Count(),
+				ResultCount = csrDesignationsMetadataResponse.Count(),
 				Start = 0
 			};
 
-			return SpartanRankMetadata;
+			return CsrDesignationMetadata;
+		}
+
+		public async Task<Response<GameBaseVariant>> GetGameBaseVariantsMetadataAsync()
+		{
+			if (GameBaseVariantMetadata != null)
+				return GameBaseVariantMetadata;
+
+			// Populate template metadata url
+			var getGameBaseVariantMetadataUri = new Uri(string.Format(GetMetadataUrl, GameBaseVariantsMetadataSlug));
+
+			// Get Game Base Variant Metadata from 343's Halo Service
+			var gameBaseVariantMetadataResponse = await HttpManagerService.ExecuteRequestAsync<IReadOnlyCollection<GameBaseVariant>>(HttpMethod.GET, getGameBaseVariantMetadataUri,
+				headers: new Dictionary<string, string>
+				{
+					{ "Ocp-Apim-Subscription-Key", AuthenticationService.GetAuthentication() }
+				});
+
+			GameBaseVariantMetadata = new Response<GameBaseVariant>
+			{
+				Results = gameBaseVariantMetadataResponse,
+				Count = gameBaseVariantMetadataResponse.Count(),
+				ResultCount = gameBaseVariantMetadataResponse.Count(),
+				Start = 0
+			};
+
+			return GameBaseVariantMetadata;
+		}
+
+		public async Task<GameVariant> GetGameVariantMetadataAsync(Guid gameVariantId)
+		{
+			var gameVariant = _gameVariantRepository.Where(gv => gv.GameVariantId == gameVariantId).FirstOrDefault();
+			if (gameVariant != null && gameVariant.UpdatedAt + _localCacheRefreshTime > DateTime.UtcNow)
+				return new GameVariant
+				{
+					Id = gameVariant.GameVariantId,
+					ContentId = gameVariant.ContentId,
+					Description = gameVariant.Description,
+					GameBaseVariantId = gameVariant.GameBaseVariantId,
+					IconUrl = gameVariant.IconUrl,
+					Name = gameVariant.Name
+				};
+
+			// Populate template metadata url
+			var getGameVariantMetadataUri = new Uri(string.Format(GetMetadataExtendedUrl, GameVariantMetadataSlug, gameVariantId));
+
+			// Get Game Variant Metadata from 343's Halo Service
+			var gameVariantMetadataResponse = await HttpManagerService.ExecuteRequestAsync<GameVariant>(HttpMethod.GET, getGameVariantMetadataUri,
+				headers: new Dictionary<string, string>
+				{
+					{ "Ocp-Apim-Subscription-Key", AuthenticationService.GetAuthentication() }
+				});
+
+			if (gameVariant == null)
+				gameVariant = new Database.Models.GameVariant();
+
+			gameVariant.ContentId = gameVariantMetadataResponse.ContentId;
+			gameVariant.Description = gameVariantMetadataResponse.Description;
+			gameVariant.GameBaseVariantId = gameVariantMetadataResponse.GameBaseVariantId;
+			gameVariant.IconUrl = gameVariantMetadataResponse.IconUrl;
+			gameVariant.GameVariantId = gameVariantMetadataResponse.Id;
+			gameVariant.Name = gameVariantMetadataResponse.Name;
+			_gameVariantRepository.Update(gameVariant);
+
+			return gameVariantMetadataResponse;
 		}
 
 		public async Task<Response<Map>> GetMapsMetadataAsync()
@@ -131,70 +199,58 @@ namespace Branch.Service.Halo5.Services
 			_mapVariantRepository.Update(mapVariant);
 
 			return mapVariantMetadataResponse;
-        }
+		}
 
-		public async Task<Response<GameBaseVariant>> GetGameBaseVariantsMetadataAsync()
+		public async Task<Response<Playlist>> GetPlaylistMetadataAsync()
 		{
-			if (GameBaseVariantMetadata != null)
-				return GameBaseVariantMetadata;
+			if (PlaylistMetadata != null)
+				return PlaylistMetadata;
 
 			// Populate template metadata url
-			var getGameBaseVariantMetadataUri = new Uri(string.Format(GetMetadataUrl, GameBaseVariantsMetadataSlug));
+			var getPlaylistsMetadataUri = new Uri(string.Format(GetMetadataUrl, PlaylistsMetadataSlug));
 
-			// Get Game Base Variant Metadata from 343's Halo Service
-			var gameBaseVariantMetadataResponse = await HttpManagerService.ExecuteRequestAsync<IReadOnlyCollection<GameBaseVariant>>(HttpMethod.GET, getGameBaseVariantMetadataUri,
+			// Get Playlists Metadata from 343's Halo Service
+			var playlistsMetadataResponse = await HttpManagerService.ExecuteRequestAsync<IReadOnlyCollection<Playlist>>(HttpMethod.GET, getPlaylistsMetadataUri,
 				headers: new Dictionary<string, string>
 				{
 					{ "Ocp-Apim-Subscription-Key", AuthenticationService.GetAuthentication() }
 				});
 
-			GameBaseVariantMetadata = new Response<GameBaseVariant>
+			PlaylistMetadata = new Response<Playlist>
 			{
-				Results = gameBaseVariantMetadataResponse,
-				Count = gameBaseVariantMetadataResponse.Count(),
-				ResultCount = gameBaseVariantMetadataResponse.Count(),
+				Results = playlistsMetadataResponse,
+				Count = playlistsMetadataResponse.Count(),
+				ResultCount = playlistsMetadataResponse.Count(),
 				Start = 0
 			};
 
-			return GameBaseVariantMetadata;
+			return PlaylistMetadata;
 		}
 
-		public async Task<GameVariant> GetGameVariantMetadataAsync(Guid gameVariantId)
+		public async Task<Response<SpartanRank>> GetSpartanRanksMetadataAsync()
 		{
-			var gameVariant = _gameVariantRepository.Where(gv => gv.GameVariantId == gameVariantId).FirstOrDefault();
-			if (gameVariant != null && gameVariant.UpdatedAt + _localCacheRefreshTime > DateTime.UtcNow)
-				return new GameVariant
-				{
-					Id = gameVariant.GameVariantId,
-					ContentId = gameVariant.ContentId,
-					Description = gameVariant.Description,
-					GameBaseVariantId = gameVariant.GameBaseVariantId,
-					IconUrl = gameVariant.IconUrl,
-					Name = gameVariant.Name
-				};
+			if (SpartanRankMetadata != null)
+				return SpartanRankMetadata;
 
 			// Populate template metadata url
-			var getGameVariantMetadataUri = new Uri(string.Format(GetMetadataExtendedUrl, GameVariantMetadataSlug, gameVariantId));
+			var getSpartanRanksMetadataUri = new Uri(string.Format(GetMetadataUrl, SpartanRanksMetadataSlug));
 
-			// Get Game Variant Metadata from 343's Halo Service
-			var gameVariantMetadataResponse = await HttpManagerService.ExecuteRequestAsync<GameVariant>(HttpMethod.GET, getGameVariantMetadataUri,
+			// Get Spartan Ranks Metadata from 343's Halo Service
+			var spartanRankMetadataResponse = await HttpManagerService.ExecuteRequestAsync<IReadOnlyCollection<SpartanRank>>(HttpMethod.GET, getSpartanRanksMetadataUri,
 				headers: new Dictionary<string, string>
 				{
 					{ "Ocp-Apim-Subscription-Key", AuthenticationService.GetAuthentication() }
 				});
 
-			if (gameVariant == null)
-				gameVariant = new Database.Models.GameVariant();
+			SpartanRankMetadata = new Response<SpartanRank>
+			{
+				Results = spartanRankMetadataResponse,
+				Count = spartanRankMetadataResponse.Count(),
+				ResultCount = spartanRankMetadataResponse.Count(),
+				Start = 0
+			};
 
-			gameVariant.ContentId = gameVariantMetadataResponse.ContentId;
-			gameVariant.Description = gameVariantMetadataResponse.Description;
-			gameVariant.GameBaseVariantId = gameVariantMetadataResponse.GameBaseVariantId;
-			gameVariant.IconUrl = gameVariantMetadataResponse.IconUrl;
-			gameVariant.GameVariantId = gameVariantMetadataResponse.Id;
-			gameVariant.Name = gameVariantMetadataResponse.Name;
-			_gameVariantRepository.Update(gameVariant);
-
-			return gameVariantMetadataResponse;
+			return SpartanRankMetadata;
 		}
 	}
 }
