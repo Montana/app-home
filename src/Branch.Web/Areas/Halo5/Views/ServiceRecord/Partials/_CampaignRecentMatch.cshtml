@@ -1,0 +1,27 @@
+﻿@model MatchHistory
+@{
+	var map = (await MetadataService.GetMapsMetadataAsync()).Results.First(m => m.Id == Model.MapId);
+	var gameBaseVariant = (await MetadataService.GetGameBaseVariantsMetadataAsync()).Results.First(gbv => gbv.Id == Model.GameBaseVariantId);
+	var player = Model.Players.First();
+}
+<div id="match-history-@Model.Id.MatchId" class="match-history-entry col-lg-6 col-sm-12">
+	<a href="#">
+		<div class="match-history-container" style="background-image: url('@map.ImageUrl')">
+			<div class="mask @player.Result.GetDescription().ToSlug()"></div>
+			<div class="gametype-icon" style="background-image: url('')"></div>
+			<div class="inner">
+				<span class="gametype">Playing Campaign</span>
+				<br class="visible-lg visible-xs" />
+				<span class="selector">on</span>
+				<span class="map-name">@map.Name</span>
+
+				<div class="stats">
+					<span class="type">Kills</span>
+					<span class="stat"><deliminate-number integer="@player.TotalKills" /></span>
+				</div>
+
+				<div class="windicator hidden-xs">@player.Result.GetDescription()</div>
+			</div>
+		</div>
+	</a>
+</div>
