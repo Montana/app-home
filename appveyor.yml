@@ -12,7 +12,7 @@ build_script:
 - cmd: cd src\Branch.Web
 - cmd: dnu build
 artifacts:
-  - path: '**\*.nupkg
+  - path: '**\*.nupkg'
 cache:
   - C:\Users\appveyor\.dnx\packages
 environment:
