@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿using Branch.Web.Filters;
+using Microsoft.AspNet.Mvc;
 
 namespace Branch.Web.Controllers
 {
+	[ActionTimer]
 	public class HomeController : Controller
 	{
 		public IActionResult Index()

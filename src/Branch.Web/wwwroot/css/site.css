@@ -117,6 +117,34 @@ main {
           border-top-color: #5252FF !important;
           border-bottom-color: #5252FF !important; } }
 
+ul.no-style {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+  ul.no-style.inline > li {
+    display: inline; }
+
+footer {
+  background-color: white;
+  padding-top: 100px; }
+  footer > .mask {
+    padding: 40px 0;
+    border-top: 1px solid #e5e5e5;
+    /*margin-top: 100px;*/
+    background-color: #3d3d7c;
+    text-align: left;
+    line-height: 1;
+    color: white; }
+    footer > .mask > .container > .row > .col-md-2 > .made-in {
+      font-size: 12px;
+      color: #aaa; }
+    footer > .mask .footer-links {
+      margin: 10px 0;
+      padding-left: 0; }
+      footer > .mask .footer-links li {
+        display: inline;
+        padding: 0 2px; }
+
 a {
   color: #3d3d7c; }
 

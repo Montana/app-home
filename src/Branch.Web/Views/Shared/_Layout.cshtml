@@ -98,10 +98,54 @@
 
 	@RenderBody()
 
-	<footer>
-		<p>&copy; 2015 - @AppSettings.Value.SiteTitle</p>
-		<p>Server executed request in @renderTime milliseconds</p>
+	<footer class="bs-footer" role="contentinfo" style="">
+		<div class="mask">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10">
+						<p>Developed by <a class="alt" href="http://twitter.com/0xdeafcafe" target="_blank">&#64;0xdeafcafe</a></p>
+						<p>Developed in C# | Running on Windows Azure</p>
+						<ul class="footer-links">
+							<li><a class="alt" href="https://github.com/TheTree/Branch" target="_blank">Github</a></li>
+							<li>·</li>
+							<li><a class="alt" href="http://xboxchaos.com/" target="_blank">Xbox Chaos</a></li>
+							<li>·</li>
+							<li><a class="alt" href="http://halo.reddit.com/" target="_blank">r/halo</a></li>
+							<li>·</li>
+							<li><a class="alt" href="http://unscwarfare.com/" target="_blank">UNSC Warfare</a></li>
+							<li>·</li>
+							<li>
+								<a class="alt" href="#">
+									Blog
+								</a>
+							</li>
+						</ul>
+						<ul class="footer-links hidden">
+							<li>
+								<a class="alt" href="#">
+									Privacy Policy
+								</a>
+							</li>
+							<li>·</li>
+							<li>
+								<a class="alt" href="#">
+									Terms
+								</a>
+							</li>
+						</ul>
+						<p>Code licensed under the <a class="alt" href="http://www.dbad-license.org/" target="_blank">Don't Be A Dick</a> Public License.</p>
+						<p>&copy; 2013-@DateTime.Now.Year - @AppSettings.Value.SiteTitle</p>
+						<p>Page Rendered in @renderTime Milliseconds</p>
+					</div>
+
+					<div class="col-md-2 hidden-xs hidden-sm">
+						<img src="~/images/uk-map.png" class="img-circle" alt="" style="width: 60px; height: 77px;" />
+					</div>
+				</div>
+			</div>
+		</div>
 	</footer>
+
 
 	<environment names="Development">
 		<script src="~/lib/jquery/jquery.js"></script>

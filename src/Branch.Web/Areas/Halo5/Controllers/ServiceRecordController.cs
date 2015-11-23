@@ -17,7 +17,7 @@ namespace Branch.Web.Areas.Halo5.Controllers
 			
 			var arenaServiceRecordTask = ServiceRecordService.GetArenaServiceRecord(gamertag);
 			var warzoneServiceRecordTask = ServiceRecordService.GetWarzoneServiceRecord(gamertag);
-			var matchHistoryTask = MatchHistoryService.GetMatchesAsync(gamertag, false, GameMode.All);
+			var matchHistoryTask = MatchHistoryService.GetMatchesAsync(gamertag, false, GameMode.All, count: 24);
 			var profileEmblem = ProfileService.GetProfileEmblemAsync(gamertag);
 			var profileSpartanModel = ProfileService.GetProfileSpartanModelAsync(gamertag);
 			await Task.WhenAll(arenaServiceRecordTask, warzoneServiceRecordTask, matchHistoryTask, profileEmblem, profileSpartanModel);
