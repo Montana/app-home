@@ -1,9 +1,11 @@
 ﻿using Branch.Service.Halo5.Services;
 using Branch.Web.Attributes;
+using Branch.Web.Filters;
 using Microsoft.AspNet.Mvc;
 
 namespace Branch.Web.Areas.Halo5.Controllers
 {
+	[ActionTimer]
 	[Area("Halo5")]
 	[Route("xbox/{gamertag}/halo-5/")]
 	[ServiceRequired(ServiceRequired.Service.Halo5)]

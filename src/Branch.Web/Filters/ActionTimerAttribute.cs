@@ -4,7 +4,7 @@ using Microsoft.AspNet.Mvc.Filters;
 
 namespace Branch.Web.Filters
 {
-    public class ActionTimerAttribute : ActionFilterAttribute
+	public class ActionTimerAttribute : ActionFilterAttribute
 	{
 		public ActionTimerAttribute()
 		{
@@ -26,7 +26,7 @@ namespace Branch.Web.Filters
 		public override void OnActionExecuted(ActionExecutedContext filterContext)
 		{
 			var controller = filterContext.Controller as Controller;
-			var timer = (Stopwatch) controller?.ViewData["_ActionTimer"];
+			var timer = (Stopwatch)controller?.ViewData["_ActionTimer"];
 			if (timer == null) return;
 
 			timer.Stop();
