@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using System;
 
 namespace Branch.Service.Halo5.Models.Api
 {
@@ -18,7 +19,7 @@ namespace Branch.Service.Halo5.Models.Api
 		public IReadOnlyCollection<GameBaseVariantStatistics> TopGameBaseVariants { get; set; }
 
 		[JsonProperty("HighestCsrPlaylistId")]
-		public string HighestCsrPlaylistId { get; set; }
+		public Guid HighestCsrPlaylistId { get; set; }
 
 		[JsonProperty("TotalKills")]
 		public int TotalKills { get; set; }
