@@ -1139,6 +1139,20 @@ header.halo5-service-record {
         top: 74px;
         right: 205px; }
 
+main.halo5-service-record .arena-overview .highest-attained-csr {
+  text-align: center; }
+  @media (min-width: 992px) {
+    main.halo5-service-record .arena-overview .highest-attained-csr {
+      border-right-color: #aaaaaa;
+      border-right-width: 1px;
+      border-right-style: solid; } }
+  main.halo5-service-record .arena-overview .highest-attained-csr > .csr-banner {
+    margin: 0px auto;
+    padding-top: 40px;
+    width: 181px;
+    height: 332px;
+    color: white;
+    background-size: cover; }
 main.halo5-service-record .match-history .match-history-entry {
   margin: 20px 0;
   padding: 0 10px;

@@ -23,28 +23,56 @@
 					<div class="page-header">
 						<h3>
 							Service Record
-							<small>Arena</small>
+							<small>Arena Overview</small>
 						</h3>
 					</div>
 					<div class="row">
-						<div class="col-md-3">
-							
+						<div class="highest-attained-csr col-md-4">
+							@{
+								var highestCsr = Model.ServiceRecord.ArenaStats.HighestCsrAttained;
+								var highestCsrPlaylist = (await MetadataService.GetPlaylistMetadataAsync()).Results.First(p => p.Id == Model.ServiceRecord.ArenaStats.HighestCsrPlaylistId);
+								var csrDesignation = (await MetadataService.GetCsrDesignationMetadataAsync()).Results.First(csr => csr.Id == highestCsr.DesignationId);
+								var csrDesignationTier = csrDesignation.Tiers.First(t => t.Id == highestCsr.Tier);
+							}
+
+							<h4>Highest Attained Csr</h4>
+
+							<div class="csr-banner" style="background-image: url('@csrDesignation.BannerImageUrl');">
+								<img width="130" src="@csrDesignationTier.IconImageUrl" />
+								<br />
+								<span class="csr-designation">@csrDesignation.Name @csrDesignationTier.Id</span>
+								<br />
+								<span class="csr-designation-playlist">@highestCsrPlaylist.Name</span>
+							</div>
 						</div>
-						<div class="col-md-9">
+						<div class="col-md-8">
 
 						</div>
 					</div>
 				</div>
+
+				<div class="warzone-overview col-md-12">
+					<div class="page-header">
+						<h3>
+							Service Record
+							<small>Warzone Overview</small>
+						</h3>
+					</div>
+					<div class="row">
+						
+					</div>
+				</div>
+
 				@if (Model.MatchHistory.Results.Any())
 				{
 					<div class="match-history col-md-12">
 						<div class="page-header">
 							<h3>
 								Recent Matches
-								<small>0-25 of @(Model.ServiceRecord.ArenaStats.TotalGamesCompleted + Model.ServiceRecord.WarzoneStats.TotalGamesCompleted)</small>
+								<small>@Model.MatchHistory.Start-@Model.MatchHistory.Count of @(Model.ServiceRecord.ArenaStats.TotalGamesCompleted + Model.ServiceRecord.WarzoneStats.TotalGamesCompleted)</small>
 							</h3>
 						</div>
-						@foreach (var match in Model.MatchHistory.Results)
+						@*@foreach (var match in Model.MatchHistory.Results)
 						{
 							switch (match.Id.GameMode)
 							{
@@ -58,7 +86,7 @@
 									@await Html.PartialAsync("Partials/_CampaignRecentMatch", match);
 									break;
 							}
-						}
+						}*@
 					</div>
 				}
 			</div>
