@@ -46,7 +46,29 @@
 							</div>
 						</div>
 						<div class="col-md-8">
+							<div class="row col-md-12">
+								<div class="tool-of-descruction col-md-6">
+									<h4>Tool of Destruction</h4>
 
+									<div class="weapon-preview"
+										 style="background-image: url('@((await MetadataService.GetWeaponsMetadataAsync()).Results.First(w => w.Id == Model.ServiceRecord.ArenaStats.WeaponWithMostKills.WeaponId.StockId).SmallIconImageUrl)')"></div>
+
+									<deliminate-number integer="@Model.ServiceRecord.ArenaStats.WeaponWithMostKills.TotalKills" /> Kills
+								</div>
+
+								<div class="col-md-6">
+									<canvas id="myChart" width="200" height="200" style="-ms-transform: rotate(-90deg); /* IE 9 */ -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */transform: rotate(-90deg);"></canvas>
+								</div>
+							</div>
+							<div class="row col-md-12">
+								<div class="col-md-6">
+
+								</div>
+								<div class="col-md-6">
+									<button class="btn btn-success">Full Arena Stats &raquo;</button>
+									<button class="btn btn-success">Arena Match History &raquo;</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -59,7 +81,7 @@
 						</h3>
 					</div>
 					<div class="row">
-						
+
 					</div>
 				</div>
 
@@ -72,7 +94,7 @@
 								<small>@Model.MatchHistory.Start-@Model.MatchHistory.Count of @(Model.ServiceRecord.ArenaStats.TotalGamesCompleted + Model.ServiceRecord.WarzoneStats.TotalGamesCompleted)</small>
 							</h3>
 						</div>
-						@*@foreach (var match in Model.MatchHistory.Results)
+						@foreach (var match in Model.MatchHistory.Results)
 						{
 							switch (match.Id.GameMode)
 							{
@@ -86,7 +108,7 @@
 									@await Html.PartialAsync("Partials/_CampaignRecentMatch", match);
 									break;
 							}
-						}*@
+						}
 					</div>
 				}
 			</div>
@@ -99,6 +121,34 @@
 
 @section scripts {
 	<script>
+		var ctx = document.getElementById("myChart").getContext("2d");
 
+		var data = [
+			{
+				value: 200,
+				color: "#3d3d7c",
+				highlight: "#3d3d60",
+				label: "Kills"
+			},
+			{
+				value: 100,
+				color: "#5880A0",
+				highlight: "#5AD3D1",
+				label: "Deaths"
+			},
+			{
+				value: 300,
+				color: "#FDB45C",
+				highlight: "#FDB44C",
+				label: ""
+			}
+		];
+		var options = {
+			responsive: true,
+			percentageInnerCutout: 95,
+			showTooltips: false
+		};
+
+		var myDoughnutChart = new Chart(ctx).Doughnut(data, options);
 	</script>
 }

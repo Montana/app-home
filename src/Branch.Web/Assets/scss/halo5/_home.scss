@@ -180,6 +180,19 @@ main.halo5-service-record {
 				}
 			}
 		}
+
+		.tool-of-descruction {
+			text-align: center;
+
+			> .weapon-preview {
+				background-repeat: no-repeat;
+				background-size: contain;
+				background-position: center;
+				margin: 0px auto;
+				width: 180px;
+				height: 145px;
+			}
+		}
 	}
 
 	.warzone-overview {

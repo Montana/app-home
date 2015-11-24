@@ -70,7 +70,7 @@
 							Recent Matches:
 							<br />
 							<span id="recent-match-details" class="details">
-								<strong class="win">@recentMatch.Players.First().Result.GetDescription()</strong> playing <strong>@recentMatchGameVariant.Name</strong> on <strong>@recentMatchMapVariant.Name</strong>,<br />
+								<strong class="@recentMatch.Players.First().Result.GetDescription().ToSlug()">@recentMatch.Players.First().Result.GetDescription()</strong> playing <strong>@recentMatchGameVariant.Name</strong> on <strong>@recentMatchMapVariant.Name</strong>,<br />
 								with <strong>@recentMatch.Players.First().TotalKills</strong> Kills<br />
 								<a class="alt date" href="#">
 									&raquo; on @recentMatch.MatchCompletedDate.ISO8601Date.ToString("dddd, MMMM dd yyyy")

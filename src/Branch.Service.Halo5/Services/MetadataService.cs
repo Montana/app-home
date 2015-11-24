@@ -37,6 +37,7 @@ namespace Branch.Service.Halo5.Services
 		private const string MapVariantMetadataSlug = "map-variants";
 		private const string PlaylistsMetadataSlug = "playlists";
 		private const string SpartanRanksMetadataSlug = "spartan-ranks";
+		private const string WeaponsMetadataSlug = "weapons";
 
 		private readonly TimeSpan _cacheRefreshTime = new TimeSpan(0, 30, 0);
 		private readonly TimeSpan _localCacheRefreshTime = TimeSpan.FromDays(100);
@@ -46,6 +47,7 @@ namespace Branch.Service.Halo5.Services
 		private Response<Map> MapMetadata;
 		private Response<Playlist> PlaylistMetadata;
 		private Response<SpartanRank> SpartanRankMetadata;
+		private Response<Weapon> WeaponMetadata;
 
 		public async Task<Response<CsrDesignation>> GetCsrDesignationMetadataAsync()
 		{
@@ -251,6 +253,32 @@ namespace Branch.Service.Halo5.Services
 			};
 
 			return SpartanRankMetadata;
+		}
+
+		public async Task<Response<Weapon>> GetWeaponsMetadataAsync()
+		{
+			if (WeaponMetadata != null)
+				return WeaponMetadata;
+
+			// Populate template metadata url
+			var getWeaponsMetadataUri = new Uri(string.Format(GetMetadataUrl, WeaponsMetadataSlug));
+
+			// Get Weapons Metadata from 343's Halo Service
+			var weaponMetadataResponse = await HttpManagerService.ExecuteRequestAsync<IReadOnlyCollection<Weapon>>(HttpMethod.GET, getWeaponsMetadataUri,
+				headers: new Dictionary<string, string>
+				{
+					{ "Ocp-Apim-Subscription-Key", AuthenticationService.GetAuthentication() }
+				});
+
+			WeaponMetadata = new Response<Weapon>
+			{
+				Results = weaponMetadataResponse,
+				Count = weaponMetadataResponse.Count(),
+				ResultCount = weaponMetadataResponse.Count(),
+				Start = 0
+			};
+
+			return WeaponMetadata;
 		}
 	}
 }

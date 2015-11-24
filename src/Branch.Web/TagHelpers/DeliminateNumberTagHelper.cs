@@ -3,7 +3,7 @@ using System;
 
 namespace Branch.Web.TagHelpers
 {
-	[HtmlTargetElement("deliminate-number", Attributes = nameof(Integer), TagStructure = TagStructure.NormalOrSelfClosing)]
+	[HtmlTargetElement("deliminate-number", Attributes = "integer", TagStructure = TagStructure.NormalOrSelfClosing)]
 	public class DeliminateNumberTagHelper
 		: TagHelper
 	{
