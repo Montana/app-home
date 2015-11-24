@@ -193,6 +193,43 @@ main.halo5-service-record {
 				height: 145px;
 			}
 		}
+
+		.kd-ratio {
+			text-align: center;
+			padding-top: 15px;
+
+			> .graph-container {
+				position: relative;
+
+				> .graph-details {
+					margin: 0px auto;
+					padding-top: 30px;
+					left: 0px;
+					top: 0px;
+					right: 0px;
+					bottom: 0px;
+					position: absolute;
+
+					> span {
+						font-size: 45px;
+						font-weight: 300;
+					}
+				}
+			}
+
+			> .graph-legend {
+				margin: 0px auto;
+				width: 156px;
+				text-align: left;
+
+				> .entry {
+					padding-left: 8px;
+					margin-bottom: 2px;
+					border-left-width: 6px;
+					border-left-style: solid;
+				}
+			}
+		}
 	}
 
 	.warzone-overview {

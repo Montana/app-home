@@ -1162,6 +1162,31 @@ main.halo5-service-record .arena-overview .tool-of-descruction {
     margin: 0px auto;
     width: 180px;
     height: 145px; }
+main.halo5-service-record .arena-overview .kd-ratio {
+  text-align: center;
+  padding-top: 15px; }
+  main.halo5-service-record .arena-overview .kd-ratio > .graph-container {
+    position: relative; }
+    main.halo5-service-record .arena-overview .kd-ratio > .graph-container > .graph-details {
+      margin: 0px auto;
+      padding-top: 30px;
+      left: 0px;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      position: absolute; }
+      main.halo5-service-record .arena-overview .kd-ratio > .graph-container > .graph-details > span {
+        font-size: 45px;
+        font-weight: 300; }
+  main.halo5-service-record .arena-overview .kd-ratio > .graph-legend {
+    margin: 0px auto;
+    width: 156px;
+    text-align: left; }
+    main.halo5-service-record .arena-overview .kd-ratio > .graph-legend > .entry {
+      padding-left: 8px;
+      margin-bottom: 2px;
+      border-left-width: 6px;
+      border-left-style: solid; }
 main.halo5-service-record .match-history .match-history-entry {
   margin: 20px 0;
   padding: 0 10px;

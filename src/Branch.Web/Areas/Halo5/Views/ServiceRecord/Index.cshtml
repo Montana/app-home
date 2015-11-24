@@ -57,12 +57,28 @@
 								</div>
 
 								<div class="col-md-6">
-									<canvas id="myChart" width="200" height="200" style="-ms-transform: rotate(-90deg); /* IE 9 */ -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */transform: rotate(-90deg);"></canvas>
+
 								</div>
 							</div>
 							<div class="row col-md-12">
-								<div class="col-md-6">
+								<div class="kd-ratio col-md-6">
+									<div class="graph-container">
+										<canvas id="myChart" width="160" height="160" style="margin: 0 auto;"></canvas>
+										<div class="graph-details">
+											<span>12.4</span>
+											<br>
+											KD Spread
+										</div>
+									</div>
 
+									<div class="graph-legend">
+										<div class="entry" style="border-left-color: rgb(61, 61, 124);">
+											Kills: @Model.ServiceRecord.ArenaStats.TotalKills
+										</div>
+										<div class="entry" style="border-left-color: rgb(88, 128, 160);">
+											Deaths: @Model.ServiceRecord.ArenaStats.TotalDeaths
+										</div>
+									</div>
 								</div>
 								<div class="col-md-6">
 									<button class="btn btn-success">Full Arena Stats &raquo;</button>
@@ -91,7 +107,7 @@
 						<div class="page-header">
 							<h3>
 								Recent Matches
-								<small>@Model.MatchHistory.Start-@Model.MatchHistory.Count of @(Model.ServiceRecord.ArenaStats.TotalGamesCompleted + Model.ServiceRecord.WarzoneStats.TotalGamesCompleted)</small>
+								<small>@(Model.MatchHistory.Start-@Model.MatchHistory.Count + 1) of @(Model.ServiceRecord.ArenaStats.TotalGamesCompleted + Model.ServiceRecord.WarzoneStats.TotalGamesCompleted)</small>
 							</h3>
 						</div>
 						@foreach (var match in Model.MatchHistory.Results)
@@ -125,27 +141,21 @@
 
 		var data = [
 			{
-				value: 200,
+				value: @Model.ServiceRecord.ArenaStats.TotalKills,
 				color: "#3d3d7c",
 				highlight: "#3d3d60",
 				label: "Kills"
 			},
 			{
-				value: 100,
+				value: @Model.ServiceRecord.ArenaStats.TotalDeaths,
 				color: "#5880A0",
 				highlight: "#5AD3D1",
 				label: "Deaths"
-			},
-			{
-				value: 300,
-				color: "#FDB45C",
-				highlight: "#FDB44C",
-				label: ""
 			}
 		];
 		var options = {
-			responsive: true,
-			percentageInnerCutout: 95,
+			animate: false,
+			percentageInnerCutout: 90,
 			showTooltips: false
 		};
 
