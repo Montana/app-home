@@ -9,6 +9,9 @@ using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
 using Microsoft.Framework.Configuration;
 using Newtonsoft.Json;
+using Microsoft.Azure.Documents.Client.TransientFaultHandling.Strategies;
+using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
+using Microsoft.Azure.Documents.Client.TransientFaultHandling;
 
 namespace Branch.Helpers.DocumentDb
 {
@@ -26,13 +29,15 @@ namespace Branch.Helpers.DocumentDb
 			var databaseId = configuration.Get<string>($"{baseKey}:DocumentDb:DatabaseId");
 			var collectionId = configuration.Get<string>($"{baseKey}:DocumentDb:CollectionId");
 
-			_client = new DocumentClient(new Uri(endpoint), accessKey, connectionPolicy: new ConnectionPolicy
+			var documentClient = new DocumentClient(new Uri(endpoint), accessKey, connectionPolicy: new ConnectionPolicy
 			{
 				//UserAgentSuffix = "Branch-vNext/1.0.0",
 				ConnectionMode = ConnectionMode.Direct,
 				MediaReadMode = MediaReadMode.Buffered,
 				ConnectionProtocol = Protocol.Https
 			});
+			var documentRetryStrategy = new DocumentDbRetryStrategy(RetryStrategy.DefaultExponential) { FastFirstRetry = true };
+			_client = documentClient.AsReliable(documentRetryStrategy);
 			_database = GetOrCreateDatabase(databaseId);
 			_collection = GetOrCreateCollection(_database.SelfLink, collectionId);
 		}
@@ -61,7 +66,7 @@ namespace Branch.Helpers.DocumentDb
 		/// <summary>
 		/// 
 		/// </summary>
-		private DocumentClient _client { get; set; }
+		private IReliableReadWriteDocumentClient _client { get; set; }
 
 		public T Get<T>(Expression<Func<T, bool>> predicate)
 			where T : Document

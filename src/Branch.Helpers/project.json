@@ -11,6 +11,7 @@
 		"Microsoft.AspNet.Http": "1.0.0-beta8",
 		"Microsoft.AspNet.Razor.Runtime": "4.0.0-beta8",
 		"Microsoft.Azure.DocumentDB": "1.5.0",
+		"Microsoft.Azure.DocumentDB.TransientFaultHandling": "1.2.0",
 		"Microsoft.Dnx.Runtime": "1.0.0-beta8",
 		"Microsoft.Framework.Configuration": "1.0.0-beta8",
 		"Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
