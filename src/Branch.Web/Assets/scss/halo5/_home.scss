@@ -156,6 +156,7 @@
 
 main.halo5-service-record {
 	.arena-overview {
+		// Banner Stat
 		.highest-attained-csr {
 			text-align: center;
 
@@ -181,8 +182,10 @@ main.halo5-service-record {
 			}
 		}
 
-		.tool-of-descruction {
+		// Top Row Stats
+		.tool-of-destruction {
 			text-align: center;
+			padding-bottom: 20px;
 
 			> .weapon-preview {
 				background-repeat: no-repeat;
@@ -193,7 +196,7 @@ main.halo5-service-record {
 				height: 145px;
 			}
 		}
-
+		
 		.kd-ratio {
 			text-align: center;
 			padding-top: 15px;
@@ -219,7 +222,7 @@ main.halo5-service-record {
 
 			> .graph-legend {
 				margin: 0px auto;
-				width: 156px;
+				width: 100%;
 				text-align: left;
 
 				> .entry {
@@ -227,6 +230,45 @@ main.halo5-service-record {
 					margin-bottom: 2px;
 					border-left-width: 6px;
 					border-left-style: solid;
+
+					> .value {
+						float: right;
+					}
+				}
+			}
+		}
+
+		// Bottom Row Stats
+		.overview-stats,
+		.explore-more-stats {
+			padding-top: 10px;
+
+			> .stat {
+				margin-bottom: 5px;
+				> .stat-value {
+					font-weight: 600;
+					font-size: 28px;
+				}
+				> .stat-name {
+					font-size: 18px;
+				}
+			}
+
+			> .buttons-container {
+				float: right;
+				text-align: right;
+
+				> .btn {
+					margin-top: 8px;
+					border-radius: 0;
+					border-color: $brand-secondary;
+					background-color: $brand-primary;
+
+					&:hover {
+						border-color: $brand-secondary;
+						background-color: $brand-secondary;
+						/*opacity: 0.6;*/
+					}
 				}
 			}
 		}

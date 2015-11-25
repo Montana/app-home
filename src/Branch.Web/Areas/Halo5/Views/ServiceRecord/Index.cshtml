@@ -47,7 +47,7 @@
 						</div>
 						<div class="col-md-8">
 							<div class="row col-md-12">
-								<div class="tool-of-descruction col-md-6">
+								<div class="tool-of-destruction col-md-6">
 									<h4>Tool of Destruction</h4>
 
 									<div class="weapon-preview"
@@ -56,11 +56,6 @@
 									<deliminate-number integer="@Model.ServiceRecord.ArenaStats.WeaponWithMostKills.TotalKills" /> Kills
 								</div>
 
-								<div class="col-md-6">
-
-								</div>
-							</div>
-							<div class="row col-md-12">
 								<div class="kd-ratio col-md-6">
 									<div class="graph-container">
 										<canvas id="myChart" width="160" height="160" style="margin: 0 auto;"></canvas>
@@ -73,16 +68,42 @@
 
 									<div class="graph-legend">
 										<div class="entry" style="border-left-color: rgb(61, 61, 124);">
-											Kills: @Model.ServiceRecord.ArenaStats.TotalKills
+											Kills
+											<deliminate-number class="value" integer="@Model.ServiceRecord.ArenaStats.TotalKills" />
 										</div>
 										<div class="entry" style="border-left-color: rgb(88, 128, 160);">
-											Deaths: @Model.ServiceRecord.ArenaStats.TotalDeaths
+											Deaths
+											<deliminate-number class="value" integer="@Model.ServiceRecord.ArenaStats.TotalDeaths" />
 										</div>
 									</div>
+								</div>								
+							</div>
+							<div class="row col-md-12">
+								<div class="overview-stats col-md-6">
+									<div class="stat total-playtime">
+										<span class="stat-value">15:34:53@*@Model.ServiceRecord.ArenaStats.TotalTimePlayed*@</span>
+										<br />
+										<span class="stat-name">TOTAL GAMEPLAY TIME</span>
+									</div>
+
+									<div class="stat total-games-won">
+										<deliminate-number class="stat-value" integer="@Model.ServiceRecord.ArenaStats.TotalGamesWon" />
+										<br />
+										<span class="stat-name">TOTAL GAMES WON</span>
+									</div>
 								</div>
-								<div class="col-md-6">
-									<button class="btn btn-success">Full Arena Stats &raquo;</button>
-									<button class="btn btn-success">Arena Match History &raquo;</button>
+
+								<div class="explore-more-stats col-md-6">
+									<div class="stat total-games-won">
+										<span class="stat-value">@Model.ServiceRecord.ArenaStats.TotalWeaponDamage.ToString("n2")</span>
+										<br />
+										<span class="stat-name">TOTAL WEAPON DAMAGE</span>
+									</div>
+
+									<div class="buttons-container">
+										<button class="btn btn-success">Full Arena Stats &raquo;</button>
+										<button class="btn btn-success">Arena Match History &raquo;</button>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -94,6 +115,30 @@
 						<h3>
 							Service Record
 							<small>Warzone Overview</small>
+						</h3>
+					</div>
+					<div class="row">
+
+					</div>
+				</div>
+
+				<div class="campaign-overview col-md-12">
+					<div class="page-header">
+						<h3>
+							Service Record
+							<small>Campaign Overview</small>
+						</h3>
+					</div>
+					<div class="row">
+
+					</div>
+				</div>
+
+				<div class="customs-overview col-md-12">
+					<div class="page-header">
+						<h3>
+							Service Record
+							<small>Customs Overview</small>
 						</h3>
 					</div>
 					<div class="row">
@@ -154,7 +199,7 @@
 			}
 		];
 		var options = {
-			animate: false,
+			animated: false,
 			percentageInnerCutout: 90,
 			showTooltips: false
 		};

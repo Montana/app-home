@@ -1153,9 +1153,10 @@ main.halo5-service-record .arena-overview .highest-attained-csr {
     height: 332px;
     color: white;
     background-size: cover; }
-main.halo5-service-record .arena-overview .tool-of-descruction {
-  text-align: center; }
-  main.halo5-service-record .arena-overview .tool-of-descruction > .weapon-preview {
+main.halo5-service-record .arena-overview .tool-of-destruction {
+  text-align: center;
+  padding-bottom: 20px; }
+  main.halo5-service-record .arena-overview .tool-of-destruction > .weapon-preview {
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -1180,13 +1181,36 @@ main.halo5-service-record .arena-overview .kd-ratio {
         font-weight: 300; }
   main.halo5-service-record .arena-overview .kd-ratio > .graph-legend {
     margin: 0px auto;
-    width: 156px;
+    width: 100%;
     text-align: left; }
     main.halo5-service-record .arena-overview .kd-ratio > .graph-legend > .entry {
       padding-left: 8px;
       margin-bottom: 2px;
       border-left-width: 6px;
       border-left-style: solid; }
+      main.halo5-service-record .arena-overview .kd-ratio > .graph-legend > .entry > .value {
+        float: right; }
+main.halo5-service-record .arena-overview .overview-stats, main.halo5-service-record .arena-overview .explore-more-stats {
+  padding-top: 10px; }
+  main.halo5-service-record .arena-overview .overview-stats > .stat, main.halo5-service-record .arena-overview .explore-more-stats > .stat {
+    margin-bottom: 5px; }
+    main.halo5-service-record .arena-overview .overview-stats > .stat > .stat-value, main.halo5-service-record .arena-overview .explore-more-stats > .stat > .stat-value {
+      font-weight: 600;
+      font-size: 28px; }
+    main.halo5-service-record .arena-overview .overview-stats > .stat > .stat-name, main.halo5-service-record .arena-overview .explore-more-stats > .stat > .stat-name {
+      font-size: 18px; }
+  main.halo5-service-record .arena-overview .overview-stats > .buttons-container, main.halo5-service-record .arena-overview .explore-more-stats > .buttons-container {
+    float: right;
+    text-align: right; }
+    main.halo5-service-record .arena-overview .overview-stats > .buttons-container > .btn, main.halo5-service-record .arena-overview .explore-more-stats > .buttons-container > .btn {
+      margin-top: 8px;
+      border-radius: 0;
+      border-color: #343477;
+      background-color: #3d3d7c; }
+      main.halo5-service-record .arena-overview .overview-stats > .buttons-container > .btn:hover, main.halo5-service-record .arena-overview .explore-more-stats > .buttons-container > .btn:hover {
+        border-color: #343477;
+        background-color: #343477;
+        /*opacity: 0.6;*/ }
 main.halo5-service-record .match-history .match-history-entry {
   margin: 20px 0;
   padding: 0 10px;
