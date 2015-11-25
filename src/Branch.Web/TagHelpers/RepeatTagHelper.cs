@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNet.Razor.Runtime.TagHelpers;
+using Microsoft.AspNet.Razor.TagHelpers;
 
 namespace Branch.Web.TagHelpers
 {
@@ -15,7 +15,7 @@ namespace Branch.Web.TagHelpers
 
 			for (var i = 0; i < Count; i++)
 			{
-				var content = await context.GetChildContentAsync();
+				var content = await output.GetChildContentAsync();
 				output.Content.Append(content);
 			}
 		}

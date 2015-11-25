@@ -1,6 +1,6 @@
 ﻿using Branch.Service.Halo4.Models.Services;
 using Branch.Service.Halo4.Database;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.Logging;
 using Branch.Helpers.Services;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +8,7 @@ using System;
 using Branch.Service.Halo4.Models.Auth;
 using Branch.Service.Halo4.Database.Models;
 using Branch.Service.Halo4.Database.Repositories.Interfaces;
-using Microsoft.Framework.Configuration;
+using Microsoft.Extensions.Configuration;
 using Branch.Helpers.Extentions;
 
 namespace Branch.Service.Halo4.Services

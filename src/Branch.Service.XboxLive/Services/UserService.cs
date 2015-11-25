@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Branch.Helpers.Services;
 using Branch.Service.XboxLive.Database;
 using Branch.Service.XboxLive.DocumentDb;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.Logging;
 using Microsoft.Xbox.Core.DataContracts;
 using Microsoft.Xbox.Core.DataContracts.Enum;
 using Branch.Service.Xuid.Services;

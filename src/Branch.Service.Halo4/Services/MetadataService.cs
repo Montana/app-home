@@ -4,7 +4,7 @@ using Branch.Service.Halo4.Database.Repositories.Interfaces;
 using Branch.Service.Halo4.DocumentDb;
 using Branch.Service.Halo4.Models.Settings;
 using Branch.Service.Xuid.Services;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.Logging;
 using Microsoft.Halo.Core.DataContracts;
 using System;
 using System.Threading.Tasks;

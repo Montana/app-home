@@ -4,7 +4,7 @@ using Branch.Service.XboxLive.Database;
 using Branch.Service.XboxLive.DocumentDb;
 using Branch.Service.Xuid.Exceptions;
 using Branch.Service.Xuid.Services;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.Logging;
 using Microsoft.Xbox.Core.DataContracts;
 using System;
 using System.Collections.Generic;

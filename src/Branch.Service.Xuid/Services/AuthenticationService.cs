@@ -1,9 +1,9 @@
-﻿using Microsoft.Framework.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Branch.Helpers.Services;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
-using Microsoft.Framework.Configuration;
+using Microsoft.Extensions.Configuration;
 using Branch.Helpers.Extentions;
 using Branch.Service.Xuid.Database;
 using Branch.Service.Xuid.Database.Repositories.Interfaces;

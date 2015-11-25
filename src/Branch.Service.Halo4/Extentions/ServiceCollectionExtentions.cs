@@ -4,6 +4,7 @@ using Branch.Helpers.Services;
 using Branch.Service.Halo4.Database.Repositories;
 using Branch.Service.Halo4.DocumentDb;
 using Branch.Service.Halo4.Database.Repositories.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.Framework.DependencyInjection
 {

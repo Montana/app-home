@@ -1,8 +1,7 @@
 ﻿using Branch.Helpers.Database;
 using Branch.Helpers.Extentions;
-using Branch.Service.XboxLive.Database.Models;
 using Microsoft.Data.Entity;
-using Microsoft.Framework.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace Branch.Service.XboxLive.Database
 {

@@ -2,7 +2,7 @@
 using Branch.Helpers.Extentions;
 using Branch.Service.Halo5.Database.Models;
 using Microsoft.Data.Entity;
-using Microsoft.Framework.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace Branch.Service.Halo5.Database
 {

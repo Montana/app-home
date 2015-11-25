@@ -8,16 +8,16 @@
 	"userSecretsId": "aspnet5-Branch.vNext-20150505034655",
 
 	"dependencies": {
-		"Branch.Helpers": "1.0.0-*",
-		"Branch.Service.Xuid": "1.0.0-*",
-		"EntityFramework.Commands": "7.0.0-beta8",
-		"EntityFramework.SqlServer": "7.0.0-beta8",
-		"Microsoft.AspNet.Http": "1.0.0-beta8",
-		"Microsoft.AspNet.Mvc": "6.0.0-beta8",
-		"Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta8",
-		"Microsoft.Framework.Logging": "1.0.0-beta8",
-		"Microsoft.Framework.Logging.Console": "1.0.0-beta8",
-		"Microsoft.Xbox.Core": "1.0.0-*"
+		"Branch.Helpers": "",
+		"Branch.Service.Xuid": "",
+		"EntityFramework.Commands": "7.0.0-rc1-final",
+		"EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+		"Microsoft.AspNet.Http": "1.0.0-rc1-final",
+		"Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+		"Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-rc1-final",
+		"Microsoft.Extensions.Logging": "1.0.0-rc1-final",
+		"Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
+		"Microsoft.Xbox.Core": ""
 	},
 
 	"commands": {

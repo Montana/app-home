@@ -1,6 +1,5 @@
-﻿using Microsoft.Framework.Configuration;
-using Microsoft.Dnx.Runtime;
-using Microsoft.Dnx.Runtime.Infrastructure;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.PlatformAbstractions;
 
 namespace Branch.Helpers.Extentions
 {

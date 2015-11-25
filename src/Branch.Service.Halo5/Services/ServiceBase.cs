@@ -2,7 +2,7 @@
 using Branch.Service.Halo5.Database;
 using Branch.Helpers.Services;
 using Branch.Service.Halo5.DocumentDb;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.Logging;
 using Branch.Service.Xuid.Services;
 
 namespace Branch.Service.Halo5.Services

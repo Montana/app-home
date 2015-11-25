@@ -1,6 +1,5 @@
-﻿using System.Text;
-using Microsoft.AspNet.Razor.Runtime.TagHelpers;
-using Microsoft.Halo.Core.DataContracts;
+﻿using Microsoft.Halo.Core.DataContracts;
+using Microsoft.AspNet.Razor.TagHelpers;
 
 namespace Branch.Web.Areas.Halo4.TagHelpers
 {

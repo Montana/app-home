@@ -14,8 +14,8 @@ namespace Branch.Service.Halo4.Migrations
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Annotation("ProductVersion", "7.0.0-beta8-15964")
-                .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "7.0.0-beta8-15964")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Branch.Service.Halo4.Database.Models.Authentication", b =>
                 {
@@ -140,25 +140,25 @@ namespace Branch.Service.Halo4.Migrations
                 {
                     b.HasOne("Branch.Service.Halo4.Database.Models.ServiceRecord")
                         .WithMany()
-                        .ForeignKey("ServiceRecordId");
+                        .HasForeignKey("ServiceRecordId");
                 });
 
             modelBuilder.Entity("Branch.Service.Halo4.Database.Models.ServiceRecord", b =>
                 {
                     b.HasOne("Branch.Service.Halo4.Database.Models.Commendations")
                         .WithOne()
-                        .ForeignKey("Branch.Service.Halo4.Database.Models.ServiceRecord", "CommendationsId");
+                        .HasForeignKey("Branch.Service.Halo4.Database.Models.ServiceRecord", "CommendationsId");
                 });
 
             modelBuilder.Entity("Branch.Service.Halo4.Database.Models.ServiceRecordMatches", b =>
                 {
                     b.HasOne("Branch.Service.Halo4.Database.Models.Match")
                         .WithMany()
-                        .ForeignKey("MatchId");
+                        .HasForeignKey("MatchId");
 
                     b.HasOne("Branch.Service.Halo4.Database.Models.ServiceRecord")
                         .WithMany()
-                        .ForeignKey("ServiceRecordId");
+                        .HasForeignKey("ServiceRecordId");
                 });
         }
     }

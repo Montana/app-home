@@ -2,6 +2,7 @@
 using Branch.Service.XboxLive.Database;
 using Branch.Service.XboxLive.DocumentDb;
 using Branch.Service.XboxLive.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.Framework.DependencyInjection
 {

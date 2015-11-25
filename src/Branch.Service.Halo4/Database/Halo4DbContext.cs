@@ -2,7 +2,7 @@
 using Branch.Helpers.Extentions;
 using Branch.Service.Halo4.Database.Models;
 using Microsoft.Data.Entity;
-using Microsoft.Framework.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace Branch.Service.Halo4.Database
 {
@@ -19,12 +19,12 @@ namespace Branch.Service.Halo4.Database
 			modelBuilder.Entity<ServiceRecord>()
 				.HasMany(sr => sr.GameHistories)
 				.WithOne(gh => gh.ServiceRecord)
-				.ForeignKey(gh => gh.ServiceRecordId);
+				.HasForeignKey(gh => gh.ServiceRecordId);
 
 			modelBuilder.Entity<ServiceRecord>()
 				.HasOne(sr => sr.Commendations)
 				.WithOne(c => c.ServiceRecord)
-				.ForeignKey<ServiceRecord>(sr => sr.CommendationsId);
+				.HasForeignKey<ServiceRecord>(sr => sr.CommendationsId);
 
 			modelBuilder.Entity<ServiceRecordMatch>().HasKey(x => new { x.ServiceRecordId, x.MatchId });
 		}

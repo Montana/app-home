@@ -1,7 +1,7 @@
 ﻿using System;
 using Branch.Helpers.Services;
 using Branch.Service.Xuid.Database;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Branch.Service.Xuid.Exceptions;
 using System.Collections.Generic;

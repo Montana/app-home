@@ -1,6 +1,6 @@
 ﻿using System;
 using Branch.Helpers.Services;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.Logging;
 using Branch.Service.Xuid.Database;
 using Branch.Service.Xuid.Database.Repositories.Interfaces;
 

@@ -1,9 +1,9 @@
 ﻿using Branch.Service.Halo5.Database;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.Logging;
 using Branch.Helpers.Services;
 using System;
 using Branch.Service.Halo5.Database.Repositories.Interfaces;
-using Microsoft.Framework.Configuration;
+using Microsoft.Extensions.Configuration;
 using Branch.Helpers.Extentions;
 
 namespace Branch.Service.Halo5.Services

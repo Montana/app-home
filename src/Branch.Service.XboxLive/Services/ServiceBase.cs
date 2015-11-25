@@ -1,6 +1,6 @@
 ﻿using System;
 using Branch.Helpers.Services;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.Logging;
 using Branch.Service.XboxLive.Database;
 using Branch.Service.XboxLive.DocumentDb;
 using Branch.Service.Xuid.Services;

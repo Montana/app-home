@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
-using Microsoft.Framework.Configuration;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Microsoft.Azure.Documents.Client.TransientFaultHandling.Strategies;
 using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;

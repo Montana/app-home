@@ -1,9 +1,9 @@
 ﻿@using System.Threading.Tasks
 @using Branch.Web
-@using Microsoft.Framework.OptionsModel
 @inject IOptions<AppSettings> AppSettings
 @{
-	var renderTime = (int)(ViewData["_ElapsedTime"] ?? -1);
+	int renderTime = -1;
+	int.TryParse((ViewData["_ElapsedTime"] ?? "-1").ToString(), out renderTime);
 }
 
 <!DOCTYPE html>

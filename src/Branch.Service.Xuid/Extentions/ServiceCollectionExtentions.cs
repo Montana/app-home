@@ -3,6 +3,7 @@ using Branch.Service.Xuid.Database;
 using Branch.Service.Xuid.Database.Repositories;
 using Branch.Service.Xuid.Database.Repositories.Interfaces;
 using Branch.Service.Xuid.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.Framework.DependencyInjection
 {

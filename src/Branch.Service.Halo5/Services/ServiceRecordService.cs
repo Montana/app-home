@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Branch.Helpers.Services;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.Logging;
 using Branch.Service.Halo5.Database;
 using Branch.Service.Halo5.DocumentDb;
 using System;
