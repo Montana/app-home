@@ -10,6 +10,9 @@ namespace Branch.Service.Halo5.Models.Api
 		[JsonProperty("WarzoneStat")]
 		public WarzoneServiceRecordStats WarzoneStats { get; set; }
 
+		[JsonProperty("CampaignStat")]
+		public CampaignServiceRecordStats CampaignStat { get; set; }
+
 		[JsonProperty("PlayerId")]
 		public PlayerId PlayerId { get; set; }
 
