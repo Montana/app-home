@@ -15,6 +15,7 @@ using Branch.Service.Xuid.Services;
 using Branch.Service.Halo5.Models.Api.Enums;
 using Branch.Service.Halo5.Models.Api;
 using Branch.Helpers.Extentions;
+using Branch.Service.Xuid.Models;
 
 namespace Branch.Service.Halo5.Services
 {
@@ -36,20 +37,17 @@ namespace Branch.Service.Halo5.Services
 
 		private readonly TimeSpan _cacheRefreshTime = new TimeSpan(0, 1, 0);
 
-		public async Task<Response<Models.Api.MatchHistory>> GetMatchesAsync(string gamertag)
+		public async Task<Response<Models.Api.MatchHistory>> GetMatchesAsync(XboxLiveProfile xboxLiveProfile)
 		{
-			return await GetMatchesAsync(gamertag, false, GameMode.All, 0, 25);
+			return await GetMatchesAsync(xboxLiveProfile, false, GameMode.All, 0, 25);
 		}
 
-		public async Task<Response<Models.Api.MatchHistory>> GetMatchesAsync(string gamertag, bool takeCached, GameMode mode, int start = 0, int count = 25)
+		public async Task<Response<Models.Api.MatchHistory>> GetMatchesAsync(XboxLiveProfile xboxLiveProfile, bool takeCached, GameMode mode, int start = 0, int count = 25)
 		{
-			// Get Player Gamertag
-			var playerXuid = await XuidLookupService.LookupXuidAsync(gamertag);
-
 			// Get Match History metadata from repository
 			var matchHistoryMetadata = _matchHistoryRepository
 				.Where(sr =>
-					sr.Xuid == playerXuid &&
+					sr.Xuid == xboxLiveProfile.Xuid &&
 					sr.Mode == mode &&
 					sr.Start == start &&
 					sr.Count == count).FirstOrDefault();
@@ -76,7 +74,7 @@ namespace Branch.Service.Halo5.Services
 				modes = mode.ToString().ToSlug();
 
 			// Populate template match history url
-			var getMatchHistoryUri = new Uri(string.Format(GetMatchesUrl, gamertag, modes, start, count));
+			var getMatchHistoryUri = new Uri(string.Format(GetMatchesUrl, xboxLiveProfile.Gamertag, modes, start, count));
 
 			// Get Match History from 343's Halo Service
 			var matchHistoryResponse = await HttpManagerService.ExecuteRequestAsync<Response<Models.Api.MatchHistory>>(HttpMethod.GET, getMatchHistoryUri,
@@ -93,7 +91,7 @@ namespace Branch.Service.Halo5.Services
 
 			var matchHistory = _matchHistoryRepository
 				.Where(sr =>
-					sr.Xuid == playerXuid &&
+					sr.Xuid == xboxLiveProfile.Xuid &&
 					sr.Mode == mode &&
 					sr.Start == start &&
 					sr.Count == count).FirstOrDefault();
@@ -101,7 +99,7 @@ namespace Branch.Service.Halo5.Services
 			if (matchHistory == null)
 				_matchHistoryRepository.Add(new Database.Models.MatchHistory
 				{
-					Xuid = playerXuid,
+					Xuid = xboxLiveProfile.Xuid,
 					Mode = mode,
 					Count = count,
 					Start = 0,

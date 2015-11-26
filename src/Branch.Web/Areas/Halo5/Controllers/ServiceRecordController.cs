@@ -13,14 +13,18 @@ namespace Branch.Web.Areas.Halo5.Controllers
 		[HttpGet("service-record")]
 		public async Task<IActionResult> Index(string gamertag)
 		{
-			gamertag = gamertag.FromSlug();
-			
-			var arenaServiceRecordTask = ServiceRecordService.GetArenaServiceRecord(gamertag);
-			var warzoneServiceRecordTask = ServiceRecordService.GetWarzoneServiceRecord(gamertag);
-			var matchHistoryTask = MatchHistoryService.GetMatchesAsync(gamertag, false, GameMode.All, count: 24);
-			var profileEmblem = ProfileService.GetProfileEmblemAsync(gamertag);
-			var profileSpartanModel = ProfileService.GetProfileSpartanModelAsync(gamertag);
-			await Task.WhenAll(arenaServiceRecordTask, warzoneServiceRecordTask, matchHistoryTask, profileEmblem, profileSpartanModel);
+			var xboxLiveProfile = await XuidLookupService.GenerateXboxLiveProfileAsync(gamertag.FromSlug());
+
+			var arenaServiceRecordTask = ServiceRecordService.GetArenaServiceRecord(xboxLiveProfile);
+			var warzoneServiceRecordTask = ServiceRecordService.GetWarzoneServiceRecord(xboxLiveProfile);
+			var customsServiceRecordTask = ServiceRecordService.GetCustomsServiceRecord(xboxLiveProfile);
+			var campaignServiceRecordTask = ServiceRecordService.GetCampaignServiceRecord(xboxLiveProfile);
+			var matchHistoryTask = MatchHistoryService.GetMatchesAsync(xboxLiveProfile, false, GameMode.All, count: 24);
+			var profileEmblem = ProfileService.GetProfileEmblemAsync(xboxLiveProfile);
+			var profileSpartanModel = ProfileService.GetProfileSpartanModelAsync(xboxLiveProfile);
+			await Task.WhenAll(arenaServiceRecordTask, warzoneServiceRecordTask, 
+				customsServiceRecordTask, campaignServiceRecordTask,
+				matchHistoryTask, profileEmblem, profileSpartanModel);
 
 			arenaServiceRecordTask.Result.Results.First().Result.PlayerId.Emblem = profileEmblem.Result;
 			arenaServiceRecordTask.Result.Results.First().Result.PlayerId.SpartanModel = profileSpartanModel.Result;
@@ -29,6 +33,8 @@ namespace Branch.Web.Areas.Halo5.Controllers
 				new ServiceRecordViewModel(
 					arenaServiceRecordTask.Result.Results.First().Result,
 					warzoneServiceRecordTask.Result.Results.First().Result,
+					customsServiceRecordTask.Result.Results.First().Result,
+					campaignServiceRecordTask.Result.Results.First().Result,
 					matchHistoryTask.Result));
 		}
 	}

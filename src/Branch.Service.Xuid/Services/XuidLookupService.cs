@@ -10,6 +10,7 @@ using Microsoft.Xbox.Core.DataContracts.Enum;
 using System.Linq;
 using Branch.Service.Xuid.Database.Repositories.Interfaces;
 using Branch.Service.Xuid.Database.Models;
+using Branch.Service.Xuid.Models;
 
 namespace Branch.Service.Xuid.Services
 {
@@ -64,7 +65,7 @@ namespace Branch.Service.Xuid.Services
 			// Return Xuid
 			return userSettings.Xuid;
 		}
-		
+
 		public async Task<string> LookupGamertagAsync(Int64 xuid)
 		{
 			// Check if we can retrieve the lookup from the local database
@@ -106,6 +107,29 @@ namespace Branch.Service.Xuid.Services
 
 			// Return Gamertag
 			return userSettings.Settings.First(s => s.Id == "Gamertag").Value;
+		}
+
+		public async Task<XboxLiveProfile> GenerateXboxLiveProfileAsync(string gamertag)
+		{
+			var xuid = await LookupXuidAsync(gamertag);
+			gamertag = await LookupGamertagAsync(xuid);
+
+			return new XboxLiveProfile
+			{
+				Gamertag = gamertag,
+				Xuid = xuid,
+				CachedAt = DateTime.UtcNow
+			};
+		}
+
+		public async Task<XboxLiveProfile> GenerateXboxLiveProfileAsync(long xuid)
+		{
+			return new XboxLiveProfile
+			{
+				Xuid = xuid,
+				Gamertag = await LookupGamertagAsync(xuid),
+				CachedAt = DateTime.UtcNow
+			};
 		}
 	}
 }

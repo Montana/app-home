@@ -12,6 +12,7 @@ using Branch.Service.Halo5.Database.Models;
 using Branch.Service.Halo5.Database.Repositories.Interfaces;
 using Branch.Service.Xuid.Exceptions;
 using Branch.Service.Xuid.Services;
+using Branch.Service.Xuid.Models;
 
 namespace Branch.Service.Halo5.Services
 {
@@ -34,20 +35,17 @@ namespace Branch.Service.Halo5.Services
 
 		private readonly TimeSpan _cacheRefreshTime = new TimeSpan(0, 30, 0);
 
-		public async Task<string> GetProfileEmblemAsync(string gamertag, int size = 128)
+		public async Task<string> GetProfileEmblemAsync(XboxLiveProfile xboxLiveProfile, int size = 128)
 		{
-			return await GetProfileEmblemAsync(gamertag, false, size);
+			return await GetProfileEmblemAsync(xboxLiveProfile, false, size);
 		}
 
-		public async Task<string> GetProfileEmblemAsync(string gamertag, bool takeCached, int size = 128)
+		public async Task<string> GetProfileEmblemAsync(XboxLiveProfile xboxLiveProfile, bool takeCached, int size = 128)
 		{
-			// Get Player XUID
-			var playerXuid = await XuidLookupService.LookupXuidAsync(gamertag);
-			
 			// Get Emblem metadata from repository
 			var emblemMetadata = _profileAssetRepository
 				.Where(sr =>
-					sr.Xuid == playerXuid &&
+					sr.Xuid == xboxLiveProfile.Xuid &&
 					sr.Type == ProfileAssetType.Emblem &&
 					sr.Size == size &&
 					sr.Crop == null).FirstOrDefault();
@@ -58,7 +56,7 @@ namespace Branch.Service.Halo5.Services
 			}
 
 			// Populate template emblem url
-			var getEmblemUri = new Uri(string.Format(GetEmblemUrl, gamertag, size));
+			var getEmblemUri = new Uri(string.Format(GetEmblemUrl, xboxLiveProfile.Gamertag, size));
 
 			// Get Emblem from 343's Halo Service
 			var emblemResponse = await HttpManagerService.ExecuteRequestAsync(HttpMethod.GET, getEmblemUri,
@@ -77,7 +75,7 @@ namespace Branch.Service.Halo5.Services
 
 			var profileAsset = _profileAssetRepository
 				.Where(sr =>
-					sr.Xuid == playerXuid &&
+					sr.Xuid == xboxLiveProfile.Xuid &&
 					sr.Type == ProfileAssetType.Emblem &&
 					sr.Size == size &&
 					sr.Crop == null).FirstOrDefault();
@@ -89,7 +87,7 @@ namespace Branch.Service.Halo5.Services
 					Type = ProfileAssetType.Emblem,
 					Size = size,
 					Crop = null,
-					Xuid = playerXuid
+					Xuid = xboxLiveProfile.Xuid
 				});
 			else
 			{
@@ -100,20 +98,17 @@ namespace Branch.Service.Halo5.Services
 			return emblemResponse.RequestMessage.RequestUri.ToString();
 		}
 
-		public async Task<string> GetProfileSpartanModelAsync(string gamertag, int size = 512, string crop = "full")
+		public async Task<string> GetProfileSpartanModelAsync(XboxLiveProfile xboxLiveProfile, int size = 512, string crop = "full")
 		{
-			return await GetProfileSpartanModelAsync(gamertag, false, size, crop);
+			return await GetProfileSpartanModelAsync(xboxLiveProfile, false, size, crop);
 		}
 
-		public async Task<string> GetProfileSpartanModelAsync(string gamertag, bool takeCached, int size = 512, string crop = "full")
+		public async Task<string> GetProfileSpartanModelAsync(XboxLiveProfile xboxLiveProfile, bool takeCached, int size = 512, string crop = "full")
 		{
-			// Get Player XUID
-			var playerXuid = await XuidLookupService.LookupXuidAsync(gamertag);
-
 			// Get Spartan Model metadata from repository
 			var spartanMetadata = _profileAssetRepository
 				.Where(sr =>
-					sr.Xuid == playerXuid &&
+					sr.Xuid == xboxLiveProfile.Xuid &&
 					sr.Type == ProfileAssetType.SpartanModel &&
 					sr.Size == size &&
 					sr.Crop == crop).FirstOrDefault();
@@ -122,7 +117,7 @@ namespace Branch.Service.Halo5.Services
 				return spartanMetadata.ImagePath;
 
 			// Populate template spartan model url
-			var getSpartanModelUri = new Uri(string.Format(GetSpartanModelUrl, gamertag, size, crop));
+			var getSpartanModelUri = new Uri(string.Format(GetSpartanModelUrl, xboxLiveProfile.Gamertag, size, crop));
 
 			// Get Spartan Model from 343's Halo Service
 			var emblemResponse = await HttpManagerService.ExecuteRequestAsync(HttpMethod.GET, getSpartanModelUri,
@@ -141,7 +136,7 @@ namespace Branch.Service.Halo5.Services
 
 			var profileAsset = _profileAssetRepository
 				.Where(sr => 
-					sr.Xuid == playerXuid && 
+					sr.Xuid == xboxLiveProfile.Xuid && 
 					sr.Type == ProfileAssetType.SpartanModel &&
 					sr.Size == size &&
 					sr.Crop == crop).FirstOrDefault();
@@ -153,7 +148,7 @@ namespace Branch.Service.Halo5.Services
 					Type = ProfileAssetType.SpartanModel,
 					Size = size,
 					Crop = crop,
-					Xuid = playerXuid
+					Xuid = xboxLiveProfile.Xuid
 				});
 			else
 			{
