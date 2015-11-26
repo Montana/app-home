@@ -13,6 +13,9 @@ namespace Branch.Service.Halo5.Models.Api
 		[JsonProperty("CampaignStat")]
 		public CampaignServiceRecordStats CampaignStat { get; set; }
 
+		[JsonProperty("CustomStats")]
+		public CustomsServiceRecordStats CustomsStats { get; set; }
+
 		[JsonProperty("PlayerId")]
 		public PlayerId PlayerId { get; set; }
 

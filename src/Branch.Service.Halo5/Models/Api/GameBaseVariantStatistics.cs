@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace Branch.Service.Halo5.Models.Api
 {
@@ -11,7 +12,7 @@ namespace Branch.Service.Halo5.Models.Api
 		public int NumberOfMatchesCompleted { get; set; }
 
 		[JsonProperty("GameBaseVariantId")]
-		public string GameBaseVariantId { get; set; }
+		public Guid GameBaseVariantId { get; set; }
 
 		[JsonProperty("NumberOfMatchesWon")]
 		public int NumberOfMatchesWon { get; set; }
