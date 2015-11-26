@@ -27,21 +27,38 @@ namespace Branch.Service.Halo5.Services
 
 		private const string GetArenaServiceRecordUrl = "https://www.haloapi.com/stats/h5/servicerecords/arena?players={0}";
 		private const string GetWarzoneServiceRecordUrl = "https://www.haloapi.com/stats/h5/servicerecords/warzone?players={0}";
+		private const string GetCampaignServiceRecordUrl = "https://www.haloapi.com/stats/h5/servicerecords/campaign?players={0}";
+		private const string GetCustomsServiceRecordUrl = "https://www.haloapi.com/stats/h5/servicerecords/custom?players={0}";
 
 		private readonly TimeSpan _cacheRefreshTime = new TimeSpan(0, 5, 0);
 
-		public async Task<Response<ServiceRecordResult>> GetArenaServiceRecord(string gamertag)
+		public async Task<Response<ServiceRecordResult>> GetArenaServiceRecord(string gamertag, bool takeCached = false)
 		{
-			return await GetArenaServiceRecord(gamertag, false);
+			return await GetServiceRecord(gamertag, ServiceRecordType.Arena, takeCached);
+		}
+		
+		public async Task<Response<ServiceRecordResult>> GetWarzoneServiceRecord(string gamertag, bool takeCached = false)
+		{
+			return await GetServiceRecord(gamertag, ServiceRecordType.Warzone, takeCached);
+		}
+		
+		public async Task<Response<ServiceRecordResult>> GetCampaignServiceRecord(string gamertag, bool takeCached = false)
+		{
+			return await GetServiceRecord(gamertag, ServiceRecordType.Campaign, takeCached);
 		}
 
-		public async Task<Response<ServiceRecordResult>> GetArenaServiceRecord(string gamertag, bool takeCached)
+		public async Task<Response<ServiceRecordResult>> GetCustomsServiceRecord(string gamertag, bool takeCached = false)
+		{
+			return await GetServiceRecord(gamertag, ServiceRecordType.Customs, takeCached);
+		}
+
+		private async Task<Response<ServiceRecordResult>> GetServiceRecord(string gamertag, ServiceRecordType serviceRecordType, bool takeCached)
 		{
 			// Get Player XUID
 			var playerXuid = await XuidLookupService.LookupXuidAsync(gamertag);
 
 			// Get Service Record metadata from Database
-			var serviceRecordMetadata = _serviceRecordRepository.Where(sr => sr.Xuid == playerXuid && sr.Type == ServiceRecordType.Arena).FirstOrDefault();
+			var serviceRecordMetadata = _serviceRecordRepository.Where(sr => sr.Xuid == playerXuid && sr.Type == serviceRecordType).FirstOrDefault();
 			Response<ServiceRecordResult> cachedServiceRecord;
 			if (serviceRecordMetadata != null)
 			{
@@ -58,7 +75,25 @@ namespace Branch.Service.Halo5.Services
 			}
 
 			// Populate template service record url
-			var getServiceRecordUri = new Uri(string.Format(GetArenaServiceRecordUrl, gamertag));
+			Uri getServiceRecordUri = null;
+			switch(serviceRecordType)
+			{
+				case ServiceRecordType.Arena:
+					getServiceRecordUri = new Uri(string.Format(GetArenaServiceRecordUrl, gamertag));
+					break;
+
+				case ServiceRecordType.Warzone:
+					getServiceRecordUri = new Uri(string.Format(GetWarzoneServiceRecordUrl, gamertag));
+					break;
+
+				case ServiceRecordType.Customs:
+					getServiceRecordUri = new Uri(string.Format(GetCustomsServiceRecordUrl, gamertag));
+					break;
+
+				case ServiceRecordType.Campaign:
+					getServiceRecordUri = new Uri(string.Format(GetCampaignServiceRecordUrl, gamertag));
+					break;
+			}
 
 			// Get Service Record from 343's Halo Service
 			var serviceRecordResponse = await HttpManagerService.ExecuteRequestAsync<Response<ServiceRecordResult>>(HttpMethod.GET, getServiceRecordUri,
@@ -81,81 +116,12 @@ namespace Branch.Service.Halo5.Services
 				cachedServiceRecord = await Halo5DdbRepository.CreateAsync(serviceRecordResponse);
 
 			// Create DocumentDb and Database entry
-			var serviceRecord = _serviceRecordRepository.Where(sr => sr.Xuid == playerXuid && sr.Type == ServiceRecordType.Arena).FirstOrDefault();
+			var serviceRecord = _serviceRecordRepository.Where(sr => sr.Xuid == playerXuid && sr.Type == serviceRecordType).FirstOrDefault();
 			if (serviceRecord == null)
 				_serviceRecordRepository.Add(new ServiceRecord
 				{
 					DocumentId = cachedServiceRecord.Id,
-					Type = ServiceRecordType.Arena,
-					Xuid = cachedServiceRecord.Results.First().Result.PlayerId.Xuid ?? playerXuid,
-				});
-			else
-			{
-				serviceRecord.DocumentId = cachedServiceRecord.Id;
-				_serviceRecordRepository.Update(serviceRecord);
-			}
-
-			// Return Service Record to user
-			return cachedServiceRecord;
-		}
-
-		public async Task<Response<ServiceRecordResult>> GetWarzoneServiceRecord(string gamertag)
-		{
-			return await GetWarzoneServiceRecord(gamertag, false);
-		}
-
-		public async Task<Response<ServiceRecordResult>> GetWarzoneServiceRecord(string gamertag, bool takeCached)
-		{
-			// Get Player XUID
-			var playerXuid = await XuidLookupService.LookupXuidAsync(gamertag);
-
-			// Get Service Record metadata from Database
-			var serviceRecordMetadata = _serviceRecordRepository.Where(sr => sr.Xuid == playerXuid && sr.Type == ServiceRecordType.Warzone).FirstOrDefault();
-			Response<ServiceRecordResult> cachedServiceRecord;
-			if (serviceRecordMetadata != null)
-			{
-				// Return data from DocumentDb if we're taking cached version, or it's expired
-				if (takeCached || serviceRecordMetadata.UpdatedAt + _cacheRefreshTime > DateTime.UtcNow)
-				{
-					// Get Service Record from DocumentDb
-					cachedServiceRecord = Halo5DdbRepository.GetById<Response<ServiceRecordResult>>(serviceRecordMetadata.DocumentId);
-
-					// If the cached Service Record exist, return it
-					if (cachedServiceRecord != null)
-						return cachedServiceRecord;
-				}
-			}
-
-			// Populate template service record url
-			var getServiceRecordUri = new Uri(string.Format(GetWarzoneServiceRecordUrl, gamertag));
-
-			// Get Service Record from 343's Halo Service
-			var serviceRecordResponse = await HttpManagerService.ExecuteRequestAsync<Response<ServiceRecordResult>>(HttpMethod.GET, getServiceRecordUri,
-				headers: new Dictionary<string, string>
-				{
-					{ "Ocp-Apim-Subscription-Key", AuthenticationService.GetAuthentication() }
-				});
-
-			// Check if something went wrong with the request or parsing
-			if (serviceRecordResponse == null)
-				return null; // TODO: find a way to access this data and throw the relevant exception
-
-			// Set XUID value in the response
-			serviceRecordResponse.Results.First().Result.PlayerId.Xuid = playerXuid;
-
-			// Update documentdb and return data if it exists in the DocumentDb
-			if (serviceRecordMetadata != null)
-				cachedServiceRecord = await Halo5DdbRepository.UpdateAsync(serviceRecordMetadata.DocumentId, serviceRecordResponse);
-			else
-				cachedServiceRecord = await Halo5DdbRepository.CreateAsync(serviceRecordResponse);
-
-			// Create DocumentDb and Database entry
-			var serviceRecord = _serviceRecordRepository.Where(sr => sr.Xuid == playerXuid && sr.Type == ServiceRecordType.Warzone).FirstOrDefault();
-			if (serviceRecord == null)
-				_serviceRecordRepository.Add(new ServiceRecord
-				{
-					DocumentId = cachedServiceRecord.Id,
-					Type = ServiceRecordType.Warzone,
+					Type = serviceRecordType,
 					Xuid = cachedServiceRecord.Results.First().Result.PlayerId.Xuid ?? playerXuid,
 				});
 			else
