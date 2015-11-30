@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Net;
 
 namespace Branch.Helpers.Services
 {
@@ -59,7 +60,7 @@ namespace Branch.Helpers.Services
 			if (headers == null)
 				headers = new Dictionary<string, string>();
 
-			using (var httpClient = new HttpClient())
+			using (var httpClient = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip }))
 			{
 				httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(accept));
 				httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(
