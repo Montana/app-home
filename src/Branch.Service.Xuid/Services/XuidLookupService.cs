@@ -23,13 +23,13 @@ namespace Branch.Service.Xuid.Services
 
 		private const string GetGamertagProfileUrl = "https://profile.xboxlive.com/users/{0}({1})/profile/settings?settings=gamertag";
 
-		public async Task<Int64> LookupXuidAsync(string gamertag)
+		public async Task<Int64> LookupXuidAsync(string gamertag, bool forceCached = false)
 		{
 			// Check if we can retrieve the lookup from the local database
 			var cachedLookup = XuidCacheRepository.GetByGamertag(gamertag);
 
 			// Check if cached xuid exists, and is valid
-			if (cachedLookup != null && cachedLookup.ExpiresAt > DateTime.UtcNow)
+			if (cachedLookup != null && (cachedLookup.ExpiresAt > DateTime.UtcNow || forceCached))
 				return cachedLookup.Xuid;
 
 			var authentication = await AuthenticationService.GetAuthenticationAsync();
@@ -66,13 +66,13 @@ namespace Branch.Service.Xuid.Services
 			return userSettings.Xuid;
 		}
 
-		public async Task<string> LookupGamertagAsync(Int64 xuid)
+		public async Task<string> LookupGamertagAsync(Int64 xuid, bool forceCached = false)
 		{
 			// Check if we can retrieve the lookup from the local database
 			var cachedLookup = XuidCacheRepository.GetByXuid(xuid);
 
 			// Check if cached gamertag exists, and is valid
-			if (cachedLookup != null && cachedLookup.ExpiresAt > DateTime.UtcNow)
+			if (cachedLookup != null && (cachedLookup.ExpiresAt > DateTime.UtcNow || forceCached))
 				return cachedLookup.Gamertag;
 
 			var authentication = await AuthenticationService.GetAuthenticationAsync();
@@ -109,10 +109,10 @@ namespace Branch.Service.Xuid.Services
 			return userSettings.Settings.First(s => s.Id == "Gamertag").Value;
 		}
 
-		public async Task<XboxLiveProfile> GenerateXboxLiveProfileAsync(string gamertag)
+		public async Task<XboxLiveProfile> GenerateXboxLiveProfileAsync(string gamertag, bool forceCached = false)
 		{
-			var xuid = await LookupXuidAsync(gamertag);
-			gamertag = await LookupGamertagAsync(xuid);
+			var xuid = await LookupXuidAsync(gamertag, forceCached);
+			gamertag = await LookupGamertagAsync(xuid, forceCached);
 
 			return new XboxLiveProfile
 			{
@@ -122,12 +122,12 @@ namespace Branch.Service.Xuid.Services
 			};
 		}
 
-		public async Task<XboxLiveProfile> GenerateXboxLiveProfileAsync(long xuid)
+		public async Task<XboxLiveProfile> GenerateXboxLiveProfileAsync(long xuid, bool forceCached = false)
 		{
 			return new XboxLiveProfile
 			{
 				Xuid = xuid,
-				Gamertag = await LookupGamertagAsync(xuid),
+				Gamertag = await LookupGamertagAsync(xuid, forceCached),
 				CachedAt = DateTime.UtcNow
 			};
 		}
