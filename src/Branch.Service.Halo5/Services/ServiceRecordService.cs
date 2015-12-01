@@ -18,13 +18,17 @@ namespace Branch.Service.Halo5.Services
 	public class ServiceRecordService
 		: ServiceBase<ServiceRecordService>
 	{
-		public ServiceRecordService(ILoggerFactory loggerFactory, HttpManagerService httpManagerService, XuidLookupService xuidLookupService, Halo5DbContext halo5DbContext, Halo5DdbRepository halo5DdbRepository, AuthenticationService authenticationService, IServiceRecordRepository serviceRecordRepository)
+		public ServiceRecordService(ILoggerFactory loggerFactory, HttpManagerService httpManagerService, XuidLookupService xuidLookupService,
+			Halo5DbContext halo5DbContext, Halo5DdbRepository halo5DdbRepository, AuthenticationService authenticationService,
+			IServiceRecordRepository serviceRecordRepository, IPlayerRepository playerRepository)
 			: base(loggerFactory, httpManagerService, xuidLookupService, halo5DbContext, halo5DdbRepository, authenticationService)
 		{
 			_serviceRecordRepository = serviceRecordRepository;
+			_playerRepository = playerRepository;
 		}
 
 		private readonly IServiceRecordRepository _serviceRecordRepository;
+		private readonly IPlayerRepository _playerRepository;
 
 		private const string GetArenaServiceRecordUrl = "https://www.haloapi.com/stats/h5/servicerecords/arena?players={0}";
 		private const string GetWarzoneServiceRecordUrl = "https://www.haloapi.com/stats/h5/servicerecords/warzone?players={0}";
@@ -37,12 +41,12 @@ namespace Branch.Service.Halo5.Services
 		{
 			return await GetServiceRecord(xboxLiveProfile, ServiceRecordType.Arena, takeCached);
 		}
-		
+
 		public async Task<Response<ServiceRecordResult>> GetWarzoneServiceRecord(XboxLiveProfile xboxLiveProfile, bool takeCached = false)
 		{
 			return await GetServiceRecord(xboxLiveProfile, ServiceRecordType.Warzone, takeCached);
 		}
-		
+
 		public async Task<Response<ServiceRecordResult>> GetCampaignServiceRecord(XboxLiveProfile xboxLiveProfile, bool takeCached = false)
 		{
 			return await GetServiceRecord(xboxLiveProfile, ServiceRecordType.Campaign, takeCached);
@@ -74,7 +78,7 @@ namespace Branch.Service.Halo5.Services
 
 			// Populate template service record url
 			Uri getServiceRecordUri = null;
-			switch(serviceRecordType)
+			switch (serviceRecordType)
 			{
 				case ServiceRecordType.Arena:
 					getServiceRecordUri = new Uri(string.Format(GetArenaServiceRecordUrl, xboxLiveProfile.Gamertag));
@@ -113,6 +117,48 @@ namespace Branch.Service.Halo5.Services
 			else
 				cachedServiceRecord = await Halo5DdbRepository.CreateAsync(serviceRecordResponse);
 
+			// Create or Query the Player Database entry
+			var player = _playerRepository.Where(p => p.Xuid == xboxLiveProfile.Xuid).FirstOrDefault();
+			if (player == null)
+				player = _playerRepository.Add(new Database.Models.Player
+				{
+					Xuid = xboxLiveProfile.Xuid,
+					ServiceTag = "BAAE",
+					SpartanRank = cachedServiceRecord.Results.First().Result.SpartanRank,
+					Xp = cachedServiceRecord.Results.First().Result.Xp
+				});
+			else
+			{
+				player.ServiceTag = "BAAE";
+				player.SpartanRank = cachedServiceRecord.Results.First().Result.SpartanRank;
+				player.Xp = cachedServiceRecord.Results.First().Result.Xp;
+				_playerRepository.Update(player);
+			}
+
+			// Get Player Stats
+			Models.Api.Abstracts.ServiceRecordStats serviceRecordStats;
+			switch (serviceRecordType)
+			{
+				case ServiceRecordType.Arena:
+					serviceRecordStats = cachedServiceRecord.Results.First().Result.ArenaStats;
+					break;
+
+				case ServiceRecordType.Warzone:
+					serviceRecordStats = cachedServiceRecord.Results.First().Result.WarzoneStats;
+					break;
+
+				case ServiceRecordType.Campaign:
+					serviceRecordStats = cachedServiceRecord.Results.First().Result.CampaignStat;
+					break;
+
+				case ServiceRecordType.Customs:
+					serviceRecordStats = cachedServiceRecord.Results.First().Result.CustomsStats;
+					break;
+
+				default:
+					throw new InvalidOperationException();
+			}
+
 			// Create DocumentDb and Database entry
 			var serviceRecord = _serviceRecordRepository.Where(sr => sr.Xuid == xboxLiveProfile.Xuid && sr.Type == serviceRecordType).FirstOrDefault();
 			if (serviceRecord == null)
@@ -121,10 +167,30 @@ namespace Branch.Service.Halo5.Services
 					DocumentId = cachedServiceRecord.Id,
 					Type = serviceRecordType,
 					Xuid = xboxLiveProfile.Xuid,
+					Player = player,
+
+					TotalDamage = serviceRecordStats.TotalWeaponDamage,
+					TotalDeaths = serviceRecordStats.TotalDeaths,
+					TotalGamesCompleted = serviceRecordStats.TotalGamesCompleted,
+					TotalGamesLost = serviceRecordStats.TotalGamesLost,
+					TotalGamesTied = serviceRecordStats.TotalGamesTied,
+					TotalGamesWon = serviceRecordStats.TotalGamesWon,
+					TotalKills = serviceRecordStats.TotalKills,
+					TotalPlaytime = TimeSpan.FromDays(1)
 				});
 			else
 			{
 				serviceRecord.DocumentId = cachedServiceRecord.Id;
+
+				serviceRecord.TotalDamage = serviceRecordStats.TotalWeaponDamage;
+				serviceRecord.TotalDeaths = serviceRecordStats.TotalDeaths;
+				serviceRecord.TotalGamesCompleted = serviceRecordStats.TotalGamesCompleted;
+				serviceRecord.TotalGamesLost = serviceRecordStats.TotalGamesLost;
+				serviceRecord.TotalGamesTied = serviceRecordStats.TotalGamesTied;
+				serviceRecord.TotalGamesWon = serviceRecordStats.TotalGamesWon;
+				serviceRecord.TotalKills = serviceRecordStats.TotalKills;
+				serviceRecord.TotalPlaytime = TimeSpan.FromDays(1);
+
 				_serviceRecordRepository.Update(serviceRecord);
 			}
 

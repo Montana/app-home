@@ -8,9 +8,10 @@ using Branch.Service.Halo5.Database;
 namespace Branch.Service.Halo5.Migrations
 {
     [DbContext(typeof(Halo5DbContext))]
-    partial class Halo5DbContextModelSnapshot : ModelSnapshot
+    [Migration("20151201134145_AddedRelationsBetweenPlayerAndServiceRecords")]
+    partial class AddedRelationsBetweenPlayerAndServiceRecords
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
@@ -159,15 +160,11 @@ namespace Branch.Service.Halo5.Migrations
 
                     b.Property<int>("PlayerId");
 
-                    b.Property<double>("TotalDamage");
+                    b.Property<int>("TotalDamage");
 
                     b.Property<int>("TotalDeaths");
 
-                    b.Property<int>("TotalGamesCompleted");
-
-                    b.Property<int>("TotalGamesLost");
-
-                    b.Property<int>("TotalGamesTied");
+                    b.Property<int>("TotalGamesStarted");
 
                     b.Property<int>("TotalGamesWon");
 

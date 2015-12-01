@@ -16,10 +16,15 @@ namespace Branch.Service.Halo5.Database
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			
+			modelBuilder.Entity<ServiceRecord>()
+				.HasOne(sr => sr.Player)
+				.WithMany(p => p.ServiceRecords)
+				.HasForeignKey(sr => sr.PlayerId);
 		}
 
 		public DbSet<Authentication> Authentications { get; set; }
+
+		public DbSet<Player> Players { get; set; }
 
 		public DbSet<ServiceRecord> ServiceRecords { get; set; }
 

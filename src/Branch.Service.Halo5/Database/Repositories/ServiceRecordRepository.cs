@@ -49,6 +49,16 @@ namespace Branch.Service.Halo5.Database.Repositories
 			item.DocumentId = delta.DocumentId;
 			item.Xuid = delta.Xuid;
 			item.Type = delta.Type;
+			item.PlayerId = delta.Player.Id;
+
+			item.TotalDamage = delta.TotalDamage;
+			item.TotalDeaths = delta.TotalDeaths;
+			item.TotalGamesCompleted = delta.TotalGamesCompleted;
+			item.TotalGamesLost = delta.TotalGamesLost;
+			item.TotalGamesTied = delta.TotalGamesTied;
+			item.TotalGamesWon = delta.TotalGamesWon;
+			item.TotalKills = delta.TotalKills;
+			item.TotalPlaytime = delta.TotalPlaytime;
 
 			item.UpdatedAt = DateTime.UtcNow;
 
