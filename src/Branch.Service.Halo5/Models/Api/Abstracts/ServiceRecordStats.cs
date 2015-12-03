@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System;
+using Branch.Helpers.Converters;
 
 namespace Branch.Service.Halo5.Models.Api.Abstracts
 {
@@ -56,8 +58,9 @@ namespace Branch.Service.Halo5.Models.Api.Abstracts
 		[JsonProperty("TotalPowerWeaponGrabs")]
 		public int TotalPowerWeaponGrabs { get; set; }
 
+		[JsonConverter(typeof(Iso8601Converter))]
 		[JsonProperty("TotalPowerWeaponPossessionTime")]
-		public string TotalPowerWeaponPossessionTime { get; set; }
+		public TimeSpan TotalPowerWeaponPossessionTime { get; set; }
 
 		[JsonProperty("TotalDeaths")]
 		public int TotalDeaths { get; set; }
@@ -77,8 +80,9 @@ namespace Branch.Service.Halo5.Models.Api.Abstracts
 		[JsonProperty("TotalGamesTied")]
 		public int TotalGamesTied { get; set; }
 
+		[JsonConverter(typeof(Iso8601Converter))]
 		[JsonProperty("TotalTimePlayed")]
-		public string TotalTimePlayed { get; set; }
+		public TimeSpan TotalTimePlayed { get; set; }
 
 		[JsonProperty("TotalGrenadeKills")]
 		public int TotalGrenadeKills { get; set; }

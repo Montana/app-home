@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using Branch.Helpers.Converters;
 
 namespace Branch.Service.Halo5.Models.Api
 {
@@ -26,8 +27,9 @@ namespace Branch.Service.Halo5.Models.Api
 		[JsonProperty("GameVariant")]
 		public MatchGameVariant GameVariant { get; set; }
 
+		[JsonConverter(typeof(Iso8601Converter))]
 		[JsonProperty("MatchDuration")]
-		public string MatchDuration { get; set; }
+		public TimeSpan MatchDuration { get; set; }
 
 		[JsonProperty("MatchCompletedDate")]
 		public UniversalDateTimeContainer MatchCompletedDate { get; set; }
