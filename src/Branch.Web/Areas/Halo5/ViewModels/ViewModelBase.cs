@@ -4,9 +4,10 @@ namespace Branch.Web.Areas.Halo5.ViewModels
 {
 	public abstract class ViewModelBase
 	{
-		protected ViewModelBase(ServiceRecordStats arenaServiceRecord, ServiceRecordStats warzoneServiceRecord,
-			ServiceRecordStats customsServiceRecord, ServiceRecordStats campaignServiceRecord,
-			Response<MatchHistory> matchHistory)
+		protected ViewModelBase(ServiceRecordStats arenaServiceRecord, Response<MatchHistory> matchHistory, 
+			ServiceRecordStats warzoneServiceRecord = null,
+			ServiceRecordStats customsServiceRecord = null, 
+			ServiceRecordStats campaignServiceRecord = null)
 		{
 			arenaServiceRecord.WarzoneStats = warzoneServiceRecord.WarzoneStats;
 			arenaServiceRecord.CustomsStats = warzoneServiceRecord.CustomsStats;
