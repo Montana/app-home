@@ -13,8 +13,13 @@ namespace Branch.Web.Areas.Halo5.Controllers
 		[HttpGet("service-record")]
 		public async Task<IActionResult> Index(string gamertag)
 		{
+			// Get Xbox Live Profile
 			var xboxLiveProfile = await XuidLookupService.GenerateXboxLiveProfileAsync(gamertag.FromSlug());
 
+			// Check Gamertag has played Halo 5
+			await ProfileService.GetProfileEmblemAsync(xboxLiveProfile, size: 95);
+
+			// Get Halo 5 Stats
 			var arenaServiceRecordTask = ServiceRecordService.GetArenaServiceRecord(xboxLiveProfile);
 			var warzoneServiceRecordTask = ServiceRecordService.GetWarzoneServiceRecord(xboxLiveProfile);
 			var customsServiceRecordTask = ServiceRecordService.GetCustomsServiceRecord(xboxLiveProfile);
