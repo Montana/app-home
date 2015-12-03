@@ -152,7 +152,7 @@
 						<div class="page-header">
 							<h3>
 								Recent Matches
-								<small>@(Model.MatchHistory.Start-@Model.MatchHistory.Count + 1) of @(Model.ServiceRecord.ArenaStats.TotalGamesCompleted + Model.ServiceRecord.WarzoneStats.TotalGamesCompleted)</small>
+								<small>@(Model.MatchHistory.Start-@Model.MatchHistory.Count + 1) of @(Model.ServiceRecord.ArenaStats.TotalGamesCompleted + Model.ServiceRecord.CampaignStat.TotalGamesCompleted + Model.ServiceRecord.CustomsStats.TotalGamesCompleted)</small>
 							</h3>
 						</div>
 						@foreach (var match in Model.MatchHistory.Results)
