@@ -111,6 +111,9 @@ namespace Branch.Service.Halo5.Services
 			// Set XUID value in the response
 			serviceRecordResponse.Results.First().Result.PlayerId.Xuid = xboxLiveProfile.Xuid;
 
+			// Get Service Record Result
+			var serviceRecordResult = serviceRecordResponse.Results.First().Result;
+
 			// Update documentdb and return data if it exists in the DocumentDb
 			if (serviceRecordMetadata != null)
 				cachedServiceRecord = await Halo5DdbRepository.UpdateAsync(serviceRecordMetadata.DocumentId, serviceRecordResponse);
@@ -124,14 +127,14 @@ namespace Branch.Service.Halo5.Services
 				{
 					Xuid = xboxLiveProfile.Xuid,
 					ServiceTag = "BAAE",
-					SpartanRank = cachedServiceRecord.Results.First().Result.SpartanRank,
-					Xp = cachedServiceRecord.Results.First().Result.Xp
+					SpartanRank = serviceRecordResult.SpartanRank,
+					Xp = serviceRecordResult.Xp
 				});
 			else
 			{
 				player.ServiceTag = "BAAE";
-				player.SpartanRank = cachedServiceRecord.Results.First().Result.SpartanRank;
-				player.Xp = cachedServiceRecord.Results.First().Result.Xp;
+				player.SpartanRank = serviceRecordResult.SpartanRank;
+				player.Xp = serviceRecordResult.Xp;
 				_playerRepository.Update(player);
 			}
 
@@ -140,19 +143,19 @@ namespace Branch.Service.Halo5.Services
 			switch (serviceRecordType)
 			{
 				case ServiceRecordType.Arena:
-					serviceRecordStats = cachedServiceRecord.Results.First().Result.ArenaStats;
+					serviceRecordStats = serviceRecordResult.ArenaStats;
 					break;
 
 				case ServiceRecordType.Warzone:
-					serviceRecordStats = cachedServiceRecord.Results.First().Result.WarzoneStats;
+					serviceRecordStats = serviceRecordResult.WarzoneStats;
 					break;
 
 				case ServiceRecordType.Campaign:
-					serviceRecordStats = cachedServiceRecord.Results.First().Result.CampaignStat;
+					serviceRecordStats = serviceRecordResult.CampaignStat;
 					break;
 
 				case ServiceRecordType.Customs:
-					serviceRecordStats = cachedServiceRecord.Results.First().Result.CustomsStats;
+					serviceRecordStats = serviceRecordResult.CustomsStats;
 					break;
 
 				default:
