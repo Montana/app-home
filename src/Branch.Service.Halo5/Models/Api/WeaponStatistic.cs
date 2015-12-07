@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Branch.Helpers.Converters;
+using Newtonsoft.Json;
 
 namespace Branch.Service.Halo5.Models.Api
 {
@@ -22,7 +24,8 @@ namespace Branch.Service.Halo5.Models.Api
 		[JsonProperty("TotalDamageDealt")]
 		public double TotalDamageDealt { get; set; }
 
+		[JsonConverter(typeof(Iso8601Converter))]
 		[JsonProperty("TotalPossessionTime")]
-		public string TotalPossessionTime { get; set; }
+		public TimeSpan TotalPossessionTime { get; set; }
 	}
 }
